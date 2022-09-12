@@ -22,8 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
 
     private EditText emailEditText, passwordEditText;
-    private Button createNewAccountButton, signInButton;
+    private Button createNewAccountButton, signInButton, forgotPasswordButton;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         signInButton = findViewById(R.id.signIn_button);
         createNewAccountButton = findViewById(R.id.createNewAccount_button);
+        forgotPasswordButton = findViewById(R.id.forgotPass_button);
 
         progressBar = findViewById((R.id.progressBar0));
 
         signInButton.setOnClickListener(this);
         createNewAccountButton.setOnClickListener(this);
+        forgotPasswordButton.setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.signIn_button:
                 signInUser();
+                break;
+            case R.id.forgotPass_button:
+                resetUserPassword();
                 break;
 
         }
@@ -98,5 +104,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
+    }
+
+    private void resetUserPassword(){
+        startActivity(new Intent(MainActivity.this, PasswordResetActivity.class));
     }
 }

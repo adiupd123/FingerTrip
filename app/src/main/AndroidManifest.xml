@@ -14,6 +14,9 @@
         android:theme="@style/Theme.FingerTrip"
         tools:targetApi="31">
         <activity
+            android:name=".PasswordResetActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserProfileActivity"
             android:exported="false" />
         <activity
