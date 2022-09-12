@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "133518720241",
+    "project_id": "fingertrip-auth",
+    "storage_bucket": "fingertrip-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133518720241:android:a84ac867d5076aee523d50",
+        "android_client_info": {
+          "package_name": "com.adiupd123.fingertrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133518720241-li9v0l6jjrl318ut9vqmirjojhkhk186.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2OC963H7RHRDcNZ9Nxqae89sQcaCuHVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133518720241-li9v0l6jjrl318ut9vqmirjojhkhk186.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
