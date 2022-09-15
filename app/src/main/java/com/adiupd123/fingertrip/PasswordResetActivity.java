@@ -55,7 +55,7 @@ public class PasswordResetActivity extends AppCompatActivity implements View.OnC
                         });
                 break;
             case R.id.pwdResetSignIn_button:
-                startActivity(new Intent(PasswordResetActivity.this, MainActivity.class));
+                startActivity(new Intent(PasswordResetActivity.this, SignInActivity.class));
                 break;
         }
     }

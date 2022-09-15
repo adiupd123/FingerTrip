@@ -51,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 registerUser();
                 break;
             case R.id.logIn_button:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, SignInActivity.class));
                 break;
         }
     }
@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()){
-                            Intent intent = new Intent(SignUpActivity.this, UserProfileActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }
