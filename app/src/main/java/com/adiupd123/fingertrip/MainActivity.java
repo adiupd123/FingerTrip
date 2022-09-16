@@ -17,10 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
-    private FirebaseAuth mAuth;
-
-//    private TextView emailTextView;
-//    private Button signOutButton;
 
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
     private NavigationBarView navigationBarView;
@@ -28,15 +24,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        mAuth = FirebaseAuth.getInstance();
-//
-//        emailTextView = findViewById(R.id.email_textView);
-//        String email = mAuth.getCurrentUser().getEmail();
-//        emailTextView.setText("User's Email Address: " + email);
-
-//        signOutButton =  findViewById(R.id.signOut_button);
-//        signOutButton.setOnClickListener(this);
 
         homeFragment = new HomeFragment();
         exploreFragment = new ExploreFragment();
