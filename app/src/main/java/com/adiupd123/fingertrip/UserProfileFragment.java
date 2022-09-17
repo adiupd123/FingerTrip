@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserProfileFragment extends Fragment {
 
@@ -29,7 +31,8 @@ public class UserProfileFragment extends Fragment {
     }
 
     private FirebaseAuth mAuth;
-
+    private FirebaseDatabase rootNode;
+    private DatabaseReference databaseReference;
     private TextView emailTextView;
     private Button signOutButton;
 
@@ -38,6 +41,8 @@ public class UserProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        rootNode = FirebaseDatabase.getInstance();
+        databaseReference = rootNode.getReference("users");
 
         emailTextView = view.findViewById(R.id.email_textView);
         String email = mAuth.getCurrentUser().getEmail();

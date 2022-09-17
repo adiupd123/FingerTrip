@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -105,6 +106,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
+
+
 
     private void resetUserPassword(){
         startActivity(new Intent(SignInActivity.this, PasswordResetActivity.class));

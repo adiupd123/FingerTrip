@@ -1,28 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    android:padding="16dp">
-
-    <RelativeLayout
+    tools:context=".HomeFragment">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/userProfile_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:id="@+id/stories_recycler_view"
-            android:layout_marginBottom="16dp"/>
-        <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="56dp"
+            android:background="@color/white"
+            android:elevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:layout_marginRight="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_add_square"
+                    android:scaleType="fitCenter"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="FingerTrip"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="32sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oleoscriptswashcaps_regular"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_search"
+                    android:scaleType="fitCenter"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_send"
+                    android:clickable="true"
+                    android:layout_marginLeft="16dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/stories_recycler_view"
-            android:id="@+id/posts_recycler_view"/>
-    </RelativeLayout>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/stories_linearLayout">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 1"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 2"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 3"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 4"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 5"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 6"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_user_profile"
+                                android:scaleType="fitCenter"
+                                app:civ_border="true"
+                                app:civ_border_width="4dp"
+                                app:civ_border_color="@android:color/holo_red_dark"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User 7"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerHome"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stories_linearLayout"/>
 
 
-</FrameLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/posts_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/dividerHome"
+                android:layout_marginTop="8dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
