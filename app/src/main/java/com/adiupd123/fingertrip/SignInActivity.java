@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -53,14 +56,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.createNewAccount_button:
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
                 break;
-
             case R.id.signIn_button:
                 signInUser();
                 break;
             case R.id.forgotPass_button:
                 resetUserPassword();
                 break;
-
         }
     }
     private void signInUser(){

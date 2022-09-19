@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeLayoutEditProfile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileBackground_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/green_700"
+            app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/transparent_background"
+            android:src="@drawable/ic_edit_image"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="124dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="fitCenter" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profilePhoto_imageView"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_user_profile"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="10dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/transparent_background"
+            android:src="@drawable/ic_edit_image"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/profileBackground_imageView"
+            android:layout_toRightOf="@id/profilePhoto_imageView"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profilePhoto_imageView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue_FB"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/nameEdit_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="16"
+                    android:hint="Enter your name"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/lightBlue_FB"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0" />
+
+                <EditText
+                    android:id="@+id/usernameEdit_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:ems="16"
+                    android:hint="Enter your username"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/lightBlue_FB"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/nameEdit_editText"
+                    app:layout_constraintTop_toBottomOf="@id/nameEdit_editText" />
+
+                <EditText
+                    android:id="@+id/bio_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:ems="16"
+                    android:hint="Enter your Bio"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/lightBlue_FB"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/usernameEdit_editText"
+                    app:layout_constraintTop_toBottomOf="@id/usernameEdit_editText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="Discard"
+                android:id="@+id/discard_button"
+                android:textColor="@color/white"
+                android:backgroundTint="@android:color/holo_red_dark"/>
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/green_700"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

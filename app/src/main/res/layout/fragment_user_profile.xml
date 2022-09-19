@@ -99,6 +99,7 @@
                 android:layout_marginTop="80dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"/>
+
             <TextView
                 android:id="@+id/personName_textView"
                 android:layout_width="wrap_content"
@@ -289,24 +290,36 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_t"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ABCSCS"
-            android:textSize="40sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:tabMode="fixed"
+            android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_view3"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_view3">
 
-        <TextView
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday" />
+        </com.google.android.material.tabs.TabLayout>
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ABCSCS"
-            android:textSize="40sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_t"/>
+            android:layout_height="500dp"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

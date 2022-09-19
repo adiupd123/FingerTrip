@@ -27,7 +27,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseDatabase rootNode;
     private DatabaseReference databaseReference;
 
-    private EditText emailIDEditText, newPasswordEditText, nameEditText, birthEditText, mobileEditText, reenterPassEditText;
+    private EditText emailIDEditText, usernameEditText, newPasswordEditText, nameEditText, birthEditText, mobileEditText, reenterPassEditText;
     private RadioGroup genderRadioGroup;
     private Button signUpButton, logInButton;
 
@@ -47,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         nameEditText = findViewById(R.id.name_editText);
         birthEditText = findViewById(R.id.birthday_editText);
         genderRadioGroup = findViewById(R.id.gender_radioGroup);
+        usernameEditText = findViewById(R.id.username_editText);
         mobileEditText = findViewById(R.id.mobile_editText);
         reenterPassEditText = findViewById(R.id.reenterPass_editText);
 
@@ -76,21 +77,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String mobileNo = mobileEditText.getText().toString().trim();
         String gender = getGenderRadioOption(genderRadioGroup);
         String emailID = emailIDEditText.getText().toString().trim();
+        String username = usernameEditText.getText().toString().trim();
         String newPassword = newPasswordEditText.getText().toString().trim();
         String reNewPassword = reenterPassEditText.getText().toString().trim();
 
         if(name.isEmpty()){
-            nameEditText.setError("Password is Required!");
+            nameEditText.setError("Name is Required!");
             nameEditText.requestFocus();
             return;
         }
         if(birthday.isEmpty()){
-            birthEditText.setError("Password is Required!");
+            birthEditText.setError("Birthday is Required!");
             birthEditText.requestFocus();
             return;
         }
         if(mobileNo.isEmpty()){
-            mobileEditText.setError("Password is Required!");
+            mobileEditText.setError("Mobile no. is Required!");
             mobileEditText.requestFocus();
             return;
         }
@@ -110,13 +112,33 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             emailIDEditText.requestFocus();
             return;
         }
+        if(username.isEmpty()){
+            usernameEditText.setError("Username is Required!");
+            usernameEditText.requestFocus();
+            return;
+        }
+        if(username.length()>20){
+            usernameEditText.setError("Max. length of username: 20");
+            usernameEditText.requestFocus();
+            return;
+        }
+        if(username.length()<6){
+            usernameEditText.setError("Min. length of username: 6");
+            usernameEditText.requestFocus();
+            return;
+        }
         if(newPassword.isEmpty()){
             newPasswordEditText.setError("Password is Required!");
             newPasswordEditText.requestFocus();
             return;
         }
         if(newPassword.length()<6){
-            newPasswordEditText.setError("Password should be atleast 6 characters long.");
+            newPasswordEditText.setError("Min. length of Password: 6");
+            newPasswordEditText.requestFocus();
+            return;
+        }
+        if(newPassword.length()>30){
+            newPasswordEditText.setError("Min. length of Password: 6");
             newPasswordEditText.requestFocus();
             return;
         }
@@ -126,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        UserHelperClass user = new UserHelperClass(name, birthday, emailID, mobileNo, gender);
+        UserHelperClass user = new UserHelperClass(name, birthday, emailID, username, mobileNo, gender);
         // Set username as unique identifier
         databaseReference.push().setValue(user);
 

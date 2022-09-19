@@ -1,12 +1,13 @@
 package com.adiupd123.fingertrip;
 
 public class UserHelperClass {
-    String name, birthday, emailID, mobileNo, gender;
+    String name, birthday, emailID, username, mobileNo, gender;
 
-    public UserHelperClass(String name, String birthday, String emailID, String mobileNo, String gender) {
+    public UserHelperClass(String name, String birthday, String emailID, String username, String mobileNo, String gender) {
         this.name = name;
         this.birthday = birthday;
         this.emailID = emailID;
+        this.username = username;
         this.mobileNo = mobileNo;
         this.gender = gender;
     }
@@ -24,6 +25,10 @@ public class UserHelperClass {
 
     public String getEmailID() {
         return emailID;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getMobileNo() {
@@ -44,6 +49,10 @@ public class UserHelperClass {
 
     public void setEmailID(String emailID) {
         this.emailID = emailID;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setMobileNo(String mobileNo) {

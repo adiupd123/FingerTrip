@@ -16,10 +16,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UserProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -31,10 +32,14 @@ public class UserProfileFragment extends Fragment {
     }
 
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
     private FirebaseDatabase rootNode;
     private DatabaseReference databaseReference;
-    private TextView emailTextView;
-    private Button signOutButton;
+
+    private TextView emailTextView, nameTextView;
+    private Button editProfileButton, signOutButton;
+
+    private int followers, following, posts;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -43,19 +48,33 @@ public class UserProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         rootNode = FirebaseDatabase.getInstance();
         databaseReference = rootNode.getReference("users");
+        currentUser = mAuth.getCurrentUser();
+
+        nameTextView = view.findViewById(R.id.personName_textView);
+        nameTextView.setText(currentUser.getDisplayName());
+
+        editProfileButton = view.findViewById(R.id.editProfile_button);
+        editProfileButton.setOnClickListener(this);
 
         emailTextView = view.findViewById(R.id.email_textView);
         String email = mAuth.getCurrentUser().getEmail();
         emailTextView.setText("User's Email Address: " + email);
 
         signOutButton =  view.findViewById(R.id.signOut_button);
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        signOutButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.signOut_button:
                 mAuth.signOut();
                 onDestroyView();
                 startActivity(new Intent(getContext(), SignInActivity.class));
-            }
-        });
+                break;
+            case R.id.editProfile_button:
+
+
+        }
     }
 }
