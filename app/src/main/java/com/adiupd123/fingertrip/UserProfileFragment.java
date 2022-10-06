@@ -38,6 +38,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
 
     private TextView emailTextView, nameTextView;
     private Button editProfileButton, signOutButton;
+    private Fragment editProfileFragment;
 
     private int followers, following, posts;
 
@@ -50,8 +51,10 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         databaseReference = rootNode.getReference("users");
         currentUser = mAuth.getCurrentUser();
 
+        editProfileFragment = new EditProfileFragment();
+
         nameTextView = view.findViewById(R.id.personName_textView);
-        nameTextView.setText(currentUser.getDisplayName());
+//        nameTextView.setText(currentUser.getDisplayName());
 
         editProfileButton = view.findViewById(R.id.editProfile_button);
         editProfileButton.setOnClickListener(this);
@@ -73,8 +76,11 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 startActivity(new Intent(getContext(), SignInActivity.class));
                 break;
             case R.id.editProfile_button:
-
-
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_view, editProfileFragment, "find this fragment")
+                        .addToBackStack(null)
+                        .commit();
+                break;
         }
     }
 }

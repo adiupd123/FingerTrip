@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".EditProfileFragment">
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutEditProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/relativeLayoutEditProfile"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:padding="16dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileBackground_imageView"
+            android:id="@+id/profileCover_imageView"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_alignParentTop="true"
@@ -24,37 +24,41 @@
             app:shapeAppearanceOverlay="@style/roundedCorners" />
 
         <ImageButton
+            android:id="@+id/editProfileCover_imageButton"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/transparent_background"
-            android:src="@drawable/ic_edit_image"
             android:layout_alignParentRight="true"
             android:layout_marginTop="124dp"
             android:layout_marginRight="8dp"
-            android:scaleType="fitCenter" />
+            android:background="@drawable/transparent_background"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_edit_image" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profilePhoto_imageView"
             android:layout_width="160dp"
             android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_user_profile"
             app:civ_border_color="@color/white"
-            app:civ_border_width="10dp"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="80dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+            app:civ_border_width="10dp"/>
 
         <ImageButton
+            android:id="@+id/editProfilePhoto_imageButton"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/transparent_background"
-            android:src="@drawable/ic_edit_image"
+            android:layout_below="@id/profileCover_imageView"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/profileBackground_imageView"
-            android:layout_toRightOf="@id/profilePhoto_imageView"
             android:layout_marginTop="8dp"
-            android:scaleType="fitCenter" />
+            android:layout_toRightOf="@id/profilePhoto_imageView"
+            android:background="@drawable/transparent_background"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_edit_image" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view4"
@@ -117,28 +121,30 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="24dp">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:text="Discard"
-                android:id="@+id/discard_button"
-                android:textColor="@color/white"
-                android:backgroundTint="@android:color/holo_red_dark"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:backgroundTint="@color/green_700"
                 android:text="Save"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/green_700"/>
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/discard_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:text="Discard"
+                android:textColor="@color/white"/>
+
+
 
         </LinearLayout>
 

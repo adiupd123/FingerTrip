@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.adiupd123.fingertrip"
@@ -29,10 +29,13 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.adiupd123.fingertrip'
 }
 
 dependencies {
 
+    implementation 'com.github.Drjacky:ImagePicker:2.3.20'
+    implementation 'androidx.activity:activity:1.6.0'
     implementation 'com.mikhaellopez:circularimageview:4.3.1'
     implementation "androidx.fragment:fragment:1.5.2"
     implementation 'androidx.appcompat:appcompat:1.5.1'
