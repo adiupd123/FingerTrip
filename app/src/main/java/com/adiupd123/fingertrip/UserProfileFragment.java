@@ -77,7 +77,8 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.editProfile_button:
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_view, editProfileFragment, "find this fragment")
+                        .remove(this)
+                        .add(R.id.fragment_container_view, editProfileFragment, "find this fragment")
                         .addToBackStack(null)
                         .commit();
                 break;

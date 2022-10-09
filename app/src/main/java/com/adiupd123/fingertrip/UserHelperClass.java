@@ -1,5 +1,7 @@
 package com.adiupd123.fingertrip;
 
+import android.net.Uri;
+
 public class UserHelperClass {
     String name, birthday, emailID, username, mobileNo, gender;
 

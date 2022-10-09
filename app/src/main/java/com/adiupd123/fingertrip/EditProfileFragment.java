@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,15 +39,17 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.Intrinsics;
 
-public class EditProfileFragment extends Fragment implements View.OnClickListener {
+public class EditProfileFragment extends Fragment {
 
     ImageButton editProfilePhoto, editProfileCover;
     Button saveButton, discardButton;
     ImageView profilePhotoImageView, profileCoverImageView;
+    EditText nameEditText, usernameEditText, bioEditText;
 
     ActivityResultLauncher<Intent> profilePhotoPicker, profileCoverPicker;
-    Uri profilePhotoUri, profileCoverUri;
     Context fragmentContext;
+
+    EditUserProfileViewModel editUserProfileViewModel;
 
     public EditProfileFragment() {
     }
@@ -65,8 +68,19 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         profilePhotoImageView = view.findViewById(R.id.profilePhoto_imageView);
         profileCoverImageView = view.findViewById(R.id.profileCover_imageView);
+        nameEditText = view.findViewById(R.id.nameEdit_editText);
+        usernameEditText = view.findViewById(R.id.usernameEdit_editText);
+        bioEditText = view.findViewById(R.id.bio_editText);
 
         editProfilePhoto = view.findViewById(R.id.editProfilePhoto_imageButton);
         editProfileCover = view.findViewById(R.id.editProfileCover_imageButton);
@@ -76,11 +90,13 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
 
         fragmentContext = getActivity();
 
+        editUserProfileViewModel = new EditUserProfileViewModel();
+
         profilePhotoPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result)->{
             if(result.getResultCode()==RESULT_OK){
                 Uri uri=result.getData().getData();
                 // Use the uri to load the image
-                profilePhotoUri = uri;
+                editUserProfileViewModel.profilePhoto = uri;
                 profilePhotoImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
@@ -92,20 +108,17 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
             if(result.getResultCode()==RESULT_OK){
                 Uri uri=result.getData().getData();
                 // Use the uri to load the image
-                profileCoverUri = uri;
+                editUserProfileViewModel.profileCover = uri;
                 profileCoverImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
                 ImagePicker.Companion.getError(result.getData());
             }
         });
-        return view;
-    }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.editProfilePhoto_imageButton:
+        editProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 ImagePicker.Companion.with((Activity) fragmentContext)
                         .crop(1f, 1f)
                         .maxResultSize(1024, 1024,true)
@@ -121,11 +134,14 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                                 profilePhotoPicker.launch(it);
                             }
                         }));
-                break;
-            case R.id.editProfileCover_imageButton:
+            }
+        });
+
+        editProfileCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 ImagePicker.Companion.with((Activity) fragmentContext)
-                        .crop(16f, 9f)
-                        .maxResultSize(1920, 1080,false)
+                        .crop(profileCoverImageView.getWidth(), profileCoverImageView.getHeight())
                         .setMultipleAllowed(false)
                         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
                         .createIntentFromDialog((Function1)(new Function1(){
@@ -138,7 +154,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                                 profileCoverPicker.launch(it);
                             }
                         }));
-                break;
-        }
+            }
+        });
     }
 }
