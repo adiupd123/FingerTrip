@@ -85,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_alignParentTop="true"
-                android:background="@color/green_700"
+                android:src="@drawable/no_profile_background"
+                android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/roundedCorners" />
 
             <com.mikhaellopez.circularimageview.CircularImageView
@@ -95,8 +96,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_user_profile"
+                android:src="@drawable/ic_default_profile"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="10dp" />
 

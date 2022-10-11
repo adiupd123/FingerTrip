@@ -41,10 +41,12 @@ import kotlin.jvm.internal.Intrinsics;
 
 public class EditProfileFragment extends Fragment {
 
-    ImageButton editProfilePhoto, editProfileCover;
-    Button saveButton, discardButton;
     ImageView profilePhotoImageView, profileCoverImageView;
     EditText nameEditText, usernameEditText, bioEditText;
+    ImageButton editProfilePhoto, editProfileCover;
+    Button saveButton, discardButton;
+
+    Bundle userNewData;
 
     ActivityResultLauncher<Intent> profilePhotoPicker, profileCoverPicker;
     Context fragmentContext;
@@ -76,11 +78,13 @@ public class EditProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        userNewData = new Bundle();
+
         profilePhotoImageView = view.findViewById(R.id.profilePhoto_imageView);
         profileCoverImageView = view.findViewById(R.id.profileCover_imageView);
         nameEditText = view.findViewById(R.id.nameEdit_editText);
         usernameEditText = view.findViewById(R.id.usernameEdit_editText);
-        bioEditText = view.findViewById(R.id.bio_editText);
+        bioEditText = view.findViewById(R.id.bioEdit_editText);
 
         editProfilePhoto = view.findViewById(R.id.editProfilePhoto_imageButton);
         editProfileCover = view.findViewById(R.id.editProfileCover_imageButton);
@@ -92,11 +96,15 @@ public class EditProfileFragment extends Fragment {
 
         editUserProfileViewModel = new EditUserProfileViewModel();
 
+        editUserProfileViewModel.setName(nameEditText.getText().toString());
+        editUserProfileViewModel.setUsername(usernameEditText.getText().toString());
+        editUserProfileViewModel.setBio(usernameEditText.getText().toString());
+
         profilePhotoPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result)->{
             if(result.getResultCode()==RESULT_OK){
                 Uri uri=result.getData().getData();
                 // Use the uri to load the image
-                editUserProfileViewModel.profilePhoto = uri;
+                editUserProfileViewModel.setProfilePhoto(uri);
                 profilePhotoImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
@@ -108,7 +116,7 @@ public class EditProfileFragment extends Fragment {
             if(result.getResultCode()==RESULT_OK){
                 Uri uri=result.getData().getData();
                 // Use the uri to load the image
-                editUserProfileViewModel.profileCover = uri;
+                editUserProfileViewModel.setProfileCover(uri);
                 profileCoverImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
@@ -156,5 +164,19 @@ public class EditProfileFragment extends Fragment {
                         }));
             }
         });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUserProfileFragment();
+            }
+        });
+    }
+    public void openUserProfileFragment(){
+        userNewData.putString("name",editUserProfileViewModel.getName());
+        userNewData.putString("username",editUserProfileViewModel.getUsername());
+        userNewData.putString("bio",editUserProfileViewModel.getBio());
+        userNewData.putString("photoUri",editUserProfileViewModel.getProfilePhoto().toString());
+        userNewData.putString("coverUri",editUserProfileViewModel.getProfileCover().toString());
     }
 }

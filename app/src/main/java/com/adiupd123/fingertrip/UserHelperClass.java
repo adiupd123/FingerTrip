@@ -4,6 +4,7 @@ import android.net.Uri;
 
 public class UserHelperClass {
     String name, birthday, emailID, username, mobileNo, gender;
+    int followers, following, posts;
 
     public UserHelperClass(String name, String birthday, String emailID, String username, String mobileNo, String gender) {
         this.name = name;
@@ -12,9 +13,15 @@ public class UserHelperClass {
         this.username = username;
         this.mobileNo = mobileNo;
         this.gender = gender;
+        followers = 0;
+        following = 0;
+        posts = 0;
     }
 
     public UserHelperClass(){
+        followers = 0;
+        following = 0;
+        posts = 0;
     }
 
     public String getName() {
