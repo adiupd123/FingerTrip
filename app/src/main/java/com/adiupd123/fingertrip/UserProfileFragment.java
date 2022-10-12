@@ -38,8 +38,6 @@ public class UserProfileFragment extends Fragment {
 
     private Fragment editProfileFragment;
 
-    Uri photo, cover;
-
     @Override
     @Nullable
     public View onCreateView (LayoutInflater inflater,
