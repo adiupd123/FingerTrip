@@ -59,6 +59,8 @@ public class UserProfileFragment extends Fragment {
 
         editProfileFragment = new EditProfileFragment();
 
+//        currentUser.getEmail() == email of that user
+
         binding.editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

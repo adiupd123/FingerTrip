@@ -150,7 +150,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         UserHelperClass user = new UserHelperClass(name, birthday, emailID, username, mobileNo, gender);
         // Set username as unique identifier
-        databaseReference.push().setValue(user);
+        databaseReference.push().setValue(username);
+        databaseReference.child(username).setValue(user);
 
         progressBar.setVisibility(View.VISIBLE);
 
