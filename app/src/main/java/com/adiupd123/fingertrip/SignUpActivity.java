@@ -150,8 +150,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         UserHelperClass user = new UserHelperClass(name, birthday, emailID, username, mobileNo, gender);
         // Set username as unique identifier
-        databaseReference.push().setValue(username);
-        databaseReference.child(username).setValue(user);
+        String userKey = databaseReference.push().getKey();
+        databaseReference.child(userKey).setValue(username);
+        databaseReference.child(userKey).child(username).setValue(user);
+        String curRef = databaseReference.child(userKey).child(username).toString();
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -162,6 +164,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()){
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            intent.putExtra("userReference", curRef);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }

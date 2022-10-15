@@ -22,10 +22,16 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
     private NavigationBarView navigationBarView;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        String userReference = intent.getStringExtra("userReference");
+
+        bundle = new Bundle();
+        bundle.putString("currentUserReference", userReference);
 
         homeFragment = new HomeFragment();
         exploreFragment = new ExploreFragment();

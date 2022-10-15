@@ -38,6 +38,7 @@ public class UserProfileFragment extends Fragment {
 
     private Fragment editProfileFragment;
 
+    private String userReference;
     @Override
     @Nullable
     public View onCreateView (LayoutInflater inflater,
