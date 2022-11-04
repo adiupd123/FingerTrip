@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
     private NavigationBarView navigationBarView;
-    private String curUsername="abc123";
+    private String curUsername = "abcde12345";
     private Bundle bundle;
 
     private FirebaseAuth mAuth;
@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
+        * Bundle passing is working but attaching onClickListener to FAB is crashing the app
+        * */
         bundle = new Bundle();
         bundle.putString("username", curUsername);
 
@@ -75,13 +78,13 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             navigationBarView.setSelectedItemId(R.id.user_item);
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
-                intent.putExtra("username", curUsername);
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
+//                intent.putExtra("username", curUsername);
+//            }
+//        });
 
     }
 
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     }
 
     public void setFragment(Fragment fragment){
-//        fragment.setArguments(bundle);
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_view, fragment)
                 .addToBackStack(null)
