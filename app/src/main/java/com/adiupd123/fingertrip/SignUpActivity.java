@@ -153,7 +153,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String userKey = databaseReference.push().getKey();
         databaseReference.child(userKey).setValue(username);
         databaseReference.child(userKey).child(username).setValue(user);
-        String curRef = databaseReference.child(userKey).child(username).toString();
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -163,8 +162,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()){
+                            databaseReference.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(SignUpActivity.this, "Your account is created.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            intent.putExtra("userReference", curRef);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }
