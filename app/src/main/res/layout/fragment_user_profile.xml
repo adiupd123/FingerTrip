@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".UserProfileFragment">
+    tools:context=".UserProfileFragment"
+    android:background="@color/gray_1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -108,7 +109,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="User's Name"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp" />
 
             <TextView
@@ -120,7 +121,7 @@
                 android:layout_marginTop="8dp"
                 android:text="I may not know what, God has planned but I\n know his plans never fail"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:id="@+id/horizontalLinearLayout"
@@ -144,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="55"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -154,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:text="Posts"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -173,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:text="4350"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -183,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:text="Followers"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -202,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:text="395"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -212,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:text="Following"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -225,10 +226,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/horizontalLinearLayout"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@android:color/darker_gray"
+                android:backgroundTint="@color/gray_2"
                 android:text="Edit profile"
                 android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 
@@ -291,10 +292,14 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+            android:id="@+id/userProfile_tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:background="@color/gray_2"
+            app:tabTextColor="@color/white"
+            app:tabSelectedTextColor="@color/lightBlue_FB"
+            app:tabIndicatorColor="@color/blue_FB"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_view3"
@@ -303,19 +308,20 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Posts" />
+                android:text="Posts"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Saved" />
         </com.google.android.material.tabs.TabLayout>
-        <View
-            android:id="@+id/view"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
-
+            android:layout_height="300dp"
+            app:layout_constraintTop_toBottomOf="@id/userProfile_tabLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

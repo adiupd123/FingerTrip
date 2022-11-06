@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_1"
     tools:context=".ExploreFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,6 +12,7 @@
         android:layout_height="match_parent"
         android:text="This is Explore Fragment"
         android:textSize="24dp"
+        android:textColor="@color/white"
         android:textAllCaps="true"/>
 
 </FrameLayout>

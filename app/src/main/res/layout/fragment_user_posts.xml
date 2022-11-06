@@ -3,16 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessagesFragment"
-    android:background="@color/gray_1">
+    tools:context=".UserPostsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <GridLayout
+        android:id="@+id/posts_gridLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="This is Messages Fragment"
-        android:textSize="24dp"
-        android:textColor="@color/white"
-        android:textAllCaps="true"/>
+        android:rowCount="3"/>
 
 </FrameLayout>

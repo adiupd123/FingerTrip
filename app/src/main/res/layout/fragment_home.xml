@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_1"
     tools:context=".HomeFragment">
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,7 +104,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 1"/>
+                                android:text="User 1"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -124,7 +126,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 2"/>
+                                android:text="User 2"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -145,7 +148,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 3"/>
+                                android:text="User 3"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -166,7 +170,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 4"/>
+                                android:text="User 4"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -187,7 +192,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 5"/>
+                                android:text="User 5"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -208,7 +214,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 6"/>
+                                android:text="User 6"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -229,7 +236,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="User 7"/>
+                                android:text="User 7"
+                                android:textColor="@color/white"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -249,7 +257,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/dividerHome"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"/>
         </RelativeLayout>
 
     </LinearLayout>

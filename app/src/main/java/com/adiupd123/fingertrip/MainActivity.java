@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     private DatabaseReference databaseReference;
     private String curUseremail;
 
-    private FloatingActionButton fab;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
         /*
         * Bundle passing is working but attaching onClickListener to FAB is crashing the app
+        * Reason: May be the problem is due to conflict cause by: the MainActivity that contains fragments
+        * and opening of CreatePostActivity by MainActivity
         * */
         bundle = new Bundle();
         bundle.putString("username", curUsername);
@@ -74,18 +76,17 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         navigationBarView = findViewById(R.id.bottomNavigationView);
         navigationBarView.setOnItemSelectedListener(this);
 
-        if (savedInstanceState == null) {
-            navigationBarView.setSelectedItemId(R.id.user_item);
-        }
-
-//        fab.setOnClickListener(new View.OnClickListener() {
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
-//                intent.putExtra("username", curUsername);
+//                Intent createPostIntent = new Intent(MainActivity.this, CreatePostActivity.class);
+//                createPostIntent.putExtra("username", curUsername);
 //            }
 //        });
 
+        if (savedInstanceState == null) {
+            navigationBarView.setSelectedItemId(R.id.user_item);
+        }
     }
 
     // Also enable custom icon to appear when a NavigationItem is selected

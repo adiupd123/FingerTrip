@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -93,20 +96,28 @@ public class UserProfileFragment extends Fragment {
 //        };
 //        databaseReference.addValueEventListener(postListener);
 
-
         editProfileFragment = new EditProfileFragment();
+
         binding.editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openEditProfileFragment();
             }
         });
+
         binding.signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
             }
         });
+
+        binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
+
+        UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(getActivity().getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        userPostsVPAdapter.addFragment(new UserPostsFragment(), "POSTS");
+        userPostsVPAdapter.addFragment(new UserSavedPostsFragment(),"SAVED");
+        binding.viewPager.setAdapter(userPostsVPAdapter);
     }
 
     public void openEditProfileFragment(){
@@ -122,6 +133,11 @@ public class UserProfileFragment extends Fragment {
         onDestroyView();
         startActivity(new Intent(getContext(), SignInActivity.class));
     }
+
+    public void addOnTabSelectedListener(TabLayout.OnTabSelectedListener listener){
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

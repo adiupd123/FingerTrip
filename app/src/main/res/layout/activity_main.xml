@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:viewBindingIgnore="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/gray_1">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
@@ -28,6 +29,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/transparent_background"
             android:layout_marginRight="16dp"
+            app:itemTextColor="@color/blue_FB"
+            app:itemIconTint="@color/blue_FB"
             app:menu="@menu/app_navigation_items" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -41,6 +44,5 @@
         app:layout_anchor="@id/bottomAppBar"
         app:fabCustomSize="65dp"
         android:contentDescription="Add Post or Story"/>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
