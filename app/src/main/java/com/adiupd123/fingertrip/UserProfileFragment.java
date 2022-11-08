@@ -2,6 +2,7 @@ package com.adiupd123.fingertrip;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,6 +66,9 @@ public class UserProfileFragment extends Fragment {
                               Bundle savedInstanceState) {
         binding = FragmentUserProfileBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -111,6 +123,39 @@ public class UserProfileFragment extends Fragment {
                 signOut();
             }
         });
+
+
+        binding.userProfileToolbar.inflateMenu(R.menu.user_profile_dropdown_items);
+        binding.userProfileToolbar.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getItemId()){
+                case R.id.item1:
+                    Toast.makeText(getActivity(), "You can now configure your Account", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.item2:
+                    Toast.makeText(getActivity(), "You are now in App Settings", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.item3:
+                    Intent contactIntent = new Intent(getActivity(), ContactActivity.class);
+                    startActivity(contactIntent);
+                    return true;
+                case R.id.item4:
+                    signOut();
+                    return true;
+            }
+            return false;
+        });
+
+        binding.createPostButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent createPostIntent = new Intent(getActivity(), CreatePostActivity.class);
+                createPostIntent.putExtra("username", curUsername);
+                startActivity(createPostIntent);
+            }
+        });
+
+
+
 
         binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
 

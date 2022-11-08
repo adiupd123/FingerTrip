@@ -16,7 +16,6 @@
             android:id="@+id/userProfile_toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/white"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +41,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:text="adiupd123"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"/>
+                    android:textColor="@color/white"
+                    android:paddingTop="8dp"
+                    android:textSize="20sp"/>
 
                 <ImageView
                     android:layout_width="20dp"
@@ -58,21 +58,15 @@
                     android:layout_weight="1"/>
 
                 <ImageView
+                    android:id="@+id/createPost_button2"
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_add_square"/>
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_menuline"/>
-
             </LinearLayout>
+
         </com.google.android.material.appbar.MaterialToolbar>
 
         <RelativeLayout
