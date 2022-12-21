@@ -89,7 +89,7 @@ public class UserProfileFragment extends Fragment {
         binding.personNameTextView.setText("Username: " + curUsername);
 
         String email = currentUser.getEmail();
-        binding.emailTextView.setText("User's Email Address: " + email);
+//        binding.emailTextView.setText("User's Email Address: " + email);
 //        databaseReference = rootNode.getReference("users/"+curUsername);
 //        ValueEventListener postListener = new ValueEventListener() {
 //            @Override
@@ -117,12 +117,12 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-        binding.signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signOut();
-            }
-        });
+//        binding.signOutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                signOut();
+//            }
+//        });
 
 
         binding.userProfileToolbar.inflateMenu(R.menu.user_profile_dropdown_items);
