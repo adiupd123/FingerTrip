@@ -110,6 +110,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            intent.putExtra("emailID",user.getEmail());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }

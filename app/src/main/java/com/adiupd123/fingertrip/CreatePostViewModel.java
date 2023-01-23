@@ -4,27 +4,27 @@ import android.net.Uri;
 
 public class CreatePostViewModel {
     String postTitle, postDesc;
-    String username;
+    String userEmailID;
     Uri postPhotoUri;
     int postTime;
 
     public CreatePostViewModel() {
     }
 
-    public CreatePostViewModel(String postTitle, String postDesc, String username, Uri postPhotoUri, int postTime) {
+    public CreatePostViewModel(String postTitle, String postDesc, String userEmailID, Uri postPhotoUri, int postTime) {
         this.postTitle = postTitle;
         this.postDesc = postDesc;
-        this.username = username;
+        this.userEmailID = userEmailID;
         this.postPhotoUri = postPhotoUri;
         this.postTime = postTime;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserEmailID() {
+        return userEmailID;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserEmailID(String userEmailID) {
+        this.userEmailID = userEmailID;
     }
 
     public String getPostTitle() {

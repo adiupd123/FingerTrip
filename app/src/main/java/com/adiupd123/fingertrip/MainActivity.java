@@ -28,14 +28,13 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
     private NavigationBarView navigationBarView;
-    private String curUsername = "Null Username";
+    private String curUserEmail = "Null EmailID";
     private Bundle bundle;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseDatabase rootNode;
     private DatabaseReference databaseReference;
-    private String curUseremail;
 
     private FloatingActionButton floatingActionButton;
 
@@ -49,11 +48,12 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         * Reason: May be the problem is due to conflict cause by: the MainActivity that contains fragments
         * and opening of CreatePostActivity by MainActivity
         * */
-        Bundle extBundle = getIntent().getBundleExtra("userBundle");
-        if(extBundle != null)
-            curUsername = extBundle.getString("username");
+//        Bundle extBundle = getIntent().getBundleExtra("userBundle");
+        Intent intent = getIntent();
+        if(intent != null)
+            curUserEmail = intent.getStringExtra("emailID");
         bundle = new Bundle();
-        bundle.putString("username", curUsername);
+        bundle.putString("emailID", curUserEmail);
 
 
         mAuth = FirebaseAuth.getInstance();

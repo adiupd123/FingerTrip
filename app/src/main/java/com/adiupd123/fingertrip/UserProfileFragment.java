@@ -53,7 +53,7 @@ public class UserProfileFragment extends Fragment {
     private FirebaseUser currentUser;
     private FirebaseDatabase rootNode;
     private DatabaseReference databaseReference;
-    private String curUsername;
+    private String curUserEmail;
 
     private Fragment editProfileFragment;
 
@@ -83,10 +83,10 @@ public class UserProfileFragment extends Fragment {
 
         userBundle = getArguments();
         if(userBundle!=null){
-            curUsername = userBundle.getString("username");
+            curUserEmail = userBundle.getString("emailID");
         }
 
-        binding.personNameTextView.setText("Username: " + curUsername);
+        binding.personNameTextView.setText("User's Email: " + curUserEmail);
 
         String email = currentUser.getEmail();
 //        binding.emailTextView.setText("User's Email Address: " + email);
@@ -149,7 +149,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent createPostIntent = new Intent(getActivity(), CreatePostActivity.class);
-                createPostIntent.putExtra("username", curUsername);
+                createPostIntent.putExtra("emailID", curUserEmail);
                 startActivity(createPostIntent);
             }
         });

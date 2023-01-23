@@ -4,7 +4,6 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -28,7 +27,7 @@ import kotlin.jvm.internal.Intrinsics;
 public class CreatePostActivity extends AppCompatActivity {
 
     private CreatePostViewModel postViewModel;
-    private String postTitle, postDesc, postUsername;
+    private String postTitle, postDesc, userEmailID;
     private Uri uri;
     private int postTime;
 
@@ -44,14 +43,14 @@ public class CreatePostActivity extends AppCompatActivity {
 
         postViewModel = new CreatePostViewModel();
 
-        postUsername = getIntent().getStringExtra("username");
+        userEmailID = getIntent().getStringExtra("emailID");
         postTitle = binding.postTitleEditText.getEditText().getText().toString();
         postDesc = binding.postDescEditText.getEditText().getText().toString();
-        postViewModel.setUsername(postUsername);
+        postViewModel.setUserEmailID(userEmailID);
         postViewModel.setPostTitle(postTitle);
         postViewModel.setPostDesc(postDesc);
 
-        // Get the username of current user in CreatePostViewModel class
+        // Get the EmailID of current user in CreatePostViewModel class
 
         postPhotoPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result)->{
             if(result.getResultCode()==RESULT_OK){

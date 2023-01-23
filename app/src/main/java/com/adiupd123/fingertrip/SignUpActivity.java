@@ -205,10 +205,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                         });
                                         // Passing Username and Password to MainActivity
                                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                        Bundle b = new Bundle();
-                                        b.putString("username", username);
-                                        b.putString("password", newPassword);
-                                        intent.putExtra("userBundle", b);
+                                        intent.putExtra("emailID", emailID);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                     }
