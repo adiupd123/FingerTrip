@@ -22,11 +22,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
     private NavigationBarView navigationBarView;
-    private String curUsername = "abcde12345";
+    private String curUsername = "Null Username";
     private Bundle bundle;
 
     private FirebaseAuth mAuth;
@@ -47,13 +49,15 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         * Reason: May be the problem is due to conflict cause by: the MainActivity that contains fragments
         * and opening of CreatePostActivity by MainActivity
         * */
+        Bundle extBundle = getIntent().getBundleExtra("userBundle");
+        if(extBundle != null)
+            curUsername = extBundle.getString("username");
         bundle = new Bundle();
         bundle.putString("username", curUsername);
 
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        curUseremail = user.getEmail();
 
         rootNode = FirebaseDatabase.getInstance();
         databaseReference = rootNode.getReference("users");

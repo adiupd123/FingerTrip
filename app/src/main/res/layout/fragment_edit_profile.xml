@@ -74,11 +74,11 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/nameEdit_editText"
+                    android:id="@+id/editName_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="16"
-                    android:hint="Enter your name"
+                    android:hint="Name"
                     android:inputType="text"
                     android:textColor="@color/white"
                     android:textColorHint="@color/lightBlue_FB"
@@ -89,32 +89,32 @@
                     app:layout_constraintVertical_bias="0" />
 
                 <EditText
-                    android:id="@+id/usernameEdit_editText"
+                    android:id="@+id/editDOB_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:ems="16"
-                    android:hint="Enter your username"
+                    android:hint="Birth Date"
                     android:inputType="text"
                     android:textColor="@color/white"
                     android:textColorHint="@color/lightBlue_FB"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/nameEdit_editText"
-                    app:layout_constraintTop_toBottomOf="@id/nameEdit_editText" />
+                    app:layout_constraintStart_toStartOf="@+id/editName_editText"
+                    app:layout_constraintTop_toBottomOf="@id/editName_editText" />
 
                 <EditText
-                    android:id="@+id/bioEdit_editText"
+                    android:id="@+id/editBio_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:ems="16"
-                    android:hint="Enter your Bio"
+                    android:hint="Bio"
                     android:inputType="textMultiLine"
                     android:textColor="@color/white"
                     android:textColorHint="@color/lightBlue_FB"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/usernameEdit_editText"
-                    app:layout_constraintTop_toBottomOf="@id/usernameEdit_editText" />
+                    app:layout_constraintStart_toStartOf="@+id/editDOB_editText"
+                    app:layout_constraintTop_toBottomOf="@id/editDOB_editText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

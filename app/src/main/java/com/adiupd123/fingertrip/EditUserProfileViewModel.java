@@ -4,16 +4,16 @@ import android.net.Uri;
 
 public class EditUserProfileViewModel {
     String name;
-    String username;
+    String dob;
     String bio;
     Uri profilePhoto, profileCover;
 
     public EditUserProfileViewModel() {
     }
 
-    public EditUserProfileViewModel(String name, String username, String bio, Uri profilePhoto, Uri profileCover) {
+    public EditUserProfileViewModel(String name, String dob, String bio, Uri profilePhoto, Uri profileCover) {
         this.name = name;
-        this.username = username;
+        this.dob = dob;
         this.bio = bio;
         this.profilePhoto = profilePhoto;
         this.profileCover = profileCover;
@@ -23,8 +23,8 @@ public class EditUserProfileViewModel {
         return name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDob() {
+        return dob;
     }
 
     public String getBio() {
@@ -43,8 +43,8 @@ public class EditUserProfileViewModel {
         this.name = name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public void setBio(String bio) {

@@ -42,7 +42,7 @@ import kotlin.jvm.internal.Intrinsics;
 public class EditProfileFragment extends Fragment {
 
     ImageView profilePhotoImageView, profileCoverImageView;
-    EditText nameEditText, usernameEditText, bioEditText;
+    EditText nameEditText, dobEditText, bioEditText;
     ImageButton editProfilePhoto, editProfileCover;
     Button saveButton, discardButton;
 
@@ -82,9 +82,9 @@ public class EditProfileFragment extends Fragment {
 
         profilePhotoImageView = view.findViewById(R.id.profilePhoto_imageView);
         profileCoverImageView = view.findViewById(R.id.profileCover_imageView);
-        nameEditText = view.findViewById(R.id.nameEdit_editText);
-        usernameEditText = view.findViewById(R.id.usernameEdit_editText);
-        bioEditText = view.findViewById(R.id.bioEdit_editText);
+        nameEditText = view.findViewById(R.id.editName_editText);
+        dobEditText = view.findViewById(R.id.editDOB_editText);
+        bioEditText = view.findViewById(R.id.editBio_editText);
 
         editProfilePhoto = view.findViewById(R.id.editProfilePhoto_imageButton);
         editProfileCover = view.findViewById(R.id.editProfileCover_imageButton);
@@ -97,8 +97,8 @@ public class EditProfileFragment extends Fragment {
         editUserProfileViewModel = new EditUserProfileViewModel();
 
         editUserProfileViewModel.setName(nameEditText.getText().toString());
-        editUserProfileViewModel.setUsername(usernameEditText.getText().toString());
-        editUserProfileViewModel.setBio(usernameEditText.getText().toString());
+        editUserProfileViewModel.setDob(dobEditText.getText().toString());
+        editUserProfileViewModel.setBio(bioEditText.getText().toString());
 
         profilePhotoPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result)->{
             if(result.getResultCode()==RESULT_OK){
@@ -174,7 +174,7 @@ public class EditProfileFragment extends Fragment {
     }
     public void openUserProfileFragment(){
         userNewData.putString("name",editUserProfileViewModel.getName());
-        userNewData.putString("username",editUserProfileViewModel.getUsername());
+        userNewData.putString("username",editUserProfileViewModel.getDob());
         userNewData.putString("bio",editUserProfileViewModel.getBio());
         userNewData.putString("photoUri",editUserProfileViewModel.getProfilePhoto().toString());
         userNewData.putString("coverUri",editUserProfileViewModel.getProfileCover().toString());

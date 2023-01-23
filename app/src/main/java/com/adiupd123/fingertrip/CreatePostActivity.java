@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -39,8 +40,7 @@ public class CreatePostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCreatePostBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
 
         postViewModel = new CreatePostViewModel();
 
@@ -59,7 +59,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 // Use the uri to load the image
                 postViewModel.setPostPhotoUri(uri);
                 binding.postPhotoImageView.setImageURI(postViewModel.postPhotoUri);
-            }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
+            }else if(result.getResultCode() == ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
                 ImagePicker.Companion.getError(result.getData());
             }

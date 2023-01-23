@@ -1,10 +1,14 @@
 package com.adiupd123.fingertrip;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +22,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private final String TAG = "SignUpActivity.class";
     private FirebaseAuth mAuth;
     private FirebaseDatabase rootNode;
     private DatabaseReference databaseReference;
@@ -55,6 +67,39 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         logInButton = findViewById(R.id.logIn_button);
 
         progressBar = findViewById(R.id.progressBar1);
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Username should be unique that is, usernames of two users with different accounts(email IDs) must be different.
+                String curUsername = usernameEditText.getText().toString().trim();
+                if(curUsername.isEmpty()){
+                    usernameEditText.setError("Username is Required!");
+                    usernameEditText.requestFocus();
+                    return;
+                }
+                if(curUsername.length()>20){
+                    usernameEditText.setError("Max. length of username: 20");
+                    usernameEditText.requestFocus();
+                    return;
+                }
+                if(curUsername.length()<6){
+                    usernameEditText.setError("Min. length of username: 6");
+                    usernameEditText.requestFocus();
+                    return;
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+        usernameEditText.addTextChangedListener(textWatcher);
+
 
         signUpButton.setOnClickListener(this);
         logInButton.setOnClickListener(this);
@@ -112,21 +157,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             emailIDEditText.requestFocus();
             return;
         }
-        if(username.isEmpty()){
-            usernameEditText.setError("Username is Required!");
-            usernameEditText.requestFocus();
-            return;
-        }
-        if(username.length()>20){
-            usernameEditText.setError("Max. length of username: 20");
-            usernameEditText.requestFocus();
-            return;
-        }
-        if(username.length()<6){
-            usernameEditText.setError("Min. length of username: 6");
-            usernameEditText.requestFocus();
-            return;
-        }
         if(newPassword.isEmpty()){
             newPasswordEditText.setError("Password is Required!");
             newPasswordEditText.requestFocus();
@@ -149,10 +179,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         UserHelperClass user = new UserHelperClass(name, birthday, emailID, username, mobileNo, gender);
-        // Set username as unique identifier
-        String userKey = databaseReference.push().getKey();
-        databaseReference.child(userKey).setValue(username);
-        databaseReference.child(userKey).child(username).setValue(user);
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -162,15 +188,42 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()){
-                            databaseReference.child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            // Here, emailID is the unique identifier - Done
+                            // Normal emailID is used as Key by encoding '.' as ','
+                            String tempEmail = emailID.replace('.', ',');
+                            Query query = databaseReference.orderByChild("personal_info/username").equalTo(username);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(SignUpActivity.this, "Your account is created.", Toast.LENGTH_SHORT).show();
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(!snapshot.exists()){
+                                        Log.i("SignUpActivity.class","Unique Username:" + username);
+                                        databaseReference.child(tempEmail+"/personal_info").setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(SignUpActivity.this, "Your account is created.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        // Passing Username and Password to MainActivity
+                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                        Bundle b = new Bundle();
+                                        b.putString("username", username);
+                                        b.putString("password", newPassword);
+                                        intent.putExtra("userBundle", b);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        deleteUser(username);
+                                        usernameEditText.setError("This username already exists");
+                                        usernameEditText.requestFocus();
+                                        return;
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(SignUpActivity.this, error.toException().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
                         }
                         else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -183,6 +236,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
     }
+
+    private void deleteUser(String username) {
+        mAuth.getCurrentUser()
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(SignUpActivity.this, "Invalid User with redundant username:"+username, Toast.LENGTH_SHORT).show();
+                        } else{
+                            Toast.makeText(SignUpActivity.this, "Deletion of Invalid User failed: Use a different username", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
     private String getGenderRadioOption(RadioGroup radioGroup){
         switch(radioGroup.getCheckedRadioButtonId()){
             case R.id.male_option:return "Male";
