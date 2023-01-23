@@ -81,7 +81,7 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
                         .maxResultSize(1024, 1024,true)
                         .setMultipleAllowed(false)
                         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
-                        .createIntentFromDialog((Function1)(new Function1(){
+                        .createIntentFromDialog(new Function1(){
                             public Object invoke(Object var1){
                                 this.invoke((Intent)var1);
                                 return Unit.INSTANCE;
@@ -90,7 +90,7 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
                                 Intrinsics.checkNotNullParameter(it,"it");
                                 profilePhotoPicker.launch(it);
                             }
-                        }));
+                        });
             }
         });
         binding.profileCoverImageButton.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
                         .crop(binding.profileCoverImageView.getWidth(), binding.profileCoverImageView.getHeight())
                         .setMultipleAllowed(false)
                         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
-                        .createIntentFromDialog((Function1)(new Function1(){
+                        .createIntentFromDialog(new Function1(){
                             public Object invoke(Object var1){
                                 this.invoke((Intent)var1);
                                 return Unit.INSTANCE;
@@ -109,7 +109,7 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
                                 Intrinsics.checkNotNullParameter(it,"it");
                                 profileCoverPicker.launch(it);
                             }
-                        }));
+                        });
             }
         });
         binding.createSocialProfileButton.setOnClickListener(new View.OnClickListener() {
