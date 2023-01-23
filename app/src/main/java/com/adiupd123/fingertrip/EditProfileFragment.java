@@ -108,7 +108,7 @@ public class EditProfileFragment extends Fragment {
                 profilePhotoImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                ImagePicker.Companion.getError(result.getData());
+                Toast.makeText(fragmentContext, ImagePicker.Companion.getError(result.getData()).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -120,7 +120,7 @@ public class EditProfileFragment extends Fragment {
                 profileCoverImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                ImagePicker.Companion.getError(result.getData());
+                Toast.makeText(fragmentContext, ImagePicker.Companion.getError(result.getData()).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
