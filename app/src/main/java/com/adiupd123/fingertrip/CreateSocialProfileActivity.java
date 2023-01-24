@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.Intrinsics;
@@ -71,8 +73,6 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
             }
         });
 
-        socialProfile.setBio(binding.bioEditText.getText().toString());
-
         binding.profilePhotoImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +116,12 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
+                    socialProfile.setBio(binding.bioEditText.getText().toString());
+                    socialProfile.setPostCount(0);
+                    socialProfile.setFollowers(new ArrayList<>(0));
+                    socialProfile.setFollowerCount(socialProfile.getFollowers().size());
+                    socialProfile.setFollowing(new ArrayList<>(0));
+                    socialProfile.setFollowingCount(socialProfile.getFollowing().size());
                     String tempEmail = curUserEmail.replace('.',',');
                     databaseReference.child(tempEmail+"/social_info").setValue(socialProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

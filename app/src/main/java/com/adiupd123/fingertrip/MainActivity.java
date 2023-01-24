@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
@@ -30,12 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     private NavigationBarView navigationBarView;
     private String curUserEmail = "Null EmailID";
     private Bundle bundle;
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
-    private FirebaseDatabase rootNode;
-    private DatabaseReference databaseReference;
-
     private FloatingActionButton floatingActionButton;
 
     @Override
@@ -48,28 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         * Reason: May be the problem is due to conflict cause by: the MainActivity that contains fragments
         * and opening of CreatePostActivity by MainActivity
         * */
-//        Bundle extBundle = getIntent().getBundleExtra("userBundle");
         Intent intent = getIntent();
         if(intent != null)
             curUserEmail = intent.getStringExtra("emailID");
         bundle = new Bundle();
         bundle.putString("emailID", curUserEmail);
-
-
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-
-        rootNode = FirebaseDatabase.getInstance();
-        databaseReference = rootNode.getReference("users");
-
-        /*
-        * Search the user using email retrieved from firebase auth
-        * Retrieve the username and other details
-        * and pass them to different fragments and
-        * activities and make modifications in it
-        * Learn Firebase working NoSQL structure
-        * Make UI for FingerTrip App
-        * */
 
         homeFragment = new HomeFragment();
         exploreFragment = new ExploreFragment();
