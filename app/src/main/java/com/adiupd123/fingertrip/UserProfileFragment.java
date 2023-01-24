@@ -88,7 +88,14 @@ public class UserProfileFragment extends Fragment {
 
         binding.personNameTextView.setText("User's Email: " + curUserEmail);
 
-        String email = currentUser.getEmail();
+        /*
+         * Search the user using email retrieved from firebase auth
+         * Retrieve the username and other details
+         * Display any modifications done in it.
+         * Learn Firebase working NoSQL structure
+         * Make UI for FingerTrip App
+         * */
+
 //        binding.emailTextView.setText("User's Email Address: " + email);
 //        databaseReference = rootNode.getReference("users/"+curUsername);
 //        ValueEventListener postListener = new ValueEventListener() {

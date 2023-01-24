@@ -108,7 +108,7 @@ public class EditProfileFragment extends Fragment {
                 profilePhotoImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                ImagePicker.Companion.getError(result.getData());
+                Toast.makeText(fragmentContext, ImagePicker.Companion.getError(result.getData()).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -120,7 +120,7 @@ public class EditProfileFragment extends Fragment {
                 profileCoverImageView.setImageURI(uri);
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                ImagePicker.Companion.getError(result.getData());
+                Toast.makeText(fragmentContext, ImagePicker.Companion.getError(result.getData()).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -132,7 +132,7 @@ public class EditProfileFragment extends Fragment {
                         .maxResultSize(1024, 1024,true)
                         .setMultipleAllowed(false)
                         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
-                        .createIntentFromDialog((Function1)(new Function1(){
+                        .createIntentFromDialog(new Function1(){
                             public Object invoke(Object var1){
                                 this.invoke((Intent)var1);
                                 return Unit.INSTANCE;
@@ -141,7 +141,7 @@ public class EditProfileFragment extends Fragment {
                                 Intrinsics.checkNotNullParameter(it,"it");
                                 profilePhotoPicker.launch(it);
                             }
-                        }));
+                        });
             }
         });
 
@@ -152,7 +152,7 @@ public class EditProfileFragment extends Fragment {
                         .crop(profileCoverImageView.getWidth(), profileCoverImageView.getHeight())
                         .setMultipleAllowed(false)
                         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
-                        .createIntentFromDialog((Function1)(new Function1(){
+                        .createIntentFromDialog(new Function1(){
                             public Object invoke(Object var1){
                                 this.invoke((Intent)var1);
                                 return Unit.INSTANCE;
@@ -161,7 +161,7 @@ public class EditProfileFragment extends Fragment {
                                 Intrinsics.checkNotNullParameter(it,"it");
                                 profileCoverPicker.launch(it);
                             }
-                        }));
+                        });
             }
         });
 

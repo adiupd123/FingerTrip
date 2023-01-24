@@ -1,7 +1,6 @@
 package com.adiupd123.fingertrip;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,11 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
-
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private final String TAG = "SignUpActivity.class";
     private FirebaseAuth mAuth;
     private FirebaseDatabase rootNode;
     private DatabaseReference databaseReference;
@@ -182,56 +176,64 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(emailID, newPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBar.setVisibility(View.GONE);
-                        if(task.isSuccessful()){
-                            // Here, emailID is the unique identifier - Done
-                            // Normal emailID is used as Key by encoding '.' as ','
-                            String tempEmail = emailID.replace('.', ',');
-                            Query query = databaseReference.orderByChild("personal_info/username").equalTo(username);
-                            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if(!snapshot.exists()){
-                                        Log.i("SignUpActivity.class","Unique Username:" + username);
-                                        databaseReference.child(tempEmail+"/personal_info").setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(SignUpActivity.this, "Your account is created.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                        // Passing Username and Password to MainActivity
-                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                        intent.putExtra("emailID", emailID);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
+        try{
+            mAuth.createUserWithEmailAndPassword(emailID, newPassword)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressBar.setVisibility(View.GONE);
+                            if(task.isSuccessful()){
+                                // Here, emailID is the unique identifier - Done
+                                // Normal emailID is used as Key by encoding '.' as ','
+                                String tempEmail = emailID.replace('.', ',');
+                                Query query = databaseReference.orderByChild("personal_info/username").equalTo(username);
+                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(!snapshot.exists()){
+                                            Log.i("SignUpActivity.class","Unique Username:" + username);
+                                            databaseReference.child(tempEmail+"/personal_info").setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Toast.makeText(SignUpActivity.this, "Your account is created.", Toast.LENGTH_SHORT).show();
+                                                    } else{
+                                                        Toast.makeText(SignUpActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                            // Passing Username and Password to MainActivity
+                                            Intent intent = new Intent(SignUpActivity.this, CreateSocialProfileActivity.class);
+                                            intent.putExtra("emailID", emailID);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            deleteUser(username);
+                                            usernameEditText.setError("This username already exists");
+                                            usernameEditText.requestFocus();
+                                            return;
+                                        }
                                     }
-                                    else {
-                                        deleteUser(username);
-                                        usernameEditText.setError("This username already exists");
-                                        usernameEditText.requestFocus();
-                                        return;
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Toast.makeText(SignUpActivity.this, error.toException().toString(), Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(SignUpActivity.this, error.toException().toString(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                        else {
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(SignUpActivity.this, "You're already registered", Toast.LENGTH_SHORT).show();
+                                });
                             }
-                            else{
-                                Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            else {
+                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                    Toast.makeText(SignUpActivity.this, "You're already registered", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        } catch(Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void deleteUser(String username) {
