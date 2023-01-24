@@ -37,6 +37,7 @@
                     android:src="@drawable/ic_lock"/>
 
                 <TextView
+                    android:id="@+id/username_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
@@ -77,6 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/userProfile_toolbar">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileCover_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_alignParentTop="true"
@@ -107,7 +109,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/personDescription_textView"
+                android:id="@+id/bio_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/personName_textView"
@@ -121,7 +123,7 @@
                 android:id="@+id/horizontalLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/personDescription_textView"
+                android:layout_below="@id/bio_textView"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
@@ -163,7 +165,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/followers_textView"
+                        android:id="@+id/followersCount_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="4350"
@@ -192,7 +194,7 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/following_textView"
+                        android:id="@+id/followingCount_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="395"

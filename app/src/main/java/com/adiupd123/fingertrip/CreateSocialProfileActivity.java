@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +35,7 @@ import kotlin.jvm.internal.Intrinsics;
 public class CreateSocialProfileActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
+    private StorageReference storageReference;
     private String curUserEmail;
     private ActivityCreateSocialProfileBinding binding;
     private UserSocialProfileModel socialProfile;
@@ -47,6 +50,7 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
         if(intent != null)
             curUserEmail = intent.getStringExtra("emailID");
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        storageReference = FirebaseStorage.getInstance().getReference();
         socialProfile = new UserSocialProfileModel();
 
         profilePhotoPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result) -> {
