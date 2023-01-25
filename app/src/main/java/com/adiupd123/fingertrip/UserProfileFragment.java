@@ -1,10 +1,7 @@
 package com.adiupd123.fingertrip;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -179,6 +176,7 @@ public class UserProfileFragment extends Fragment {
     }
 
     public void openEditProfileFragment(){
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .remove(this)
                 .add(R.id.fragment_container_view, editProfileFragment, "find this fragment")
@@ -192,6 +190,7 @@ public class UserProfileFragment extends Fragment {
         startActivity(new Intent(getContext(), SignInActivity.class));
     }
 
+    // This method is for viewing user's posts and saved posts.
     public void addOnTabSelectedListener(TabLayout.OnTabSelectedListener listener){
 
     }

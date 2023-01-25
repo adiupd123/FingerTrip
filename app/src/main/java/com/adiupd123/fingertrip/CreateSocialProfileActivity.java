@@ -14,15 +14,18 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.ActivityCreateSocialProfileBinding;
+import com.bumptech.glide.Glide;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.github.drjacky.imagepicker.constant.ImageProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -57,8 +60,26 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
             if(result.getResultCode()==RESULT_OK){
                 Uri uri=result.getData().getData();
                 // Use the uri to load the image
-                socialProfile.setProfilePhoto(uri.toString());
-                binding.profilePhotoImageView.setImageURI(uri);
+                storageReference.child("users/"+curUserEmail+"/profilePhoto/").putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        if(taskSnapshot.getTask().isSuccessful()){
+                            storageReference.child("users/"+curUserEmail+"/profilePhoto/").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uploadedUri) {
+                                    socialProfile.setProfilePhoto(uploadedUri.toString());
+                                    Glide.with(CreateSocialProfileActivity.this)
+                                            .load(uploadedUri)
+                                            .placeholder(R.drawable.ic_default_profile)
+                                            .into(binding.profilePhotoImageView);
+                                }
+                            });
+                        } else{
+                            Toast.makeText(CreateSocialProfileActivity.this, taskSnapshot.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateSocialProfileActivity.this, "Try Re-uploading image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }else if(result.getResultCode()== ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
                 Toast.makeText(this, ImagePicker.Companion.getError(result.getData()).toString(), Toast.LENGTH_SHORT).show();
@@ -69,8 +90,26 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
             if(result.getResultCode()==RESULT_OK){
                 Uri uri=result.getData().getData();
                 // Use the uri to load the image
-                socialProfile.setProfileCover(uri.toString());
-                binding.profileCoverImageView.setImageURI(uri);
+                storageReference.child("users/"+curUserEmail+"/profileCover/").putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        if(taskSnapshot.getTask().isSuccessful()){
+                            storageReference.child("users/"+curUserEmail+"/profileCover/").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uploadedUri) {
+                                    socialProfile.setProfileCover(uploadedUri.toString());
+                                    Glide.with(CreateSocialProfileActivity.this)
+                                            .load(uploadedUri)
+                                            .placeholder(R.drawable.no_profile_background)
+                                            .into(binding.profileCoverImageView);
+                                }
+                            });
+                        } else{
+                            Toast.makeText(CreateSocialProfileActivity.this, taskSnapshot.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateSocialProfileActivity.this, "Try Re-uploading image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }else if(result.getResultCode() == ImagePicker.RESULT_ERROR){
                 // Show  error message
                 Toast.makeText(this, ImagePicker.Companion.getError(result.getData()).toString(), Toast.LENGTH_SHORT).show();
