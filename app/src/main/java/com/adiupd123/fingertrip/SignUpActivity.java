@@ -212,7 +212,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                             deleteUser(username);
                                             usernameEditText.setError("This username already exists");
                                             usernameEditText.requestFocus();
-                                            return;
                                         }
                                     }
                                     @Override

@@ -2,34 +2,35 @@ package com.adiupd123.fingertrip;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
+import android.content.AsyncTaskLoader;
+
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,11 +38,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.ref.Reference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserProfileFragment extends Fragment {
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -62,73 +63,45 @@ public class UserProfileFragment extends Fragment {
                               ViewGroup container,
                               Bundle savedInstanceState) {
         binding = FragmentUserProfileBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
         setHasOptionsMenu(true);
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mAuth = FirebaseAuth.getInstance();
-        rootNode = FirebaseDatabase.getInstance();
-        databaseReference = rootNode.getReference("users");
+//        mAuth = FirebaseAuth.getInstance();
+//        rootNode = FirebaseDatabase.getInstance();
+//        databaseReference = rootNode.getReference("users");
 
         userBundle = getArguments();
-        if(userBundle!=null){
+        if(userBundle != null){
             curUserEmail = userBundle.getString("emailID");
+            personalInfoHashMap = (HashMap<String, Object>) userBundle.getSerializable("personalInfo");
+            socialInfoHashMap = (HashMap<String, Object>) userBundle.getSerializable("socialInfo");
         }
-        binding.personNameTextView.setText("Email: "+ curUserEmail);
-        /*
-         * Search the user using email retrieved from firebase auth
-         * Retrieve the username and other details
-         * Display any modifications done in it.
-         * Learn Firebase working NoSQL structure
-         * Make UI for FingerTrip App
-         * */
         if(curUserEmail != null) {
             tempEmail = curUserEmail.replace('.', ',');
         }
-        Query query = databaseReference.orderByKey();
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot emailSnapshot: snapshot.getChildren()){
-                    String key = emailSnapshot.getKey();
-                    if(key !=  null && tempEmail != null){
-                        if(tempEmail.equals(key)){
-                            personalInfoHashMap = (HashMap<String, Object>) emailSnapshot.child("personal_info/").getValue();
-                            socialInfoHashMap = (HashMap<String, Object>) emailSnapshot.child("social_info/").getValue();
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("UserProfileFragment", error.toException().toString());
-            }
-        });
-
         try{
-            binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
-            binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
-            Glide.with(getContext())
-                    .load(socialInfoHashMap.get("profileCover").toString())
-                    .placeholder(R.drawable.no_profile_background)
-                    .into(binding.profileCoverImageView);
-            Glide.with(getContext())
-                    .load(socialInfoHashMap.get("profilePhoto").toString())
-                    .placeholder(R.drawable.ic_default_profile)
-                    .into(binding.profilePhotoImageView);
-            binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
-            binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
-            binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
-            binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+            if(personalInfoHashMap != null && socialInfoHashMap != null){
+                binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
+                binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
+                Glide.with(getContext())
+                        .load(socialInfoHashMap.get("profileCover").toString())
+                        .placeholder(R.drawable.no_profile_background)
+                        .into(binding.profileCoverImageView);
+                Glide.with(getContext())
+                        .load(socialInfoHashMap.get("profilePhoto").toString())
+                        .placeholder(R.drawable.ic_default_profile)
+                        .into(binding.profilePhotoImageView);
+                binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
+                binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
+                binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
+                binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+            }
         } catch (Exception e){
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d("UserProfileFragment", e.getMessage());
         }
         editProfileFragment = new EditProfileFragment();
         binding.editProfileButton.setOnClickListener(new View.OnClickListener() {
