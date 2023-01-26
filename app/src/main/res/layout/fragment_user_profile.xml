@@ -46,13 +46,6 @@
                     android:paddingTop="8dp"
                     android:textSize="20sp"/>
 
-<!--                <ImageView-->
-<!--                    android:layout_width="20dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    android:clickable="true"-->
-<!--                    android:src="@drawable/ic_arrow_down"/>-->
-
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

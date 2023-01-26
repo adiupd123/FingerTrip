@@ -17,8 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,12 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     DatabaseReference databaseReference;
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
     private NavigationBarView navigationBarView;
+    private FloatingActionButton floatingActionButton;
     private String curUserEmail = "Null EmailID", tempEmail;
     private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
     private MyAsyncTask asyncTask;
     private Bundle bundle;
-    private FloatingActionButton floatingActionButton;
-
     private class MyAsyncTask extends AsyncTask<Void, Void, Void>{
         @Override
         protected void onPreExecute() {
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         asyncTask = new MyAsyncTask();
         asyncTask.execute();
 
-
         homeFragment = new HomeFragment();
         exploreFragment = new ExploreFragment();
         messagesFragment = new MessagesFragment();
@@ -116,14 +117,15 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
          * Reason: May be the problem is due to conflict cause by: the MainActivity that contains fragments
          * and opening of CreatePostActivity by MainActivity
          * */
-//        floatingActionButton = findViewById(R.id.fab);
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "FAB is Working!", Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
 //                intent.putExtra("emailID", curUserEmail);
-//            }
-//        });
+            }
+        });
     }
 
     // Also enable custom icon to appear when a NavigationItem is selected

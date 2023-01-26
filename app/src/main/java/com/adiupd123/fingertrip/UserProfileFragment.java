@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -149,7 +150,7 @@ public class UserProfileFragment extends Fragment {
     }
 
     public void openEditProfileFragment(){
-
+        editProfileFragment.setArguments(userBundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .remove(this)
                 .add(R.id.fragment_container_view, editProfileFragment, "find this fragment")

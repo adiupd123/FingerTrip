@@ -12,7 +12,8 @@
         android:id="@+id/fragment_container_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.adiupd123.fingertrip.UserProfileFragment" />
+        android:name="com.adiupd123.fingertrip.UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -31,7 +32,8 @@
             android:layout_marginRight="16dp"
             app:itemTextColor="@color/blue_FB"
             app:itemIconTint="@color/blue_FB"
-            app:menu="@menu/app_navigation_items" />
+            app:menu="@menu/app_navigation_items"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -40,8 +42,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
+        android:backgroundTint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
         app:fabCustomSize="65dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/blue_FB"
         android:contentDescription="Add Post or Story"/>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -22,7 +22,6 @@ public class EditUserProfileViewModel {
     public String getName() {
         return name;
     }
-
     public String getDob() {
         return dob;
     }
