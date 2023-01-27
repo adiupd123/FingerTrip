@@ -244,7 +244,8 @@ public class EditProfileFragment extends Fragment {
 //                openUserProfileFragment();
             }
         });
-
+        // Make Save Button and discard Button function such that they switch the fragments from editProfileFragment to UserProfileFragment
+        // also adjust Updation of profile in UserProfileFragment such that does not abruptly stop other fragments.
         discardButton = view.findViewById(R.id.discard_button);
         discardButton.setOnClickListener(new View.OnClickListener() {
             @Override

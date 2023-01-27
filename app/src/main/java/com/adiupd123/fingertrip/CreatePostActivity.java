@@ -5,59 +5,52 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.ActivityCreatePostBinding;
+import com.adiupd123.fingertrip.models.CreatePostModel;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.github.drjacky.imagepicker.constant.ImageProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
-
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.Intrinsics;
 
 public class CreatePostActivity extends AppCompatActivity {
-
-    private CreatePostViewModel postViewModel;
-    private String postTitle, postDesc, userEmailID;
-    private Uri uri;
-    private int postTime;
-
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
+    private CreatePostModel post;
     ActivityResultLauncher<Intent> postPhotoPicker;
 
     private ActivityCreatePostBinding binding;
-
+    private String curUserEmail, tempEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCreatePostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        postViewModel = new CreatePostViewModel();
-
-        userEmailID = getIntent().getStringExtra("emailID");
-        postTitle = binding.postTitleEditText.getEditText().getText().toString();
-        postDesc = binding.postDescEditText.getEditText().getText().toString();
-        postViewModel.setUserEmailID(userEmailID);
-        postViewModel.setPostTitle(postTitle);
-        postViewModel.setPostDesc(postDesc);
-
-        // Get the EmailID of current user in CreatePostViewModel class
-
+        // Get the EmailID of current user in CreatePostModel class
+        Intent intent = getIntent();
+        if(intent !=  null){
+            curUserEmail = intent.getStringExtra("emailID");
+        }
+        if(curUserEmail != null){
+            tempEmail = curUserEmail.replace('.', ',');
+        }
         postPhotoPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(ActivityResult result)->{
             if(result.getResultCode()==RESULT_OK){
-                uri = result.getData().getData();
+                Uri uri = result.getData().getData();
                 // Use the uri to load the image
-                postViewModel.setPostPhotoUri(uri);
-                binding.postPhotoImageView.setImageURI(postViewModel.postPhotoUri);
+//                post.setPostPhotoUri(uri);
+//                binding.postPhotoImageView.setImageURI(post.getPostPhotoUri());
             }else if(result.getResultCode() == ImagePicker.RESULT_ERROR){
                 // Use ImagePicker.Companion.getError(result.getData()) to show an error
                 ImagePicker.Companion.getError(result.getData());
@@ -72,7 +65,7 @@ public class CreatePostActivity extends AppCompatActivity {
                         .maxResultSize(1920, 1440,false)
                         .setMultipleAllowed(false)
                         .provider(ImageProvider.BOTH) //Or bothCameraGallery()
-                        .createIntentFromDialog((Function1)(new Function1(){
+                        .createIntentFromDialog(new Function1(){
                             public Object invoke(Object var1){
                                 this.invoke((Intent)var1);
                                 return Unit.INSTANCE;
@@ -81,7 +74,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                 Intrinsics.checkNotNullParameter(it,"it");
                                 postPhotoPicker.launch(it);
                             }
-                        }));
+                        });
             }
         });
 
