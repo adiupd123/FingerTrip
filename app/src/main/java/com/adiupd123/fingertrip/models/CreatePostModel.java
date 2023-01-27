@@ -13,12 +13,12 @@ public class CreatePostModel {
     private int likesCount;
     private HashMap<String, CommentModel> comments;
     private int commentsCount;
-    private int postTimeStamp;
+    private String postTimeStamp;
 
     public CreatePostModel() {
     }
 
-    public CreatePostModel(String postID, String postTitle, String postDesc, String postOwnerID, String postPhoto, ArrayList<String> likes, int likesCount, HashMap<String, CommentModel> comments, int commentsCount, int postTimeStamp) {
+    public CreatePostModel(String postID, String postTitle, String postDesc, String postOwnerID, String postPhoto, ArrayList<String> likes, int likesCount, HashMap<String, CommentModel> comments, int commentsCount, String postTimeStamp) {
         this.postID = postID;
         this.postTitle = postTitle;
         this.postDesc = postDesc;
@@ -88,11 +88,11 @@ public class CreatePostModel {
         this.comments = comments;
     }
 
-    public int getPostTimeStamp() {
+    public String getPostTimeStamp() {
         return postTimeStamp;
     }
 
-    public void setPostTimeStamp(int postTimeStamp) {
+    public void setPostTimeStamp(String postTimeStamp) {
         this.postTimeStamp = postTimeStamp;
     }
 
@@ -115,9 +115,10 @@ public class CreatePostModel {
     * postID = userID_timeStamp
     * commentID = postID_userID_timeStamp
     * postID: {
-    *   postID
+    *   postID: userID_timeStamp
     *   postOwnerID: emailID,
     *   postTitle: Title,
+    *   postDesc: desc,
     *   postPhoto: PhotoURL,
     *   postTimeStamp: time,
     *   likes{
