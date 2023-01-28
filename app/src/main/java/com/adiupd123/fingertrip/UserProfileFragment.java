@@ -146,7 +146,7 @@ public class UserProfileFragment extends Fragment {
         createPostFragment.setArguments(userBundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_view, createPostFragment)
-                .addToBackStack(null)
+                .addToBackStack("Current:CreatePostFragment")
                 .commit();
     }
 
@@ -155,7 +155,7 @@ public class UserProfileFragment extends Fragment {
         editProfileFragment.setArguments(userBundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_view, editProfileFragment)
-                .addToBackStack("editProfile")
+                .addToBackStack("Current:EditProfileFragment")
                 .commit();
     }
 

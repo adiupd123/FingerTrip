@@ -37,6 +37,8 @@ import com.github.drjacky.imagepicker.constant.ImageProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -64,7 +66,7 @@ public class EditProfileFragment extends Fragment {
     private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
     private HashMap<String, HashMap<String, Object>> userInfo;
     private String curUserEmail, tempEmail;
-
+    private UserProfileFragment userProfileFragment;
     public EditProfileFragment() {
     }
 
@@ -83,6 +85,7 @@ public class EditProfileFragment extends Fragment {
         fragmentContext = getActivity();
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference();
+        userProfileFragment = new UserProfileFragment();
 
         userBundle = getArguments();
         if(userBundle != null) {
@@ -230,6 +233,7 @@ public class EditProfileFragment extends Fragment {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(fragmentContext, "Your profile is updated successfully!", Toast.LENGTH_SHORT).show();
+                                        openUserProfileFragment();
                                     } else {
                                         Toast.makeText(fragmentContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                     }
@@ -240,19 +244,34 @@ public class EditProfileFragment extends Fragment {
                         }
                     }
                 });
-                Toast.makeText(fragmentContext, "YO!", Toast.LENGTH_SHORT).show();
-//                openUserProfileFragment();
             }
         });
-        // Make Save Button and discard Button function such that they switch the fragments from editProfileFragment to UserProfileFragment
-        // also adjust Updation of profile in UserProfileFragment such that does not abruptly stop other fragments.
         discardButton = view.findViewById(R.id.discard_button);
         discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                openUserProfileFragment();
                 Toast.makeText(fragmentContext, "Profile Editing is discarded", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BottomAppBar bottomAppBar = getActivity().findViewById(R.id.bottomAppBar);
+        bottomAppBar.setVisibility(View.GONE);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BottomAppBar bottomAppBar = getActivity().findViewById(R.id.bottomAppBar);
+        bottomAppBar.setVisibility(View.VISIBLE);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
     }
 
     private void updateUIWithOldData() {
@@ -270,5 +289,11 @@ public class EditProfileFragment extends Fragment {
     }
 
     public void openUserProfileFragment(){
+        userProfileFragment.setArguments(userBundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_view, userProfileFragment)
+                .addToBackStack("Current:UserProfileFragment")
+                .commit();
     }
+
 }

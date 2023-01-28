@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     FirebaseAuth mAuth;
     FirebaseDatabase rootNode;
     DatabaseReference databaseReference;
-    private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment;
+    private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment, createPostFragment;
     private NavigationBarView navigationBarView;
     private FloatingActionButton floatingActionButton;
     private String curUserEmail = "Null EmailID", tempEmail;
@@ -112,18 +112,16 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
         navigationBarView = findViewById(R.id.bottomNavigationView);
         navigationBarView.setOnItemSelectedListener(this);
-        /*
-         * Bundle passing is working but attaching onClickListener to FAB is crashing the app
-         * Reason: May be the problem is due to conflict cause by: the MainActivity that contains fragments
-         * and opening of CreatePostActivity by MainActivity
-         * */
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "FAB is Working!", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
-//                intent.putExtra("emailID", curUserEmail);
+                createPostFragment = new CreatePostFragment();
+                createPostFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_view, createPostFragment)
+                        .addToBackStack("Current:CreatePostFragment")
+                        .commit();
             }
         });
     }
@@ -152,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_view, fragment)
-                .addToBackStack(null)
+                .addToBackStack("Current:"+fragment)
                 .commit();
     }
 }

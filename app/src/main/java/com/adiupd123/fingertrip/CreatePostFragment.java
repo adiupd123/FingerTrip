@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.adiupd123.fingertrip.databinding.ActivityCreatePostBinding;
 import com.adiupd123.fingertrip.databinding.FragmentCreatePostBinding;
 import com.adiupd123.fingertrip.models.CreatePostModel;
 import com.bumptech.glide.Glide;
@@ -173,7 +172,7 @@ public class CreatePostFragment extends Fragment {
                             Toast.makeText(getActivity(), "Your post has been created!", Toast.LENGTH_SHORT).show();
                             openUserProfileFragment();
                         } else {
-                            Log.d("CreatePostActivity.java", task.getException().getMessage());
+                            Log.d("CreatePostFragment.java", task.getException().getMessage());
                         }
                     }
                 });
