@@ -2,24 +2,16 @@ package com.adiupd123.fingertrip;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
-
-import android.content.AsyncTaskLoader;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,19 +21,12 @@ import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.bumptech.glide.Glide;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class UserProfileFragment extends Fragment {
     @Override
@@ -54,9 +39,11 @@ public class UserProfileFragment extends Fragment {
     private DatabaseReference databaseReference;
     private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
     private String curUserEmail, tempEmail;
-    private Fragment editProfileFragment;
-
+    private Fragment editProfileFragment, createPostFragment;
     private Bundle userBundle;
+
+    private UserViewModel userViewModel;
+
 
     @Override
     @Nullable
@@ -67,44 +54,51 @@ public class UserProfileFragment extends Fragment {
         setHasOptionsMenu(true);
         return binding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        mAuth = FirebaseAuth.getInstance();
 //        rootNode = FirebaseDatabase.getInstance();
 //        databaseReference = rootNode.getReference("users");
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         userBundle = getArguments();
         if(userBundle != null){
             curUserEmail = userBundle.getString("emailID");
-            personalInfoHashMap = (HashMap<String, Object>) userBundle.getSerializable("personalInfo");
-            socialInfoHashMap = (HashMap<String, Object>) userBundle.getSerializable("socialInfo");
+            userViewModel.setUserPersonalData((HashMap<String, Object>) userBundle.getSerializable("personalInfo"));
+            userViewModel.setUserSocialData((HashMap<String, Object>) userBundle.getSerializable("socialInfo"));
         }
         if(curUserEmail != null) {
             tempEmail = curUserEmail.replace('.', ',');
         }
         try{
-            if(personalInfoHashMap != null && socialInfoHashMap != null){
-                binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
-                binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
-                Glide.with(getContext())
-                        .load(socialInfoHashMap.get("profileCover").toString())
-                        .placeholder(R.drawable.no_profile_background)
-                        .into(binding.profileCoverImageView);
-                Glide.with(getContext())
-                        .load(socialInfoHashMap.get("profilePhoto").toString())
-                        .placeholder(R.drawable.ic_default_profile)
-                        .into(binding.profilePhotoImageView);
-                binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
-                binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
-                binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
-                binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
-            }
+            userViewModel.getUserPersonalData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                @Override
+                public void onChanged(HashMap<String, Object> personalInfoHashMap) {
+                    binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
+                    binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
+                }
+            });
+            userViewModel.getUserSocialData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                @Override
+                public void onChanged(HashMap<String, Object> socialInfoHashMap) {
+                    Glide.with(getContext())
+                            .load(socialInfoHashMap.get("profileCover").toString())
+                            .placeholder(R.drawable.no_profile_background)
+                            .into(binding.profileCoverImageView);
+                    Glide.with(getContext())
+                            .load(socialInfoHashMap.get("profilePhoto").toString())
+                            .placeholder(R.drawable.ic_default_profile)
+                            .into(binding.profilePhotoImageView);
+                    binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
+                    binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
+                    binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
+                    binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+                }
+            });
         } catch (Exception e){
             Log.d("UserProfileFragment", e.getMessage());
         }
-        editProfileFragment = new EditProfileFragment();
         binding.editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,12 +126,10 @@ public class UserProfileFragment extends Fragment {
             return false;
         });
 
-        binding.createPostButton2.setOnClickListener(new View.OnClickListener() {
+        binding.createPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent createPostIntent = new Intent(getActivity(), CreatePostActivity.class);
-                createPostIntent.putExtra("emailID", curUserEmail);
-                startActivity(createPostIntent);
+                openCreatePostFragment();
             }
         });
 
@@ -149,12 +141,21 @@ public class UserProfileFragment extends Fragment {
         binding.viewPager.setAdapter(userPostsVPAdapter);
     }
 
+    private void openCreatePostFragment() {
+        createPostFragment = new CreatePostFragment();
+        createPostFragment.setArguments(userBundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_view, createPostFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
     public void openEditProfileFragment(){
+        editProfileFragment = new EditProfileFragment();
         editProfileFragment.setArguments(userBundle);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(this)
-                .add(R.id.fragment_container_view, editProfileFragment, "find this fragment")
-                .addToBackStack(null)
+                .replace(R.id.fragment_container_view, editProfileFragment)
+                .addToBackStack("editProfile")
                 .commit();
     }
 
@@ -166,7 +167,6 @@ public class UserProfileFragment extends Fragment {
 
     // This method is for viewing user's posts and saved posts.
     public void addOnTabSelectedListener(TabLayout.OnTabSelectedListener listener){
-
     }
 
     @Override

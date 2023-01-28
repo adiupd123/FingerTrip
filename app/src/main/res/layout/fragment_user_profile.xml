@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:text="adiupd123"
+                    android:text="null"
                     android:textColor="@color/white"
                     android:paddingTop="8dp"
                     android:textSize="20sp"/>
@@ -51,12 +51,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
-                <ImageView
-                    android:id="@+id/createPost_button2"
+                <ImageButton
+                    android:id="@+id/createPost_button"
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:scaleType="fitCenter"
+                    android:backgroundTint="@color/gray_1"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_add_square"/>
 
             </LinearLayout>
@@ -97,7 +98,7 @@
                 android:layout_below="@id/profilePhoto_imageView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="User's Name"
+                android:text="No Name"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -108,7 +109,7 @@
                 android:layout_below="@id/personName_textView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="I may not know what, God has planned but I\n know his plans never fail"
+                android:text="Null BIo"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 
@@ -132,7 +133,7 @@
                         android:id="@+id/postsCount_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="55"
+                        android:text="Invalid"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="24sp"
@@ -161,7 +162,7 @@
                         android:id="@+id/followersCount_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="4350"
+                        android:text="Invalid"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="24sp"
@@ -190,7 +191,7 @@
                         android:id="@+id/followingCount_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="395"
+                        android:text="Invalid"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="24sp"

@@ -34,6 +34,7 @@
             android:background="@drawable/transparent_background"
             android:clickable="true"
             android:scaleType="fitCenter"
+            android:contentDescription="Edit Photo"
             android:src="@drawable/ic_edit_image" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -58,6 +59,7 @@
             android:layout_toRightOf="@id/profilePhoto_imageView"
             android:background="@drawable/transparent_background"
             android:clickable="true"
+            android:contentDescription="Edit Photo"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_edit_image" />
 
@@ -122,31 +124,32 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/card_view4"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="48dp"
+            android:layout_marginTop="100dp"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:backgroundTint="@color/green_700"
-                android:text="Save"
-                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/discard_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginRight="16dp"
                 android:backgroundTint="@android:color/holo_red_dark"
                 android:text="Discard"
                 android:textColor="@color/white"/>
 
-
-
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:backgroundTint="@color/green_700"
+                android:text="Save"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
     </RelativeLayout>
