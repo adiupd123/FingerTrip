@@ -45,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -128,21 +129,19 @@ public class CreatePostFragment extends Fragment {
                 // Store the post object in firebase using RTDB and Firebase Storage
                 // Add the post on the userprofile data list and in people's home feed(for fixed duration and then remove)
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-                timeStamp = dateFormat.format(calendar.getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+                timeStamp = sdf.format(calendar.getTime());
                 postID = tempEmail + "_" + timeStamp;
-                postModel = new CreatePostModel(
-                        postID,
-                        binding.postTitleEditText.getEditText().getText().toString(),
-                        binding.postDescEditText.getEditText().getText().toString(),
-                        tempEmail,
-                        null, //  Initially set to null, will update when the image is uploaded to firebase storage
-                        new ArrayList<>(),
-                        0,
-                        new HashMap<>(),
-                        0,
-                        timeStamp
-                );
+                postModel = new CreatePostModel();
+                postModel.setPostID(postID);
+                postModel.setPostTitle(binding.postTitleEditText.getEditText().getText().toString());
+                postModel.setPostDesc(binding.postDescEditText.getEditText().getText().toString());
+                postModel.setPostOwnerID(tempEmail);
+                postModel.setLikes(new ArrayList<>());
+                postModel.setLikesCount(0);
+                postModel.setComments(new HashMap<>());
+                postModel.setCommentsCount(0);
+                postModel.setPostTimeStamp(timeStamp);
                 progressBar = new ProgressBar(binding.progressBar.getContext());
                 progressBar.setVisibility(View.VISIBLE);
                 storageReference.child(curUserEmail + "_" + timeStamp + "/").putFile(postPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -176,6 +175,7 @@ public class CreatePostFragment extends Fragment {
                         }
                     }
                 });
+
 
             }
         });
