@@ -144,11 +144,11 @@ public class CreatePostFragment extends Fragment {
                 postModel.setPostTimeStamp(timeStamp);
                 progressBar = new ProgressBar(binding.progressBar.getContext());
                 progressBar.setVisibility(View.VISIBLE);
-                storageReference.child(curUserEmail + "_" + timeStamp + "/").putFile(postPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                storageReference.child(curUserEmail + "_" + timeStamp + "/post_photo/").putFile(postPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         if(taskSnapshot.getTask().isSuccessful()){
-                            storageReference.child(curUserEmail + "_" + timeStamp + "/").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            storageReference.child(curUserEmail + "_" + timeStamp + "/post_photo/").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     postModel.setPostPhoto(uri.toString());
@@ -175,8 +175,6 @@ public class CreatePostFragment extends Fragment {
                         }
                     }
                 });
-
-
             }
         });
 

@@ -64,194 +64,195 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/stories_linearLayout">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:id="@+id/stories_linearLayout">-->
 
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+<!--                <HorizontalScrollView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:padding="8dp">-->
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 1"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 1"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 2"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 2"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 3"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 3"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 4"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 4"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 5"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 5"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 6"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp">
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 6"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_marginLeft="4dp"-->
+<!--                            android:layout_marginRight="4dp">-->
 
-                            <com.mikhaellopez.circularimageview.CircularImageView
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:src="@drawable/ic_user_profile"
-                                android:scaleType="fitCenter"
-                                app:civ_border="true"
-                                app:civ_border_width="4dp"
-                                app:civ_border_color="@android:color/holo_red_dark"/>
+<!--                            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:src="@drawable/ic_user_profile"-->
+<!--                                android:scaleType="fitCenter"-->
+<!--                                app:civ_border="true"-->
+<!--                                app:civ_border_width="4dp"-->
+<!--                                app:civ_border_color="@android:color/holo_red_dark"/>-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="User 7"
-                                android:textColor="@color/white"/>
-                        </LinearLayout>
-                    </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="User 7"-->
+<!--                                android:textColor="@color/white"/>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
 
-                </HorizontalScrollView>
-            </LinearLayout>
+<!--                </HorizontalScrollView>-->
+<!--            </LinearLayout>-->
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/dividerHome"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/stories_linearLayout"/>
+<!--            <com.google.android.material.divider.MaterialDivider-->
+<!--                android:id="@+id/dividerHome"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/userProfile_toolbar"/>-->
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/posts_recycler_view"
+                tools:listitem="@layout/post_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/dividerHome"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"/>
         </RelativeLayout>
 

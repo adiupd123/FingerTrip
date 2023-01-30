@@ -35,7 +35,7 @@
                     android:scaleType="fitCenter"
                     app:civ_border="true"
                     app:civ_border_width="4dp"
-                    app:civ_border_color="@android:color/holo_green_dark"/>
+                    app:civ_border_color="@android:color/holo_blue_light"/>
 
                 <TextView
                     android:id="@+id/postUsername_textView"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="8dp"
-                    android:text="Person Name"
+                    android:text="Name"
                     android:textColor="@color/white"
                     android:layout_toRightOf="@id/postUserPhoto_imageView"
                     android:layout_below="@id/postUsername_textView"/>
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="10dp"
-                    android:text="1 min"
+                    android:text="12:45 PM"
                     android:textColor="@color/green_700"
                     android:textStyle="bold"
                     android:layout_toRightOf="@id/dot_tV"
@@ -115,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginLeft="8dp"
                     android:orientation="vertical">
 
                     <ImageView
@@ -138,6 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -164,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/like_linearLayout"
                     android:layout_marginTop="8dp"
-                    android:text="Post Title"
+                    android:text="Sample post title"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -175,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/postTitle_textView"
                     android:layout_marginTop="8dp"
-                    android:text="Lorem Ipsum soren Lorem Ipsum soren Lorem Ipsum soren Lorem Ipsum soren Lorem Ipsum soren Lorem Ipsum soren Lorem Ipsum soren Lorem Ipsum soren"
+                    android:text="Lorem ipsum sample text Lorem ipsum sample text"
                     android:textColor="@color/white" />
 
             </RelativeLayout>
