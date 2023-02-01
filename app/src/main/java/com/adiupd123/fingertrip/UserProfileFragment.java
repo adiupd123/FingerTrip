@@ -135,9 +135,11 @@ public class UserProfileFragment extends Fragment {
 
         binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
 
-        UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(getActivity().getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(
+                getActivity().getSupportFragmentManager(),
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         userPostsVPAdapter.addFragment(new UserPostsFragment(), "POSTS");
-        userPostsVPAdapter.addFragment(new UserSavedPostsFragment(),"SAVED");
+        userPostsVPAdapter.addFragment(new UserSavedPostsFragment(),"SAVED_POSTS");
         binding.viewPager.setAdapter(userPostsVPAdapter);
     }
 
@@ -167,6 +169,7 @@ public class UserProfileFragment extends Fragment {
 
     // This method is for viewing user's posts and saved posts.
     public void addOnTabSelectedListener(TabLayout.OnTabSelectedListener listener){
+
     }
 
     @Override

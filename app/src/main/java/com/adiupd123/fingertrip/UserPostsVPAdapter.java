@@ -35,7 +35,8 @@ public class UserPostsVPAdapter extends FragmentPagerAdapter {
         fragmentArrayList.add(fragment);
         fragmentTitleArrayList.add(title);
     }
-
+    // Gets the position of the tabbedItem selected from Tabbed Layout and
+    // returns the fragment's title corresponding to the position from the arraylist
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
