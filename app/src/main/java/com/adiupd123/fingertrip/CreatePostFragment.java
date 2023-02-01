@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -14,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.content.AsyncTaskLoader;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,6 +65,7 @@ public class CreatePostFragment extends Fragment {
     private ProgressBar progressBar;
     private UserProfileFragment userProfileFragment;
     private Bundle userBundle;
+    HashMap<String, Object> socialInfo;
     public CreatePostFragment() {
     }
     @Override
@@ -72,18 +75,36 @@ public class CreatePostFragment extends Fragment {
         binding = FragmentCreatePostBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+    public class MyAsyncTask extends AsyncTask<HashMap<String, Object>, Void, Void>{
+        @Override
+        protected Void doInBackground(HashMap<String, Object>... hashMaps) {
+            databaseReference.child("users/socialInfo").setValue(hashMaps[0]).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Log.d("CreatePostFragment.java", "Post Count incremented to: " + hashMaps[0].get("postCount"));
+                    } else {
+                        Log.e("CreatPostFragment.java", task.getException().getMessage());
+                    }
+
+                }
+            });
+            return null;
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("posts");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference("posts");
         userProfileFragment = new UserProfileFragment();
         // Get the EmailID of current user in CreatePostModel class
         userBundle = getArguments();
         if(userBundle !=  null){
             curUserEmail = userBundle.getString("emailID");
+            socialInfo = (HashMap<String, Object>) userBundle.getSerializable("socialInfo");
         }
         if(curUserEmail != null) {
             tempEmail = curUserEmail.replace('.', ',');
@@ -155,6 +176,23 @@ public class CreatePostFragment extends Fragment {
                                     Glide.with(getActivity())
                                             .load(uri)
                                             .into(binding.postPhotoImageView);
+                                    long post_count = (Long) socialInfo.get("postCount");
+                                    post_count++;
+                                    socialInfo.put("postCount", post_count);
+                                    MyAsyncTask asyncTask = new MyAsyncTask();
+                                    asyncTask.execute(socialInfo);
+                                    databaseReference.child("posts/" + postID).setValue(postModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            progressBar.setVisibility(View.GONE);
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(getActivity(), "Your post has been created!", Toast.LENGTH_SHORT).show();
+                                                openUserProfileFragment();
+                                            } else {
+                                                Log.d("CreatePostFragment.java", task.getException().getMessage());
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         } else{
@@ -163,18 +201,7 @@ public class CreatePostFragment extends Fragment {
                         }
                     }
                 });
-                databaseReference.child(postID).setValue(postModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        progressBar.setVisibility(View.GONE);
-                        if(task.isSuccessful()){
-                            Toast.makeText(getActivity(), "Your post has been created!", Toast.LENGTH_SHORT).show();
-                            openUserProfileFragment();
-                        } else {
-                            Log.d("CreatePostFragment.java", task.getException().getMessage());
-                        }
-                    }
-                });
+
             }
         });
 
