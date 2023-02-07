@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <GridView
-        android:id="@+id/posts_gridView"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"/>
+        tools:listitem="@layout/posts_user_profile_layout"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"/>
 </ScrollView>

@@ -4,34 +4,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserPostsGridAdapter extends BaseAdapter {
+public class UserPostsGridAdapter extends RecyclerView.Adapter {
 
     ArrayList<HashMap<String, Object>> posts;
 
-    public UserPostsGridAdapter(ArrayList<HashMap<String, Object>> posts) {
-        this.posts = posts;
-    }
-
+    @NonNull
     @Override
-    public int getCount() {
-        return 0;
-    }
-
-    @Override
-    public Object getItem(int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+    public int getItemCount() {
+        return 0;
     }
 }

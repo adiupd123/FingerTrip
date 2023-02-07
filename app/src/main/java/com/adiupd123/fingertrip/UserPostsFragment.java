@@ -35,7 +35,6 @@ public class UserPostsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.postsGridView.setAdapter(new UserPostsGridAdapter(new ArrayList<>()));
 
     }
 }

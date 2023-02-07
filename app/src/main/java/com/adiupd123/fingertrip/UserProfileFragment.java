@@ -138,8 +138,12 @@ public class UserProfileFragment extends Fragment {
         UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(
                 getActivity().getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        userPostsVPAdapter.addFragment(new UserPostsFragment(), "POSTS");
-        userPostsVPAdapter.addFragment(new UserSavedPostsFragment(),"SAVED_POSTS");
+        UserPostsFragment userPostsFragment = new UserPostsFragment();
+        userPostsFragment.setArguments(userBundle);
+        UserSavedPostsFragment userSavedPostsFragment = new UserSavedPostsFragment();
+        userSavedPostsFragment.setArguments(userBundle);
+        userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
+        userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
         binding.viewPager.setAdapter(userPostsVPAdapter);
     }
 
