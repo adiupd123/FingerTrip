@@ -7,9 +7,11 @@
     android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userPosts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/posts_user_profile_layout"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"/>
+        app:spanCount="2"
+        android:layout_margin="8dp"/>
 </ScrollView>

@@ -61,12 +61,15 @@ public class UserProfileFragment extends Fragment {
 //        rootNode = FirebaseDatabase.getInstance();
 //        databaseReference = rootNode.getReference("users");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
+        UserPostsFragment userPostsFragment = new UserPostsFragment();
+        UserSavedPostsFragment userSavedPostsFragment = new UserSavedPostsFragment();
         userBundle = getArguments();
         if(userBundle != null){
             curUserEmail = userBundle.getString("emailID");
             userViewModel.setUserPersonalData((HashMap<String, Object>) userBundle.getSerializable("personalInfo"));
             userViewModel.setUserSocialData((HashMap<String, Object>) userBundle.getSerializable("socialInfo"));
+            userPostsFragment.setArguments(userBundle);
+            userSavedPostsFragment.setArguments(userBundle);
         }
         if(curUserEmail != null) {
             tempEmail = curUserEmail.replace('.', ',');
@@ -96,6 +99,13 @@ public class UserProfileFragment extends Fragment {
                     binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
                 }
             });
+            binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
+            UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(
+                    getActivity().getSupportFragmentManager(),
+                    FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
+            userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
+            binding.viewPager.setAdapter(userPostsVPAdapter);
         } catch (Exception e){
             Log.d("UserProfileFragment", e.getMessage());
         }
@@ -133,18 +143,8 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-        binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
 
-        UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(
-                getActivity().getSupportFragmentManager(),
-                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        UserPostsFragment userPostsFragment = new UserPostsFragment();
-        userPostsFragment.setArguments(userBundle);
-        UserSavedPostsFragment userSavedPostsFragment = new UserSavedPostsFragment();
-        userSavedPostsFragment.setArguments(userBundle);
-        userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
-        userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
-        binding.viewPager.setAdapter(userPostsVPAdapter);
+
     }
 
     private void openCreatePostFragment() {
