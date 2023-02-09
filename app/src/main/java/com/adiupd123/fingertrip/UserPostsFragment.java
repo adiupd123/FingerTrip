@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class UserPostsFragment extends Fragment {
 
     DatabaseReference databaseReference;
     private FragmentUserPostsBinding binding;
-    private Bundle userBundle;
+    private Bundle postsBundle;
     private String curUserEmail, tempEmail;
     private HashMap<String, Object> userInfo, socialInfo;
     private CreatePostModel postInfo;
@@ -51,40 +52,41 @@ public class UserPostsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userBundle = getArguments();
-        if(userBundle != null){
-            userInfo = (HashMap<String, Object>) userBundle.get("user_info");
-            socialInfo = (HashMap<String, Object>) userBundle.get("social_info");
-            curUserEmail = userBundle.getString("emailID");
+        postsBundle = getArguments();
+        if(postsBundle != null){
+            socialInfo = (HashMap<String, Object>) postsBundle.getSerializable("socialInfo");
+            curUserEmail = postsBundle.getString("emailID");
         }
         if(curUserEmail != null){
             tempEmail = curUserEmail.replace('.',',');
         }
         userPosts = new ArrayList<>();
         postInfo = new CreatePostModel();
-        databaseReference = FirebaseDatabase.getInstance().getReference("posts");
-        Query query = databaseReference.orderByKey();
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String key = dataSnapshot.getKey();
-                    if(key != null && tempEmail != null){
-                        if(key.startsWith(tempEmail)){
-                            String time = key.substring(tempEmail.length());
-                            postInfo = (CreatePostModel) dataSnapshot.child(key+"/").getValue();
-                            userPosts.add(postInfo);
+        if(tempEmail != null){
+            databaseReference = FirebaseDatabase.getInstance().getReference("posts");
+            Query query = databaseReference.orderByKey();
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        String key = dataSnapshot.getKey();
+                        if(key != null && tempEmail != null){
+                            if(key.startsWith(tempEmail)){
+//                            String time = key.substring(tempEmail.length()+1);
+                                postInfo = (CreatePostModel) dataSnapshot.child(key).getValue();
+                                userPosts.add(postInfo);
+                            }
                         }
                     }
+                    adapter = new UserPostsRVAdapter(userPosts);
+                    binding.userPostsRecyclerView.setAdapter(adapter);
+                    binding.userPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 }
-                adapter = new UserPostsRVAdapter(userPosts);
-                binding.userPostsRecyclerView.setAdapter(adapter);
-                binding.userPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("UserPostsFragment.java", error.toException().getMessage());
+                }
+            });
+        }
     }
 }

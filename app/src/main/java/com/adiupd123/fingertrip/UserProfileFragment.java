@@ -2,6 +2,7 @@ package com.adiupd123.fingertrip;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 public class UserProfileFragment extends Fragment {
@@ -40,11 +42,12 @@ public class UserProfileFragment extends Fragment {
     private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
     private String curUserEmail, tempEmail;
     private Fragment editProfileFragment, createPostFragment;
-    private Bundle userBundle;
+    private Bundle userBundle, postsBundle;
+    private UserPostsVPAdapter userPostsVPAdapter;
+    private UserPostsFragment userPostsFragment;
+    private UserSavedPostsFragment userSavedPostsFragment;
 
     private UserViewModel userViewModel;
-
-
     @Override
     @Nullable
     public View onCreateView (LayoutInflater inflater,
@@ -57,19 +60,17 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        mAuth = FirebaseAuth.getInstance();
-//        rootNode = FirebaseDatabase.getInstance();
-//        databaseReference = rootNode.getReference("users");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        UserPostsFragment userPostsFragment = new UserPostsFragment();
-        UserSavedPostsFragment userSavedPostsFragment = new UserSavedPostsFragment();
         userBundle = getArguments();
+        userPostsFragment = new UserPostsFragment();
+        userSavedPostsFragment = new UserSavedPostsFragment();
+        userPostsVPAdapter = new UserPostsVPAdapter(
+                getChildFragmentManager(),
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         if(userBundle != null){
             curUserEmail = userBundle.getString("emailID");
             userViewModel.setUserPersonalData((HashMap<String, Object>) userBundle.getSerializable("personalInfo"));
             userViewModel.setUserSocialData((HashMap<String, Object>) userBundle.getSerializable("socialInfo"));
-            userPostsFragment.setArguments(userBundle);
-            userSavedPostsFragment.setArguments(userBundle);
         }
         if(curUserEmail != null) {
             tempEmail = curUserEmail.replace('.', ',');
@@ -97,15 +98,19 @@ public class UserProfileFragment extends Fragment {
                     binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
                     binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
                     binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+
+                    postsBundle = new Bundle();
+                    postsBundle.putString("emailID", curUserEmail);
+                    postsBundle.putSerializable("socialInfo", socialInfoHashMap);
+                    userPostsFragment.setArguments(postsBundle);
+                    userSavedPostsFragment.setArguments(postsBundle);
+                    userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
+                    userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
+//                    binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
+//                    binding.viewPager.setAdapter(userPostsVPAdapter);
                 }
             });
-            binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
-            UserPostsVPAdapter userPostsVPAdapter = new UserPostsVPAdapter(
-                    getActivity().getSupportFragmentManager(),
-                    FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-            userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
-            userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
-            binding.viewPager.setAdapter(userPostsVPAdapter);
+
         } catch (Exception e){
             Log.d("UserProfileFragment", e.getMessage());
         }
@@ -115,7 +120,6 @@ public class UserProfileFragment extends Fragment {
                 openEditProfileFragment();
             }
         });
-
         binding.userProfileToolbar.inflateMenu(R.menu.user_profile_dropdown_items);
         binding.userProfileToolbar.setOnMenuItemClickListener(menuItem -> {
             switch (menuItem.getItemId()){
@@ -142,9 +146,6 @@ public class UserProfileFragment extends Fragment {
                 openCreatePostFragment();
             }
         });
-
-
-
     }
 
     private void openCreatePostFragment() {

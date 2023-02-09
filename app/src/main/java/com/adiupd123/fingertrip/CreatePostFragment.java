@@ -62,10 +62,10 @@ public class CreatePostFragment extends Fragment {
     private String curUserEmail, tempEmail;
     private String postID, timeStamp;
     private Uri postPhotoUri;
-    private ProgressBar progressBar;
     private UserProfileFragment userProfileFragment;
     private Bundle userBundle;
-    HashMap<String, Object> socialInfo;
+    private HashMap<String, Object> socialInfo;
+    private long post_count;
     public CreatePostFragment() {
     }
     @Override
@@ -77,8 +77,8 @@ public class CreatePostFragment extends Fragment {
     }
     public class MyAsyncTask extends AsyncTask<HashMap<String, Object>, Void, Void>{
         @Override
-        protected Void doInBackground(HashMap<String, Object>... hashMaps) {
-            databaseReference.child("users/socialInfo").setValue(hashMaps[0]).addOnCompleteListener(new OnCompleteListener<Void>() {
+        protected Void doInBackground(@NonNull HashMap<String, Object>... hashMaps) {
+            databaseReference.child("users/" + tempEmail + "/social_info/").setValue(hashMaps[0]).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -100,6 +100,7 @@ public class CreatePostFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference("posts");
         userProfileFragment = new UserProfileFragment();
+        MyAsyncTask asyncTask = new MyAsyncTask();
         // Get the EmailID of current user in CreatePostModel class
         userBundle = getArguments();
         if(userBundle !=  null){
@@ -150,7 +151,7 @@ public class CreatePostFragment extends Fragment {
                 // Store the post object in firebase using RTDB and Firebase Storage
                 // Add the post on the userprofile data list and in people's home feed(for fixed duration and then remove)
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd-MM-yyyy", Locale.getDefault());
                 timeStamp = sdf.format(calendar.getTime());
                 postID = tempEmail + "_" + timeStamp;
                 postModel = new CreatePostModel();
@@ -163,8 +164,7 @@ public class CreatePostFragment extends Fragment {
                 postModel.setComments(new HashMap<>());
                 postModel.setCommentsCount(0);
                 postModel.setPostTimeStamp(timeStamp);
-                progressBar = new ProgressBar(binding.progressBar.getContext());
-                progressBar.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.VISIBLE);
                 storageReference.child(curUserEmail + "_" + timeStamp + "/post_photo/").putFile(postPhotoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -176,19 +176,20 @@ public class CreatePostFragment extends Fragment {
                                     Glide.with(getActivity())
                                             .load(uri)
                                             .into(binding.postPhotoImageView);
-                                    long post_count = (Long) socialInfo.get("postCount");
+                                    post_count = (Long) socialInfo.get("postCount");
                                     post_count++;
                                     socialInfo.put("postCount", post_count);
-                                    MyAsyncTask asyncTask = new MyAsyncTask();
                                     asyncTask.execute(socialInfo);
                                     databaseReference.child("posts/" + postID).setValue(postModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            progressBar.setVisibility(View.GONE);
+                                            binding.progressBar.setVisibility(View.GONE);
                                             if(task.isSuccessful()){
                                                 Toast.makeText(getActivity(), "Your post has been created!", Toast.LENGTH_SHORT).show();
                                                 openUserProfileFragment();
                                             } else {
+                                                socialInfo.put("postCount", --post_count);
+                                                asyncTask.execute(socialInfo);
                                                 Log.d("CreatePostFragment.java", task.getException().getMessage());
                                             }
                                         }
