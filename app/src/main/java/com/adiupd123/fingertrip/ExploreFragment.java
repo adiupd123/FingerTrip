@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,8 @@ public class ExploreFragment extends Fragment {
     private DatabaseReference databaseReference;
     private Bundle postsBundle;
     private String curUserEmail, tempEmail;
-    private HashMap<String, Object> userInfo, socialInfo, postInfo;
-    private List<HashMap<String, Object>> posts;
+    private HashMap<String, Object> personalInfo, socialInfo, postInfo;
+    private ArrayList<HashMap<String, Object>> posts;
     private AllPostsRVAdapter adapter;
     private PostsAsyncTask postsAsyncTask;
     @Nullable
@@ -78,22 +79,40 @@ public class ExploreFragment extends Fragment {
             super.onProgressUpdate(values);
             adapter = new AllPostsRVAdapter(values[0]);
             binding.postsRecyclerView.setAdapter(adapter);
-            binding.postsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            binding.postsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         }
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         postsBundle = getArguments();
-        if(postsBundle != null){
+        posts = new ArrayList<>();
+        if(savedInstanceState == null){
             postsAsyncTask = new PostsAsyncTask();
             postsAsyncTask.execute();
-            curUserEmail = postsBundle.getString("emailID");
-            socialInfo = (HashMap<String, Object>) postsBundle.getSerializable("socialInfo");
+            if(postsBundle != null){
+                curUserEmail = postsBundle.getString("emailID");
+                socialInfo = (HashMap<String, Object>) postsBundle.getSerializable("socialInfo");
+                personalInfo = (HashMap<String, Object>) postsBundle.getSerializable("personalInfo");
+            }
+        } else{
+            posts = (ArrayList<HashMap<String, Object>>) savedInstanceState.getSerializable("posts");
+            socialInfo = (HashMap<String, Object>) savedInstanceState.getSerializable("socialInfo");
+            personalInfo = (HashMap<String, Object>) savedInstanceState.getSerializable("personalInfo");
+            curUserEmail = savedInstanceState.getString("emailID");
         }
         if(curUserEmail != null){
             tempEmail = curUserEmail.replace('.',',');
         }
-        posts = new ArrayList<>();
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("posts", posts);
+        outState.putString("emailID", curUserEmail);
+        outState.putSerializable("socialInfo", socialInfo);
+        outState.putSerializable("personalInfo", personalInfo);
     }
 }

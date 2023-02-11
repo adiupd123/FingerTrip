@@ -38,7 +38,7 @@ public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.Po
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(holder.imageView.getContext(), "This Post is clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
