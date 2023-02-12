@@ -1,5 +1,6 @@
 package com.adiupd123.fingertrip;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import java.util.List;
 
 public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.PostViewHolder> {
     List<HashMap<String, Object>> posts;
+    Context context;
 
-    public AllPostsRVAdapter(List<HashMap<String, Object>> posts) {
+    public AllPostsRVAdapter(List<HashMap<String, Object>> posts, Context context) {
         this.posts = posts;
+        this.context = context;
     }
 
     @NonNull
@@ -38,7 +41,7 @@ public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.Po
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                context.getApplicationContext().get
             }
         });
     }

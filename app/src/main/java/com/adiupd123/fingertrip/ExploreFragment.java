@@ -77,7 +77,7 @@ public class ExploreFragment extends Fragment {
         @Override
         protected void onProgressUpdate(List<HashMap<String, Object>>... values) {
             super.onProgressUpdate(values);
-            adapter = new AllPostsRVAdapter(values[0]);
+            adapter = new AllPostsRVAdapter(values[0], getContext());
             binding.postsRecyclerView.setAdapter(adapter);
             binding.postsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         }
