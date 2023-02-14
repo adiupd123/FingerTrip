@@ -31,7 +31,7 @@ import java.util.HashMap;
 public class PostFragment extends DialogFragment {
     private FragmentPostBinding binding;
     private HashMap<String, Object> post;
-    private String postID, ownerID, postPhoto, postTime, ownerName, postTitle, postDesc;
+    private String postID, ownerID;
     private int likeCount, commentCount;
     private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
     private DatabaseReference databaseReference;
@@ -95,5 +95,20 @@ public class PostFragment extends DialogFragment {
         binding.userPostLayout.commentTextView.setText(post.get("commentsCount").toString());
         binding.userPostLayout.postTitleTextView.setText(post.get("postTitle").toString());
         binding.userPostLayout.postDescTextView.setText(post.get("postDesc").toString());
+
+
+
+        binding.userPostLayout.postUserPhotoImageView.setOnClickListener(click -> {
+            UserFragment userFragment = new UserFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("emailID", ownerID);
+            bundle.putSerializable("personalInfo", personalInfoHashMap);
+            bundle.putSerializable("socialInfo", socialInfoHashMap);
+            userFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view, userFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 }
