@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,14 @@ import android.view.ViewGroup;
 import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
 import com.adiupd123.fingertrip.databinding.FragmentPostBinding;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -24,6 +33,8 @@ public class PostFragment extends DialogFragment {
     private HashMap<String, Object> post;
     private String postID, ownerID, postPhoto, postTime, ownerName, postTitle, postDesc;
     private int likeCount, commentCount;
+    private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
+    private DatabaseReference databaseReference;
     public PostFragment() {
         // Required empty public constructor
     }
@@ -47,7 +58,35 @@ public class PostFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.userPostLayout.postUsernameTextView.setText("@" + post.get("postOwnerID").toString());
+        ownerID = post.get("postOwnerID").toString();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        Query query = databaseReference.child("users").orderByKey();
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot emailSnapshot: snapshot.getChildren()){
+                    String key = emailSnapshot.getKey();
+                    if(key !=  null && ownerID != null){
+                        if(ownerID.equals(key)){
+                            personalInfoHashMap = (HashMap<String, Object>) emailSnapshot.child("personal_info/").getValue();
+                            socialInfoHashMap = (HashMap<String, Object>) emailSnapshot.child("social_info/").getValue();
+                            binding.userPostLayout.postUsernameTextView.setText("@" + personalInfoHashMap.get("username"));
+                            binding.userPostLayout.postPersonNameTextView.setText(personalInfoHashMap.get("name").toString());
+                            Glide.with(getContext())
+                                    .load(socialInfoHashMap.get("profilePhoto"))
+                                    .into(binding.userPostLayout.postUserPhotoImageView);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("PostFragment.class", error.toException().toString());
+            }
+
+        });
         Glide.with(this)
                         .load(post.get("postPhoto").toString())
                                 .into(binding.userPostLayout.postImageView);
