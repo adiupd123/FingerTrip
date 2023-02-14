@@ -1,52 +1,38 @@
 package com.adiupd123.fingertrip;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PostFragment extends Fragment {
+import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
+import com.adiupd123.fingertrip.databinding.FragmentPostBinding;
+import com.bumptech.glide.Glide;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.HashMap;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+public class PostFragment extends DialogFragment {
+    private FragmentPostBinding binding;
+    private HashMap<String, Object> post;
+    private String postID, ownerID, postPhoto, postTime, ownerName, postTitle, postDesc;
+    private int likeCount, commentCount;
     public PostFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PostFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PostFragment newInstance(String param1, String param2) {
-        PostFragment fragment = new PostFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            post = (HashMap<String, Object>) getArguments().getSerializable("post");
         }
     }
 
@@ -54,6 +40,21 @@ public class PostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post, container, false);
+        binding = FragmentPostBinding.inflate(inflater,container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.userPostLayout.postUsernameTextView.setText("@" + post.get("postOwnerID").toString());
+        Glide.with(this)
+                        .load(post.get("postPhoto").toString())
+                                .into(binding.userPostLayout.postImageView);
+        binding.userPostLayout.postTimeTextView.setText(post.get("postTimeStamp").toString());
+        binding.userPostLayout.likeTextView.setText(post.get("likesCount").toString());
+        binding.userPostLayout.commentTextView.setText(post.get("commentsCount").toString());
+        binding.userPostLayout.postTitleTextView.setText(post.get("postTitle").toString());
+        binding.userPostLayout.postDescTextView.setText(post.get("postDesc").toString());
     }
 }

@@ -92,7 +92,8 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/post_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:src="@drawable/default_post_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -179,6 +180,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Lorem ipsum sample text Lorem ipsum sample text"
                     android:textColor="@color/white" />
+                
 
             </RelativeLayout>
 

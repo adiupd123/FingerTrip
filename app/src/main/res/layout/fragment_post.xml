@@ -6,5 +6,6 @@
     android:layout_height="wrap_content">
 
     <include
+        android:id="@+id/user_post_layout"
         layout="@layout/post_layout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
