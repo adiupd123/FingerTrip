@@ -60,59 +60,62 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userBundle = getArguments();
-        userPostsFragment = new UserPostsFragment();
-        userSavedPostsFragment = new UserSavedPostsFragment();
-        userPostsVPAdapter = new UserPostsVPAdapter(
-                getChildFragmentManager(),
-                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        if(userBundle != null){
-            curUserEmail = userBundle.getString("emailID");
-            userViewModel.setUserPersonalData((HashMap<String, Object>) userBundle.getSerializable("personalInfo"));
-            userViewModel.setUserSocialData((HashMap<String, Object>) userBundle.getSerializable("socialInfo"));
-        }
-        if(curUserEmail != null) {
-            tempEmail = curUserEmail.replace('.', ',');
-        }
-        try{
-            userViewModel.getUserPersonalData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
-                @Override
-                public void onChanged(HashMap<String, Object> personalInfoHashMap) {
-                    binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
-                    binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
-                }
-            });
-            userViewModel.getUserSocialData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
-                @Override
-                public void onChanged(HashMap<String, Object> socialInfoHashMap) {
-                    Glide.with(getContext())
-                            .load(socialInfoHashMap.get("profileCover").toString())
-                            .placeholder(R.drawable.no_profile_background)
-                            .into(binding.profileCoverImageView);
-                    Glide.with(getContext())
-                            .load(socialInfoHashMap.get("profilePhoto").toString())
-                            .placeholder(R.drawable.ic_default_profile)
-                            .into(binding.profilePhotoImageView);
-                    binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
-                    binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
-                    binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
-                    binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+        if(mAuth != null){
+            userPostsFragment = new UserPostsFragment();
+            userSavedPostsFragment = new UserSavedPostsFragment();
+            userPostsVPAdapter = new UserPostsVPAdapter(
+                    getChildFragmentManager(),
+                    FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            if(userBundle != null){
+                curUserEmail = userBundle.getString("emailID");
+                userViewModel.setUserPersonalData((HashMap<String, Object>) userBundle.getSerializable("personalInfo"));
+                userViewModel.setUserSocialData((HashMap<String, Object>) userBundle.getSerializable("socialInfo"));
+            }
+            if(curUserEmail != null) {
+                tempEmail = curUserEmail.replace('.', ',');
+            }
+            try{
+                userViewModel.getUserPersonalData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                    @Override
+                    public void onChanged(HashMap<String, Object> personalInfoHashMap) {
+                        binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
+                        binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
+                    }
+                });
+                userViewModel.getUserSocialData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                    @Override
+                    public void onChanged(HashMap<String, Object> socialInfoHashMap) {
+                        Glide.with(getContext())
+                                .load(socialInfoHashMap.get("profileCover").toString())
+                                .placeholder(R.drawable.no_profile_background)
+                                .into(binding.profileCoverImageView);
+                        Glide.with(getContext())
+                                .load(socialInfoHashMap.get("profilePhoto").toString())
+                                .placeholder(R.drawable.ic_default_profile)
+                                .into(binding.profilePhotoImageView);
+                        binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
+                        binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
+                        binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
+                        binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
 
-                    postsBundle = new Bundle();
-                    postsBundle.putString("emailID", curUserEmail);
-                    postsBundle.putSerializable("socialInfo", socialInfoHashMap);
-                    userPostsFragment.setArguments(postsBundle);
-                    userSavedPostsFragment.setArguments(postsBundle);
-                    userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
-                    userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
+                        postsBundle = new Bundle();
+                        postsBundle.putString("emailID", curUserEmail);
+                        postsBundle.putSerializable("socialInfo", socialInfoHashMap);
+                        userPostsFragment.setArguments(postsBundle);
+                        userSavedPostsFragment.setArguments(postsBundle);
+                        userPostsVPAdapter.addFragment(userPostsFragment, "POSTS");
+                        userPostsVPAdapter.addFragment(userSavedPostsFragment,"SAVED_POSTS");
 //                    binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
 //                    binding.viewPager.setAdapter(userPostsVPAdapter);
-                }
-            });
+                    }
+                });
 
-        } catch (Exception e){
-            Log.d("UserProfileFragment", e.getMessage());
+            } catch (Exception e){
+                Log.d("UserProfileFragment", e.getMessage());
+            }
         }
         binding.editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,8 +171,7 @@ public class UserProfileFragment extends Fragment {
 
     public void signOut(){
         mAuth.signOut();
-        onDestroyView();
-        startActivity(new Intent(getContext(), SignInActivity.class));
+        startActivity(new Intent(getActivity(), SignInActivity.class));
     }
 
     // This method is for viewing user's posts and saved posts.

@@ -16,15 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-40dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profileCover_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/no_profile_background"
                 android:scaleType="centerCrop"
+                android:src="@drawable/no_profile_background"
                 app:shapeAppearanceOverlay="@style/roundedCorners" />
 
             <com.mikhaellopez.circularimageview.CircularImageView
@@ -132,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/followingCount_textView"
@@ -159,9 +160,34 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/comm_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/relativeLayout">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/follow_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Follow"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/msg_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Message"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -172,7 +198,7 @@
             android:background="@color/gray_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/relativeLayout" />
+            app:layout_constraintTop_toBottomOf="@id/comm_linearLayout" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -186,6 +212,7 @@
                 android:padding="16dp"
                 android:background="@drawable/transparent_background">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/user_posts_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/posts_user_profile_layout"

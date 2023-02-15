@@ -1,5 +1,6 @@
 package com.adiupd123.fingertrip;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.adiupd123.fingertrip.databinding.FragmentUserBinding;
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.R.*;
 
 import java.util.HashMap;
 
@@ -54,5 +57,14 @@ public class UserFragment extends Fragment {
         binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
         binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
         binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+
+        binding.followButton.setOnClickListener(click -> {
+            MaterialButton followBtn = new MaterialButton(getContext(), null, com.google.android.material.R.attr.materialButtonOutlinedStyle);
+            followBtn.setText("Unfollow");
+            followBtn.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            followBtn.setStrokeColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+
+
+        });
     }
 }
