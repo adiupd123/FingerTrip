@@ -33,6 +33,7 @@ public class PostFragment extends DialogFragment {
     private HashMap<String, Object> post;
     private String postID, ownerID;
     private int likeCount, commentCount;
+    private int likes = 0;
     private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
     private DatabaseReference databaseReference;
     public PostFragment() {
@@ -95,7 +96,13 @@ public class PostFragment extends DialogFragment {
         binding.userPostLayout.commentTextView.setText(post.get("commentsCount").toString());
         binding.userPostLayout.postTitleTextView.setText(post.get("postTitle").toString());
         binding.userPostLayout.postDescTextView.setText(post.get("postDesc").toString());
+        boolean like_done= false;
+        binding.userPostLayout.likeImageView.setOnClickListener(click -> {
+            binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
+            likes = likes+1;
+            binding.userPostLayout.likeTextView.setText(likes + "");
 
+        });
 
 
         binding.userPostLayout.postUserPhotoImageView.setOnClickListener(click -> {

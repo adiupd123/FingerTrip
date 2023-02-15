@@ -57,7 +57,7 @@
                 android:layout_below="@id/personName_textView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="Null BIo"
+                android:text="Null Bio"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 

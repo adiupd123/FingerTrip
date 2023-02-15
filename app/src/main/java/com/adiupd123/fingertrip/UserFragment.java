@@ -59,12 +59,10 @@ public class UserFragment extends Fragment {
         binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
 
         binding.followButton.setOnClickListener(click -> {
-            MaterialButton followBtn = new MaterialButton(getContext(), null, com.google.android.material.R.attr.materialButtonOutlinedStyle);
-            followBtn.setText("Unfollow");
-            followBtn.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            followBtn.setStrokeColor(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-
-
+            if(binding.followButton.getText().toString().equalsIgnoreCase("Follow"))
+                binding.followButton.setText("Unfollow");
+            else
+                binding.followButton.setText("Follow");
         });
     }
 }
