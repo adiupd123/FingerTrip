@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.adiupd123.fingertrip.models.CreatePostModel;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -26,10 +27,11 @@ import java.util.List;
 public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.PostViewHolder> {
     List<HashMap<String, Object>> posts;
     Context context;
-
+    FirebaseAuth  mAuth;
     public AllPostsRVAdapter(List<HashMap<String, Object>> posts, Context context) {
         this.posts = posts;
         this.context = context;
+        mAuth = FirebaseAuth.getInstance();
         Collections.reverse(posts);
     }
 
@@ -55,6 +57,7 @@ public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.Po
                 PostFragment fragment = new PostFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("post", post);
+                bundle.putString("emailID", mAuth.getCurrentUser().getEmail());
                 fragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container_view, fragment);
                 fragmentTransaction.addToBackStack(null);

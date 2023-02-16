@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
 import com.adiupd123.fingertrip.databinding.FragmentPostBinding;
@@ -26,15 +27,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PostFragment extends DialogFragment {
     private FragmentPostBinding binding;
-    private HashMap<String, Object> post;
-    private String postID, ownerID;
-    private int likeCount, commentCount;
-    private int likes = 0;
-    private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
+    private String postID, ownerID, curUserEmail, tempEmail;
+    private boolean isLiked;
+    private long likesCount, commentsCount;
+    private ArrayList<String> likes;
+    private HashMap<String, Object> post, personalInfoHashMap, socialInfoHashMap;
     private DatabaseReference databaseReference;
     public PostFragment() {
         // Required empty public constructor
@@ -45,6 +47,7 @@ public class PostFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             post = (HashMap<String, Object>) getArguments().getSerializable("post");
+            curUserEmail = getArguments().getString("emailID");
         }
     }
 
@@ -59,8 +62,13 @@ public class PostFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ownerID = post.get("postOwnerID").toString();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        postID = post.get("postID").toString();
+        ownerID = post.get("postOwnerID").toString();
+        tempEmail = curUserEmail.replace('.',',');
+        isLiked = (Boolean) post.get("isLiked");
+        likesCount = (Long) post.get("likesCount");
+
         Query query = databaseReference.child("users").orderByKey();
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,16 +100,65 @@ public class PostFragment extends DialogFragment {
                         .load(post.get("postPhoto").toString())
                                 .into(binding.userPostLayout.postImageView);
         binding.userPostLayout.postTimeTextView.setText(post.get("postTimeStamp").toString());
-        binding.userPostLayout.likeTextView.setText(post.get("likesCount").toString());
-        binding.userPostLayout.commentTextView.setText(post.get("commentsCount").toString());
         binding.userPostLayout.postTitleTextView.setText(post.get("postTitle").toString());
         binding.userPostLayout.postDescTextView.setText(post.get("postDesc").toString());
-        boolean like_done= false;
-        binding.userPostLayout.likeImageView.setOnClickListener(click -> {
-            binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
-            likes = likes+1;
-            binding.userPostLayout.likeTextView.setText(likes + "");
+        binding.userPostLayout.commentTextView.setText(post.get("commentsCount").toString());
+        if(isLiked){
+            likes = (ArrayList<String>) post.get("likes");
+            for (String likedUser: likes){
+                if(likedUser.equals(tempEmail)){
+                    binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
+                    binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+                    break;
+                }
+            }
+        }
 
+        binding.userPostLayout.likeImageView.setOnClickListener(click -> {
+            if(isLiked){
+                int isFound = 0;
+                for (String likedUser: likes){
+                    if(likedUser.equals(tempEmail)){
+                        // It means user has liked already and the user has tapped to remove like
+                        isFound = 1;
+                        binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+                        likesCount--;
+                        binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+                        likes.remove(likedUser);
+                        if(likesCount == 0){
+                            isLiked = false;
+                            post.put("isLiked", isLiked);
+                        }
+                        break;
+                    }
+                }
+                if(isFound == 0){
+                    binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
+                    likesCount++;
+                    binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+                    likes.add(tempEmail);
+                }
+            } else {
+                likes = new ArrayList<>();
+                likes.add(tempEmail);
+                likesCount++;
+                isLiked = true;
+                binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
+                binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+                post.put("isLiked", isLiked);
+            }
+            post.put("likesCount", likesCount);
+            post.put("likes", likes);
+            databaseReference.child("posts/"+postID+"/").setValue(post).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(!task.isSuccessful()){
+                        Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(getContext(), "Like Success", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         });
 
 
