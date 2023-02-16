@@ -49,7 +49,6 @@ public class ExploreFragment extends Fragment {
     }
 
     public class PostsAsyncTask extends AsyncTask<Void, List<HashMap<String, Object>>, Void>{
-
         @Override
         protected Void doInBackground(Void... voids) {
             databaseReference = FirebaseDatabase.getInstance().getReference("posts");
@@ -61,7 +60,8 @@ public class ExploreFragment extends Fragment {
                         String key = dataSnapshot.getKey();
                         if(key != null){
                             postInfo = (HashMap<String, Object>) dataSnapshot.getValue();
-                            posts.add(postInfo);
+                            if(!postInfo.get("postOwnerID").equals(tempEmail))
+                                posts.add(postInfo);
                         }
                     }
                     onProgressUpdate(posts);
@@ -88,8 +88,6 @@ public class ExploreFragment extends Fragment {
         postsBundle = getArguments();
         posts = new ArrayList<>();
         if(savedInstanceState == null){
-            postsAsyncTask = new PostsAsyncTask();
-            postsAsyncTask.execute();
             if(postsBundle != null){
                 curUserEmail = postsBundle.getString("emailID");
                 socialInfo = (HashMap<String, Object>) postsBundle.getSerializable("socialInfo");
@@ -104,7 +102,8 @@ public class ExploreFragment extends Fragment {
         if(curUserEmail != null){
             tempEmail = curUserEmail.replace('.',',');
         }
-
+        postsAsyncTask = new PostsAsyncTask();
+        postsAsyncTask.execute();
     }
 
     @Override
