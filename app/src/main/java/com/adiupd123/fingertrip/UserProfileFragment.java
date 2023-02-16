@@ -77,6 +77,7 @@ public class UserProfileFragment extends Fragment {
             if(curUserEmail != null) {
                 tempEmail = curUserEmail.replace('.', ',');
             }
+            private Observer<Void> observer =
             try{
                 userViewModel.getUserPersonalData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
                     @Override
@@ -179,6 +180,12 @@ public class UserProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        userViewModel.getUserPersonalData().removeObservers(this);
+        userViewModel.getUserSocialData().removeObservers(this);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

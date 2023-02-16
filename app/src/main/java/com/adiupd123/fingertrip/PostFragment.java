@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
 import com.adiupd123.fingertrip.databinding.FragmentPostBinding;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -165,7 +164,8 @@ public class PostFragment extends DialogFragment {
         binding.userPostLayout.postUserPhotoImageView.setOnClickListener(click -> {
             UserFragment userFragment = new UserFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("emailID", ownerID);
+            bundle.putString("emailID", curUserEmail);
+            bundle.putString("ownerID", ownerID);
             bundle.putSerializable("personalInfo", personalInfoHashMap);
             bundle.putSerializable("socialInfo", socialInfoHashMap);
             userFragment.setArguments(bundle);

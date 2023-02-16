@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/transparent_background"
             android:layout_marginRight="16dp"
-            app:itemTextColor="@color/blue_FB"
-            app:itemIconTint="@color/blue_FB"
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white"
             app:menu="@menu/app_navigation_items"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
 
