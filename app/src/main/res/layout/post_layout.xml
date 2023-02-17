@@ -182,10 +182,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Lorem ipsum sample text Lorem ipsum sample text"
                     android:textColor="@color/white" />
-                
-
             </RelativeLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
