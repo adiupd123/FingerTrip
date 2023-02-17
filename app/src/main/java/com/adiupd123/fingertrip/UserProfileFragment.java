@@ -48,6 +48,8 @@ public class UserProfileFragment extends Fragment {
     private UserSavedPostsFragment userSavedPostsFragment;
 
     private UserViewModel userViewModel;
+    private Observer<HashMap<String, Object>> personalInfoObserver, socialInfoObserver;
+    private boolean isObservingData = false;
     @Override
     @Nullable
     public View onCreateView (LayoutInflater inflater,
@@ -77,16 +79,15 @@ public class UserProfileFragment extends Fragment {
             if(curUserEmail != null) {
                 tempEmail = curUserEmail.replace('.', ',');
             }
-            private Observer<Void> observer =
             try{
-                userViewModel.getUserPersonalData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                personalInfoObserver = new Observer<HashMap<String, Object>>() {
                     @Override
                     public void onChanged(HashMap<String, Object> personalInfoHashMap) {
                         binding.usernameTextView.setText(personalInfoHashMap.get("username").toString());
                         binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
                     }
-                });
-                userViewModel.getUserSocialData().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                };
+                socialInfoObserver = new Observer<HashMap<String, Object>>() {
                     @Override
                     public void onChanged(HashMap<String, Object> socialInfoHashMap) {
                         Glide.with(getContext())
@@ -112,8 +113,7 @@ public class UserProfileFragment extends Fragment {
 //                    binding.userProfileTabLayout.setupWithViewPager(binding.viewPager);
 //                    binding.viewPager.setAdapter(userPostsVPAdapter);
                     }
-                });
-
+                };
             } catch (Exception e){
                 Log.d("UserProfileFragment", e.getMessage());
             }
@@ -181,10 +181,19 @@ public class UserProfileFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        userViewModel.getUserPersonalData().observe(getViewLifecycleOwner(), personalInfoObserver);
+        userViewModel.getUserSocialData().observe(getViewLifecycleOwner(), socialInfoObserver);
+        isObservingData = true;
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        userViewModel.getUserPersonalData().removeObservers(this);
-        userViewModel.getUserSocialData().removeObservers(this);
+        userViewModel.getUserPersonalData().removeObservers(getViewLifecycleOwner());
+        userViewModel.getUserSocialData().removeObservers(getViewLifecycleOwner());
+        isObservingData = false;
     }
     @Override
     public void onDestroyView() {

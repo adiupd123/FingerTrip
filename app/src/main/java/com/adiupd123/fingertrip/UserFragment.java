@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +30,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserFragment extends Fragment {
 
     private FragmentUserBinding binding;
     private DatabaseReference databaseReference;
-    private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap, curUserSocialInfoHashMap;
+    private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap, curUserSocialInfoHashMap, postInfo;
+    private ArrayList<HashMap<String, Object>> userPosts;
+    private AllPostsRVAdapter adapter;
+    private UserPostsAsyncTask userPostsAsyncTask;
     private String curUserEmail, tempEmail, ownerID;
     private ArrayList<String> ownerFollowers, curUserFollowing;
     private Long ownerFollowerCount, curUserFollowingCount;
@@ -91,6 +96,42 @@ public class UserFragment extends Fragment {
             return null;
         }
     }
+    public class UserPostsAsyncTask extends AsyncTask<Void, List<HashMap<String, Object>>, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            databaseReference = FirebaseDatabase.getInstance().getReference("posts");
+            Query query = databaseReference.orderByKey();
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        String key = dataSnapshot.getKey();
+                        if(key != null){
+                            postInfo = (HashMap<String, Object>) dataSnapshot.getValue();
+                            if(postInfo.get("postOwnerID").equals(ownerID.replace('.',',')))
+                                userPosts.add(postInfo);
+                        }
+                    }
+                    onProgressUpdate(userPosts);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("UserPostsFragment.java", error.toException().getMessage());
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(List<HashMap<String, Object>>... values) {
+            super.onProgressUpdate(values);
+            if(!values[0].equals(null)){
+                adapter = new AllPostsRVAdapter(values[0], getContext());
+                binding.userPostsRecyclerView.setAdapter(adapter);
+                binding.userPostsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            }
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,29 +182,37 @@ public class UserFragment extends Fragment {
             }
         }
         ownerFollowerCount = (Long) socialInfoHashMap.get("followerCount");
-        binding.followButton.setOnClickListener(click -> {
-            if(ownerID != null && curUserEmail != null){
-                if(binding.followButton.getText().toString().equalsIgnoreCase("Follow")) {
-                    binding.followButton.setText("Unfollow");
-                    ownerFollowerCount++;
-                    curUserFollowingCount++;
-                    ownerFollowers.add(curUserEmail.replace('.',','));
-                    curUserFollowing.add(ownerID.replace('.',','));
-                }
-                else{
-                    binding.followButton.setText("Follow");
-                    ownerFollowerCount--;
-                    curUserFollowingCount--;
-                    ownerFollowers.remove(curUserEmail.replace('.',','));
-                    curUserFollowing.remove(ownerID.replace('.',','));
-                }
-                socialInfoHashMap.put("followers", ownerFollowers);
-                socialInfoHashMap.put("followerCount", ownerFollowerCount);
-                curUserSocialInfoHashMap.put("following", curUserFollowing);
-                curUserSocialInfoHashMap.put("followingCount", curUserFollowingCount);
-                updateTask = new UpdateConnectionTask();
-                updateTask.execute();
-            }
-        });
+
+        binding.followButton.setOnClickListener(click -> followFunction());
+
+        userPosts = new ArrayList<>();
+        userPostsAsyncTask = new UserPostsAsyncTask();
+        userPostsAsyncTask.execute();
     }
+
+    private void followFunction() {
+        if(ownerID != null && curUserEmail != null){
+            if(binding.followButton.getText().toString().equalsIgnoreCase("Follow")) {
+                binding.followButton.setText("Unfollow");
+                ownerFollowerCount++;
+                curUserFollowingCount++;
+                ownerFollowers.add(curUserEmail.replace('.',','));
+                curUserFollowing.add(ownerID.replace('.',','));
+            }
+            else{
+                binding.followButton.setText("Follow");
+                ownerFollowerCount--;
+                curUserFollowingCount--;
+                ownerFollowers.remove(curUserEmail.replace('.',','));
+                curUserFollowing.remove(ownerID.replace('.',','));
+            }
+            socialInfoHashMap.put("followers", ownerFollowers);
+            socialInfoHashMap.put("followerCount", ownerFollowerCount);
+            curUserSocialInfoHashMap.put("following", curUserFollowing);
+            curUserSocialInfoHashMap.put("followingCount", curUserFollowingCount);
+            updateTask = new UpdateConnectionTask();
+            updateTask.execute();
+        }
+    }
+
 }
