@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/postComment_relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -43,7 +42,7 @@
         android:layout_below="@id/commenterUsername_textView"/>
 
     <TextView
-        android:id="@+id/postTime_textView"
+        android:id="@+id/commentTime_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"

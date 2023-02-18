@@ -1,8 +1,24 @@
 package com.adiupd123.fingertrip.models;
 
 public class CommentModel {
-    private String userID, comment;
+    private String userID, username, comment, profilePhoto;
     private int commentTimeStamp;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
 
     public String getUserID() {
         return userID;

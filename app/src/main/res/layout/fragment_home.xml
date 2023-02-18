@@ -248,7 +248,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/posts_recycler_view"
+                android:id="@+id/homefeed_recycler_view"
                 tools:listitem="@layout/post_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

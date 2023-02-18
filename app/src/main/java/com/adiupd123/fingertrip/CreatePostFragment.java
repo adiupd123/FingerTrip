@@ -65,7 +65,7 @@ public class CreatePostFragment extends Fragment {
     private UserProfileFragment userProfileFragment;
     private Bundle userBundle;
     private HashMap<String, Object> socialInfo;
-    private long post_count;
+    private Long post_count;
     public CreatePostFragment() {
     }
     @Override
@@ -149,7 +149,7 @@ public class CreatePostFragment extends Fragment {
             public void onClick(View view) {
                 // Store the post time to display it in home feed of users
                 // Store the post object in firebase using RTDB and Firebase Storage
-                // Add the post on the userprofile data list and in people's home feed(for fixed duration and then remove)
+                // Add the post on the userprofile data list and in people's home feed(for fixed duration and then remoe)
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd-MM-yyyy", Locale.getDefault());
                 timeStamp = sdf.format(calendar.getTime());
@@ -159,6 +159,7 @@ public class CreatePostFragment extends Fragment {
                 postModel.setPostTitle(binding.postTitleEditText.getEditText().getText().toString());
                 postModel.setPostDesc(binding.postDescEditText.getEditText().getText().toString());
                 postModel.setPostOwnerID(tempEmail);
+                postModel.setLiked(false);
                 postModel.setLikes(new ArrayList<>());
                 postModel.setLikesCount(0);
                 postModel.setComments(new HashMap<>());

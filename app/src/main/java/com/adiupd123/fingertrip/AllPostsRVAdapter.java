@@ -32,7 +32,6 @@ public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.Po
         this.posts = posts;
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
-        Collections.reverse(posts);
     }
 
     @NonNull
@@ -44,6 +43,7 @@ public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.Po
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+        position = holder.getAdapterPosition();
         HashMap<String, Object> post = posts.get(position);
         Glide.with(holder.imageView.getContext())
                 .load(post.get("postPhoto").toString())

@@ -44,67 +44,30 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     DatabaseReference databaseReference;
     private Fragment homeFragment, exploreFragment, messagesFragment, userProfileFragment, createPostFragment;
     private NavigationBarView navigationBarView;
-    private FloatingActionButton floatingActionButton;
     private String curUserEmail = "Null EmailID", tempEmail;
-    private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
-    private MyAsyncTask asyncTask;
+//    private HashMap<String, Object> personalInfoHashMap, socialInfoHashMap;
+//    private MyAsyncTask asyncTask;
     private Bundle bundle;
-    private class MyAsyncTask extends AsyncTask<Void, Void, Void>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mAuth = FirebaseAuth.getInstance();
-            rootNode = FirebaseDatabase.getInstance();
-            databaseReference = rootNode.getReference("users");
-
-            Intent intent = getIntent();
-            if(intent != null)
-                curUserEmail = intent.getStringExtra("emailID");
-            if(curUserEmail != null) {
-                tempEmail = curUserEmail.replace('.', ',');
-            }
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Query query = databaseReference.orderByKey();
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot emailSnapshot: snapshot.getChildren()){
-                        String key = emailSnapshot.getKey();
-                        if(key !=  null && tempEmail != null){
-                            if(tempEmail.equals(key)){
-                                personalInfoHashMap = (HashMap<String, Object>) emailSnapshot.child("personal_info/").getValue();
-                                socialInfoHashMap = (HashMap<String, Object>) emailSnapshot.child("social_info/").getValue();
-                                bundle = new Bundle();
-                                bundle.putString("emailID", curUserEmail);
-                                bundle.putSerializable("personalInfo", personalInfoHashMap);
-                                bundle.putSerializable("socialInfo", socialInfoHashMap);
-                                navigationBarView.setSelectedItemId(R.id.user_item);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.d("MainActivity.class", error.toException().toString());
-                }
-
-            });
-            return null;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        asyncTask = new MyAsyncTask();
-        asyncTask.execute();
+        mAuth = FirebaseAuth.getInstance();
+//        rootNode = FirebaseDatabase.getInstance();
+//        databaseReference = rootNode.getReference("users");
+
+        Intent intent = getIntent();
+        if(intent != null)
+            curUserEmail = intent.getStringExtra("emailID");
+        if(curUserEmail != null) {
+            tempEmail = curUserEmail.replace('.', ',');
+        }
+        bundle = new Bundle();
+        bundle.putString("emailID", curUserEmail);
+//        asyncTask = new MyAsyncTask();
+//        asyncTask.execute();
 
         homeFragment = new HomeFragment();
         exploreFragment = new ExploreFragment();
@@ -113,18 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
         navigationBarView = findViewById(R.id.bottomNavigationView);
         navigationBarView.setOnItemSelectedListener(this);
-        floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createPostFragment = new CreatePostFragment();
-                createPostFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_view, createPostFragment)
-                        .addToBackStack("Current:CreatePostFragment")
-                        .commit();
-            }
-        });
+        navigationBarView.setSelectedItemId(R.id.user_item);
     }
 
     // Also enable custom icon to appear when a NavigationItem is selected

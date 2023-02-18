@@ -37,9 +37,7 @@ public class PostFragment extends DialogFragment {
     private ArrayList<String> likes;
     private HashMap<String, Object> post, personalInfoHashMap, socialInfoHashMap;
     private DatabaseReference databaseReference;
-    public PostFragment() {
-        // Required empty public constructor
-    }
+    public PostFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,8 @@ public class PostFragment extends DialogFragment {
         postID = post.get("postID").toString();
         ownerID = post.get("postOwnerID").toString();
         tempEmail = curUserEmail.replace('.',',');
-        isLiked = (Boolean) post.get("isLiked");
+        if (Boolean.TRUE.equals(post.get("isLiked"))) isLiked = true;
+        else isLiked = false;
         likesCount = (Long) post.get("likesCount");
 
         Query query = databaseReference.child("users").orderByKey();
@@ -113,57 +112,31 @@ public class PostFragment extends DialogFragment {
             }
         }
 
-        binding.userPostLayout.likeImageView.setOnClickListener(click -> {
-            if(isLiked){
-                int isFound = 0;
-                for (String likedUser: likes){
-                    if(likedUser.equals(tempEmail)){
-                        // It means user has liked already and the user has tapped to remove like
-                        isFound = 1;
-                        binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
-                        likesCount--;
-                        binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
-                        likes.remove(likedUser);
-                        if(likesCount == 0){
-                            isLiked = false;
-                            post.put("isLiked", isLiked);
-                        }
-                        break;
-                    }
-                }
-                if(isFound == 0){
-                    binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
-                    likesCount++;
-                    binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
-                    likes.add(tempEmail);
-                }
-            } else {
-                likes = new ArrayList<>();
-                likes.add(tempEmail);
-                likesCount++;
-                isLiked = true;
-                binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
-                binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
-                post.put("isLiked", isLiked);
-            }
-            post.put("likesCount", likesCount);
-            post.put("likes", likes);
-            databaseReference.child("posts/"+postID+"/").setValue(post).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(!task.isSuccessful()){
-                        Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    } else{
-                        Toast.makeText(getContext(), "Like Success", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        });
+        binding.userPostLayout.likeImageView.setOnClickListener(click -> likeFunction());
 
+        binding.userPostLayout.commentImageView.setOnClickListener(click -> commentFunction());
 
-        binding.userPostLayout.postUserPhotoImageView.setOnClickListener(click -> {
+        binding.userPostLayout.postUserPhotoImageView.setOnClickListener(click -> openUserProfile());
+
+    }
+
+    private void commentFunction() {
+        CommentsFragment commentsFragment = new CommentsFragment();
+        Bundle commentBundle = new Bundle();
+        commentBundle.putString("emailID", curUserEmail);
+        commentBundle.putString("postID", postID);
+        commentBundle.putSerializable("post", post);
+        commentsFragment.setArguments(commentBundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_view, commentsFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void openUserProfile() {
+        Bundle bundle = new Bundle();
+        if(!ownerID.equals(curUserEmail.replace('.',','))){
             UserFragment userFragment = new UserFragment();
-            Bundle bundle = new Bundle();
             bundle.putString("emailID", curUserEmail);
             bundle.putString("ownerID", ownerID);
             bundle.putSerializable("personalInfo", personalInfoHashMap);
@@ -173,6 +146,61 @@ public class PostFragment extends DialogFragment {
                     .replace(R.id.fragment_container_view, userFragment)
                     .addToBackStack(null)
                     .commit();
+        } else{
+            bundle.putString("emailID", ownerID);
+            UserProfileFragment userProfileFragment = new UserProfileFragment();
+            userProfileFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view, userProfileFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
+    private void likeFunction() {
+        if(isLiked){
+            int isFound = 0;
+            for (String likedUser: likes){
+                if(likedUser.equals(tempEmail)){
+                    // It means user has liked already and the user has tapped to remove like
+                    isFound = 1;
+                    binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+                    likesCount--;
+                    binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+                    likes.remove(likedUser);
+                    if(likesCount == 0){
+                        isLiked = false;
+                        post.put("isLiked", isLiked);
+                    }
+                    break;
+                }
+            }
+            if(isFound == 0){
+                binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
+                likesCount++;
+                binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+                likes.add(tempEmail);
+            }
+        } else {
+            likes = new ArrayList<>();
+            likes.add(tempEmail);
+            likesCount++;
+            isLiked = true;
+            binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
+            binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
+            post.put("isLiked", isLiked);
+        }
+        post.put("likesCount", likesCount);
+        post.put("likes", likes);
+        databaseReference.child("posts/"+postID+"/").setValue(post).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()){
+                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getContext(), "Like Success", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
     }
 }

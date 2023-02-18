@@ -20,8 +20,8 @@ public class CreatePostModel {
         return isLiked;
     }
 
-    public void setLiked(boolean liked) {
-        isLiked = liked;
+    public void setLiked(boolean isLiked) {
+        this.isLiked = isLiked;
     }
 
     public CreatePostModel() {

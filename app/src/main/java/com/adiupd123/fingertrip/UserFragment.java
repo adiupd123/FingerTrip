@@ -191,7 +191,7 @@ public class UserFragment extends Fragment {
     }
 
     private void followFunction() {
-        if(ownerID != null && curUserEmail != null){
+        if(ownerID != null && curUserEmail != null && ownerID.equals(curUserEmail)){
             if(binding.followButton.getText().toString().equalsIgnoreCase("Follow")) {
                 binding.followButton.setText("Unfollow");
                 ownerFollowerCount++;

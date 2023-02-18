@@ -222,46 +222,38 @@
 
         </RelativeLayout>
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_3"
-            app:layout_constraintEnd_toEndOf="parent"
+        <TextView
+            android:id="@+id/postHead_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="POSTS"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rectangle_rounded_shape"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/relativeLayout" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/userProfile_tabLayout"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@color/gray_2"
-            app:tabTextColor="@color/white"
-            app:tabSelectedTextColor="@color/lightBlue_FB"
-            app:tabIndicatorColor="@color/blue_FB"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            app:tabMode="fixed">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/postHead_textView">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Posts"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Saved" />
-        </com.google.android.material.tabs.TabLayout>
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/userProfile_tabLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+                android:padding="16dp"
+                android:background="@color/gray_1">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/user_profile_posts_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/posts_user_profile_layout"
+                    app:spanCount="3"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
