@@ -7,7 +7,7 @@
         android:title="Your Account"/>
     <item
         android:id="@+id/item2"
-        android:title="App Settings"/>
+        android:title="Edit Profile"/>
     <item
         android:id="@+id/item3"
         android:title="Contact Us"/>

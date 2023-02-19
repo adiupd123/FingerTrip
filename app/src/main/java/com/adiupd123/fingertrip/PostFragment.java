@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class PostFragment extends DialogFragment {
     private FragmentPostBinding binding;
     private String postID, ownerID, curUserEmail, tempEmail;
-    private boolean isLiked;
+    private boolean liked;
     private long likesCount, commentsCount;
     private ArrayList<String> likes;
     private HashMap<String, Object> post, personalInfoHashMap, socialInfoHashMap;
@@ -63,8 +63,8 @@ public class PostFragment extends DialogFragment {
         postID = post.get("postID").toString();
         ownerID = post.get("postOwnerID").toString();
         tempEmail = curUserEmail.replace('.',',');
-        if (Boolean.TRUE.equals(post.get("isLiked"))) isLiked = true;
-        else isLiked = false;
+        if (Boolean.TRUE.equals(post.get("liked"))) liked = true;
+        else liked = false;
         likesCount = (Long) post.get("likesCount");
 
         Query query = databaseReference.child("users").orderByKey();
@@ -101,7 +101,7 @@ public class PostFragment extends DialogFragment {
         binding.userPostLayout.postTitleTextView.setText(post.get("postTitle").toString());
         binding.userPostLayout.postDescTextView.setText(post.get("postDesc").toString());
         binding.userPostLayout.commentTextView.setText(post.get("commentsCount").toString());
-        if(isLiked){
+        if(liked){
             likes = (ArrayList<String>) post.get("likes");
             for (String likedUser: likes){
                 if(likedUser.equals(tempEmail)){
@@ -158,7 +158,7 @@ public class PostFragment extends DialogFragment {
     }
 
     private void likeFunction() {
-        if(isLiked){
+        if(liked){
             int isFound = 0;
             for (String likedUser: likes){
                 if(likedUser.equals(tempEmail)){
@@ -169,8 +169,8 @@ public class PostFragment extends DialogFragment {
                     binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
                     likes.remove(likedUser);
                     if(likesCount == 0){
-                        isLiked = false;
-                        post.put("isLiked", isLiked);
+                        liked = false;
+                        post.put("liked", liked);
                     }
                     break;
                 }
@@ -185,10 +185,10 @@ public class PostFragment extends DialogFragment {
             likes = new ArrayList<>();
             likes.add(tempEmail);
             likesCount++;
-            isLiked = true;
+            liked = true;
             binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
             binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
-            post.put("isLiked", isLiked);
+            post.put("liked", liked);
         }
         post.put("likesCount", likesCount);
         post.put("likes", likes);

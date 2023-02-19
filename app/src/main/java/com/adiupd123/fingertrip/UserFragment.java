@@ -99,8 +99,7 @@ public class UserFragment extends Fragment {
     public class UserPostsAsyncTask extends AsyncTask<Void, List<HashMap<String, Object>>, Void>{
         @Override
         protected Void doInBackground(Void... voids) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("posts");
-            Query query = databaseReference.orderByKey();
+            Query query = databaseReference.child("posts").orderByKey();
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -145,7 +144,6 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = FragmentUserBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -191,7 +189,7 @@ public class UserFragment extends Fragment {
     }
 
     private void followFunction() {
-        if(ownerID != null && curUserEmail != null && ownerID.equals(curUserEmail)){
+        if(ownerID != null && curUserEmail != null && !ownerID.equals(curUserEmail)){
             if(binding.followButton.getText().toString().equalsIgnoreCase("Follow")) {
                 binding.followButton.setText("Unfollow");
                 ownerFollowerCount++;

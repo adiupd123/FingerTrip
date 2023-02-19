@@ -19,10 +19,16 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.PostViewHolder> {
     List<HashMap<String, Object>> posts;
@@ -32,6 +38,21 @@ public class AllPostsRVAdapter extends RecyclerView.Adapter<AllPostsRVAdapter.Po
         this.posts = posts;
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
+        Collections.sort(posts, new Comparator<Map<String, Object>>() {
+            public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+                String time1 = o1.get("postTimeStamp").toString();
+                String time2 = o2.get("postTimeStamp").toString();
+                DateFormat format = new SimpleDateFormat("hh:mm dd-MM-yyyy");
+                try {
+                    Date date1 = format.parse(time1);
+                    Date date2 = format.parse(time2);
+                    return date2.compareTo(date1); // sort in descending order
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
     }
 
     @NonNull

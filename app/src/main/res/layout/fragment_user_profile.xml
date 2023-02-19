@@ -208,18 +208,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/editProfile_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/horizontalLinearLayout"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="@color/gray_2"
-                android:text="Edit profile"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
         </RelativeLayout>
 
         <TextView

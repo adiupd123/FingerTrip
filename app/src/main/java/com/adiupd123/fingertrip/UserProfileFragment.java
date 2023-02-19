@@ -203,12 +203,6 @@ public class UserProfileFragment extends Fragment {
                 Log.d("UserProfileFragment", e.getMessage());
             }
         }
-        binding.editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openEditProfileFragment();
-            }
-        });
         binding.userProfileToolbar.inflateMenu(R.menu.user_profile_dropdown_items);
         binding.userProfileToolbar.setOnMenuItemClickListener(menuItem -> {
             switch (menuItem.getItemId()){
@@ -216,7 +210,7 @@ public class UserProfileFragment extends Fragment {
                     Toast.makeText(getActivity(), "You can now configure your Account", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.item2:
-                    Toast.makeText(getActivity(), "You are now in App Settings", Toast.LENGTH_SHORT).show();
+                    openEditProfileFragment();
                     return true;
                 case R.id.item3:
                     Intent contactIntent = new Intent(getActivity(), ContactActivity.class);

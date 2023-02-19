@@ -14,14 +14,14 @@ public class CreatePostModel {
     private HashMap<String, CommentModel> comments;
     private int commentsCount;
     private String postTimeStamp;
-    private boolean isLiked = false;
+    private boolean liked = false;
 
-    public boolean isLiked() {
-        return isLiked;
+    public boolean getLiked() {
+        return liked;
     }
 
-    public void setLiked(boolean isLiked) {
-        this.isLiked = isLiked;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     public CreatePostModel() {
