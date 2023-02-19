@@ -106,11 +106,11 @@ public class PostFragment extends DialogFragment {
             for (String likedUser: likes){
                 if(likedUser.equals(tempEmail)){
                     binding.userPostLayout.likeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_done));
-                    binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
                     break;
                 }
             }
         }
+        binding.userPostLayout.likeTextView.setText(String.valueOf(likesCount));
 
         binding.userPostLayout.likeImageView.setOnClickListener(click -> likeFunction());
 
