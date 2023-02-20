@@ -5,170 +5,183 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignInActivity"
-    tools:viewBindingIgnore="true"
-    android:padding="8dp">
+    tools:viewBindingIgnore="true">
 
     <ImageView
         android:id="@+id/imageView"
-        style="@style/logoImageStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/social_login_il"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01"/>
+        app:layout_constraintVertical_bias="0.1" />
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/logoStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FINGERTRIP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="43dp"
-        app:cardBackgroundColor="@color/blue_FB"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardBackgroundColor="@color/dark_orange"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintVertical_bias="0.0">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:ems="16"
+            android:layout_marginBottom="100dp"
             android:padding="24dp">
 
-            <EditText
-                android:id="@+id/email_editText"
+            <TextView
+                android:id="@+id/signIn_textView"
+                style="@style/logoStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="16"
-                android:hint="Enter Email ID"
-                android:inputType="text"
+                android:text="Sign in to FingerTrip!"
                 android:textColor="@color/white"
-                android:textColorHint="@color/lightBlue_FB"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/password_editText"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/email_cardView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="16"
-                android:hint="Enter Password"
-                android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/lightBlue_FB"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/email_editText"
-                app:layout_constraintTop_toBottomOf="@id/email_editText" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signIn_textView"
+                app:layout_constraintVertical_bias="0">
 
-            <Button
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/email_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Email ID"
+                        android:inputType="text"
+                        android:padding="12dp"
+                        android:textColorHint="@color/lightBlue_FB" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pwd_cardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="@+id/email_cardView"
+                app:layout_constraintTop_toBottomOf="@id/email_cardView"
+                app:layout_constraintEnd_toEndOf="@id/email_cardView"
+                app:layout_constraintVertical_bias="0">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/password_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:padding="12dp"
+                        android:textColorHint="@color/lightBlue_FB" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/signIn_button"
-                android:layout_width="wrap_content"
+                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/white"
-                android:ems="20"
-                android:text="SIGN IN"
-                android:textColor="@color/blue_FB"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_editText" />
+                android:backgroundTint="@color/purple"
+                android:padding="12dp"
+                android:text="Sign In"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/pwd_cardView"
+                app:layout_constraintStart_toStartOf="@+id/pwd_cardView"
+                app:layout_constraintTop_toBottomOf="@+id/pwd_cardView" />
 
-            <Button
+            <TextView
                 android:id="@+id/forgotPass_button"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="20"
                 android:text="Forgot Password?"
                 android:textAllCaps="false"
-                android:textColor="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/signIn_button"
                 app:layout_constraintTop_toBottomOf="@+id/signIn_button" />
 
-            <View
-                android:id="@+id/hr_view"
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/lightBlue_FB"
-                android:ems="20"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/forgotPass_button" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/createNewAccount_button"
-                android:layout_width="wrap_content"
+                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/green_700"
-                android:ems="20"
+                android:padding="16dp"
                 android:text="Create new account"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hr_view" />
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/signIn_button"
+                app:layout_constraintStart_toStartOf="@+id/signIn_button"
+                app:layout_constraintTop_toBottomOf="@+id/forgotPass_button" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createNewAccount_button">
+                app:layout_constraintTop_toBottomOf="@+id/createNewAccount_button" />
 
-                <ImageButton
-                    android:id="@+id/signInGoogle_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentLeft="true"
-                    android:backgroundTint="@color/white"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_google"
-                    android:layout_marginRight="8dp"/>
-
-                <ImageButton
-                    android:id="@+id/signInFacebook_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toRightOf="@id/signInGoogle_button"
-                    android:backgroundTint="@color/white"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_facebook"
-                    android:layout_marginLeft="8dp"/>
-
-            </RelativeLayout>
             <ProgressBar
                 android:id="@+id/progressBar0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintVertical_bias="0.35"
+                android:progressTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
