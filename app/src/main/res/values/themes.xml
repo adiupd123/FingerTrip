@@ -18,9 +18,9 @@
         <item name="android:src">@drawable/app_capybara_logo_black</item>
     </style>
     <style name="logoStyle">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:typeface">monospace</item>
+        <item name="android:fontFamily">@font/anggota</item>
     </style>
     <style name="roundedCorners" parent="">
         <item name="cornerFamily">rounded</item>
@@ -33,6 +33,14 @@
         <item name="cornerSizeTopRight">20dp</item>
         <item name="cornerSizeBottomLeft">20dp</item>
         <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+    <style name="user_det_style" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textColorHint">@color/gray_3</item>
+        <item name="android:background">@drawable/rectangle_rounded_corner_box</item>
     </style>
 
     <style name="dev_details">

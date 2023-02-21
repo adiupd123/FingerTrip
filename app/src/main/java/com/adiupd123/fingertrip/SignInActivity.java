@@ -96,6 +96,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()){
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            intent.putExtra("emailID", email);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }

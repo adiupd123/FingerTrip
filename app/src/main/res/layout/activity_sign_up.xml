@@ -26,11 +26,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:cardBackgroundColor="@color/blue_FB"
-            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/dark_orange"
+            app:cardCornerRadius="20dp"
             android:layout_marginTop="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,30 +40,25 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:ems="16"
                 android:padding="24dp">
+
 
                 <EditText
                     android:id="@+id/name_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="16"
-                    android:hint="Enter Full Name"
+                    android:hint="Name"
                     android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
+                    style="@style/user_det_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0" />
-                <!--Username add -->
+
                 <TextView
                     android:id="@+id/gender_textView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
+                    android:layout_marginTop="16dp"
                     android:text="Gender:"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -110,97 +105,68 @@
 
                 <EditText
                     android:id="@+id/birthday_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
                     android:hint="Enter Birthday (DD/MM/YYYY)"
                     android:inputType="date"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/user_det_style"
+                    app:layout_constraintEnd_toEndOf="@+id/gender_radioGroup"
                     app:layout_constraintStart_toStartOf="@+id/gender_radioGroup"
-                    app:layout_constraintTop_toBottomOf="@id/gender_radioGroup" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/gender_radioGroup" />
 
                 <EditText
                     android:id="@+id/emailID_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
-                    android:hint="Enter Email ID"
+                    android:hint="Email ID"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/birthday_editText"
+                    style="@style/user_det_style"
+                    app:layout_constraintEnd_toEndOf="@id/birthday_editText"
+                    app:layout_constraintStart_toStartOf="@id/birthday_editText"
                     app:layout_constraintTop_toBottomOf="@id/birthday_editText" />
 
                 <EditText
                     android:id="@+id/username_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
-                    android:hint="Enter Username"
+                    android:hint="Username"
                     android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/emailID_editText"
+                    style="@style/user_det_style"
+                    app:layout_constraintEnd_toEndOf="@id/emailID_editText"
+                    app:layout_constraintStart_toStartOf="@id/emailID_editText"
                     app:layout_constraintTop_toBottomOf="@id/emailID_editText" />
 
                 <EditText
                     android:id="@+id/mobile_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
-                    android:hint="Enter Mobile no."
+                    android:hint="Mobile no."
                     android:inputType="number"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/username_editText"
+                    style="@style/user_det_style"
+                    app:layout_constraintEnd_toEndOf="@id/username_editText"
+                    app:layout_constraintStart_toStartOf="@id/username_editText"
                     app:layout_constraintTop_toBottomOf="@id/username_editText" />
 
                 <EditText
                     android:id="@+id/newPassword_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
-                    android:hint="Enter Password"
+                    android:hint="New Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/mobile_editText"
+                    style="@style/user_det_style"
+                    app:layout_constraintEnd_toEndOf="@id/mobile_editText"
+                    app:layout_constraintStart_toStartOf="@id/mobile_editText"
                     app:layout_constraintTop_toBottomOf="@id/mobile_editText" />
 
                 <EditText
                     android:id="@+id/reenterPass_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
                     android:hint="Re-enter Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/newPassword_editText"
+                    style="@style/user_det_style"
+                    app:layout_constraintEnd_toEndOf="@id/newPassword_editText"
+                    app:layout_constraintStart_toStartOf="@id/newPassword_editText"
                     app:layout_constraintTop_toBottomOf="@id/newPassword_editText" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
                     android:id="@+id/signUp_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:padding="12dp"
                     android:backgroundTint="@color/green_700"
-                    android:ems="20"
                     android:text="SIGN UP"
+                    app:cornerRadius="10dp"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -219,13 +185,15 @@
                     app:layout_constraintTop_toBottomOf="@id/signUp_button"/>
                 <Button
                     android:id="@+id/logIn_button"
-                    android:layout_width="wrap_content"
+                    style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:padding="12dp"
                     android:backgroundTint="@color/white"
-                    android:ems="20"
+                    app:cornerRadius="10dp"
                     android:text="Log in"
-                    android:textColor="@color/lightBlue_FB"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView" />

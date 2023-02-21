@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.adiupd123.fingertrip.databinding.FragmentHomeBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -100,9 +103,22 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onProgressUpdate(List<HashMap<String, Object>>... values) {
             super.onProgressUpdate(values);
-            adapter = new HomeFeedRVAdapter(values[0], getContext());
-            binding.homefeedRecyclerView.setAdapter(adapter);
-            binding.homefeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            if(values[0].size()>0){
+                adapter = new HomeFeedRVAdapter(values[0], getContext());
+                binding.homefeedRecyclerView.setAdapter(adapter);
+                binding.homefeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            } else {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.empty_screen_il);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.addRule(RelativeLayout.CENTER_IN_PARENT);
+                // Add the image view to the layout
+                binding.homeFeedRelativeLayout.addView(imageView, params);
+            }
         }
     }
 
