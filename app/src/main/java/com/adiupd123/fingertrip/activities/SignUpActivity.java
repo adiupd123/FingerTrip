@@ -1,4 +1,4 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.models.UserHelperClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

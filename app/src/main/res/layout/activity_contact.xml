@@ -9,7 +9,7 @@
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
     android:background="@color/gray_1"
-    tools:context=".ContactActivity">
+    tools:context=".activities.ContactActivity">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/dev_profile_imageView"

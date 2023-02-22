@@ -1,4 +1,4 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.models.CommentModel;
 import com.bumptech.glide.Glide;
 

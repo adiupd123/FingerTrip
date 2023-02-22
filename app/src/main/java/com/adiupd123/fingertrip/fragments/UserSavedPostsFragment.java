@@ -1,4 +1,4 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.fragments;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.adiupd123.fingertrip.databinding.FragmentUserSavedPostsBinding;
 

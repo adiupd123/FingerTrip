@@ -1,6 +1,5 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.fragments;
 
-import android.content.AsyncQueryHandler;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -9,14 +8,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.adiupd123.fingertrip.R;
+import com.adiupd123.fingertrip.adapters.AllPostsRVAdapter;
 import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
-import com.adiupd123.fingertrip.models.CreatePostModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

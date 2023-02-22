@@ -1,4 +1,4 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.viewmodels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -1,6 +1,5 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.fragments;
 
-import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -15,12 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.adiupd123.fingertrip.R;
+import com.adiupd123.fingertrip.adapters.AllPostsRVAdapter;
 import com.adiupd123.fingertrip.databinding.FragmentUserBinding;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.R.*;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:viewBindingIgnore="true"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
     android:background="@color/gray_1">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.adiupd123.fingertrip.UserProfileFragment"
+        android:name="com.adiupd123.fingertrip.fragments.UserProfileFragment"
         tools:layout="@layout/fragment_user_profile" />
 
     <com.google.android.material.bottomappbar.BottomAppBar

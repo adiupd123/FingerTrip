@@ -1,6 +1,5 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.adapters;
 
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.models.CreatePostModel;
 import com.bumptech.glide.Glide;
 

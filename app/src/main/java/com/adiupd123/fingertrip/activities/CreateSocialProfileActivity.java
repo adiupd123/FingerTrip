@@ -1,4 +1,4 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.databinding.ActivityCreateSocialProfileBinding;
 import com.adiupd123.fingertrip.models.UserSocialProfileModel;
 import com.bumptech.glide.Glide;

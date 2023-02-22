@@ -1,8 +1,10 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.adiupd123.fingertrip.R;
 
 public class ContactActivity extends AppCompatActivity {
 

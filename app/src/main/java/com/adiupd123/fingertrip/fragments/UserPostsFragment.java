@@ -1,4 +1,4 @@
-package com.adiupd123.fingertrip;
+package com.adiupd123.fingertrip.fragments;
 
 import android.os.Bundle;
 
@@ -6,15 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.adiupd123.fingertrip.R;
+import com.adiupd123.fingertrip.adapters.UserPostsRVAdapter;
 import com.adiupd123.fingertrip.databinding.FragmentUserPostsBinding;
-import com.adiupd123.fingertrip.databinding.FragmentUserProfileBinding;
 import com.adiupd123.fingertrip.models.CreatePostModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class UserPostsFragment extends Fragment {
