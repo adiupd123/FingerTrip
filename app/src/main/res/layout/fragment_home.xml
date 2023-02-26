@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_1"
     tools:context=".fragments.HomeFragment">
 
     <LinearLayout
@@ -256,8 +255,5 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"/>
         </RelativeLayout>
-
     </LinearLayout>
-
-
 </ScrollView>

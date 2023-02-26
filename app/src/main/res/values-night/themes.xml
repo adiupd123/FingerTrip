@@ -16,11 +16,6 @@
     <style name="logoImageStyle">
         <item name="android:src">@drawable/app_capybara_logo_white</item>
     </style>
-    <style name="logoStyle">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:typeface">monospace</item>
-    </style>
     <style name="roundedCorners" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">20dp</item>
