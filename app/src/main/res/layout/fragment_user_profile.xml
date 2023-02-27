@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.UserProfileFragment"
-    android:background="@color/gray_1">
+    tools:context=".fragments.UserProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +14,8 @@
             android:id="@+id/userProfile_toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:elevation="10dp"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,7 +41,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:text="null"
-                    android:textColor="@color/white"
+                    style="@style/text_color_switch"
                     android:paddingTop="8dp"
                     android:textSize="20sp"/>
 
@@ -53,9 +53,10 @@
                 <ImageButton
                     android:id="@+id/createPost_button"
                     android:layout_width="20dp"
+                    style="@style/background_switch"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:backgroundTint="@color/gray_1"
+                    android:contentDescription="Create Post Button"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_add_square"/>
 
@@ -87,7 +88,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:src="@drawable/ic_default_profile"
-                app:civ_border_color="@color/white"
+                app:civ_border_color="?android:attr/textColorPrimary"
                 app:civ_border_width="10dp" />
 
             <TextView
@@ -98,7 +99,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="No Name"
-                android:textColor="@color/white"
+                style="@style/text_color_switch"
                 android:textSize="24sp" />
 
             <TextView
@@ -231,8 +232,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@color/gray_1">
+                android:padding="16dp">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/user_profile_posts_recycler_view"
                     android:layout_width="match_parent"

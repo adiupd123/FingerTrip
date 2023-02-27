@@ -49,4 +49,10 @@
         <item name="android:textColor">@color/purple</item>
         <item name="android:clickable">true</item>
     </style>
+    <style name="background_switch">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+    <style name="text_color_switch">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
