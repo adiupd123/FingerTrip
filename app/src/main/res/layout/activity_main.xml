@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:viewBindingIgnore="true"
-    tools:context=".activities.MainActivity"
-    android:background="@color/gray_1">
+    tools:context=".activities.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
@@ -30,8 +29,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/transparent_background"
             android:layout_marginRight="16dp"
-            app:itemTextColor="@color/white"
-            app:itemIconTint="@color/white"
+            app:itemIconTint="@color/dark_orange"
             app:menu="@menu/app_navigation_items"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
 
@@ -41,12 +39,11 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/baseline_add_24"
         android:backgroundTint="@color/white"
+        app:rippleColor="@color/dark_orange"
         app:layout_anchor="@id/bottomAppBar"
         app:fabCustomSize="65dp"
-        android:outlineAmbientShadowColor="@color/black"
-        android:outlineSpotShadowColor="@color/blue_FB"
         android:contentDescription="Add Post or Story"/>
 
 

@@ -119,7 +119,7 @@ public class CreatePostFragment extends Fragment {
             }
         });
 
-        binding.uploadPhotoButton.setOnClickListener(new View.OnClickListener() {
+        binding.postPhotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImagePicker.Companion.with(getActivity())
@@ -152,8 +152,8 @@ public class CreatePostFragment extends Fragment {
                 postID = tempEmail + "_" + timeStamp;
                 postModel = new CreatePostModel();
                 postModel.setPostID(postID);
-                postModel.setPostTitle(binding.postTitleEditText.getEditText().getText().toString());
-                postModel.setPostDesc(binding.postDescEditText.getEditText().getText().toString());
+                postModel.setPostTitle(binding.postTitleEditText.getText().toString());
+                postModel.setPostDesc(binding.postDescEditText.getText().toString());
                 postModel.setPostOwnerID(tempEmail);
                 postModel.setLiked(false);
                 postModel.setLikes(new ArrayList<>());

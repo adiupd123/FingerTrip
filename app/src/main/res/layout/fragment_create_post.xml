@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.CreatePostFragment"
-    android:background="@color/gray_1"
     android:padding="16dp">
 
     <TextView
@@ -13,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Share to your world!"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/anggota"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,53 +26,34 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"
         app:layout_constraintTop_toBottomOf="@id/createPostHeader_textView"
-        android:background="@color/gray_2"
+        android:background="#20000000"
         android:layout_marginTop="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_2">
+            android:padding="8dp" >
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter Post Title"
+            <EditText
                 android:id="@+id/postTitle_editText"
+                android:hint="Post Title"
+                android:inputType="textMultiLine"
+                style="@style/user_det_style"
+                android:backgroundTint="#20000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="16dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusBottomEnd="20dp">
+                app:layout_constraintVertical_bias="0" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
                 android:id="@+id/postDesc_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter Post Description"
+                android:hint="Post Description"
+                android:inputType="textMultiLine"
+                style="@style/user_det_style"
+                android:backgroundTint="#20000000"
                 app:layout_constraintTop_toBottomOf="@id/postTitle_editText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="16dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusBottomEnd="20dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <RelativeLayout
                 android:id="@+id/post_relativeLayout"
@@ -82,19 +63,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/postDesc_editText">
 
-                <ImageButton
-                    android:id="@+id/uploadPhoto_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/gray_2"
-                    android:padding="0dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/upload_image" />
                 <!--                        android:layout_marginRight="8dp"-->
 
 
@@ -115,7 +83,8 @@
                 android:id="@+id/postPhoto_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:src="@drawable/default_post_image"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/il_upload_post"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/post_relativeLayout"
@@ -148,23 +117,30 @@
         android:layout_marginTop="24dp"
         android:orientation="horizontal">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel_button"
-            android:layout_width="wrap_content"
+            style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="8dp"
             android:backgroundTint="@android:color/holo_red_dark"
+            android:padding="12dp"
             android:text="Cancel"
-            android:textColor="@color/white"/>
-
-        <Button
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"/>
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/createPost_button"
-            android:layout_width="wrap_content"
+            style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_marginLeft="8dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:backgroundTint="@color/green_700"
+            android:padding="12dp"
             android:text="Create Post"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

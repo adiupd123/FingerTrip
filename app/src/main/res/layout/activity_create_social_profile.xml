@@ -46,8 +46,8 @@
             android:layout_marginTop="80dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_default_profile"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="10dp"/>
+            app:civ_border_color="?android:attr/textColorPrimary"
+            app:civ_border_width="5dp"/>
 
         <ImageButton
             android:id="@+id/profilePhoto_imageButton"
@@ -65,19 +65,17 @@
 
         <EditText
             android:id="@+id/bio_editText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/user_det_style"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_below="@id/profilePhoto_imageView"
             android:layout_alignStart="@+id/profileCover_imageView"
             android:layout_alignEnd="@+id/profileCover_imageView"
-            android:ems="16"
             android:gravity="left"
+            android:backgroundTint="?android:attr/textColorPrimary"
             android:hint="Bio"
-            android:inputType="textMultiLine"
-            android:textColor="@color/blue_FB"
-            android:textColorHint="@color/lightBlue_FB" />
+            android:textColor="@color/dark_orange"
+            android:inputType="textMultiLine"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -87,15 +85,17 @@
             android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/createSocialProfile_button"
+                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:backgroundTint="@color/green_700"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/dark_orange"
+                android:padding="16dp"
                 android:text="Proceed"
-                android:textColor="@color/white"/>
-
+                android:textColor="@color/white"
+                app:cornerRadius="10dp" />
         </LinearLayout>
 
     </RelativeLayout>

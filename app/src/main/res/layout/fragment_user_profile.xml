@@ -41,7 +41,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:text="null"
-                    style="@style/text_color_switch"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:paddingTop="8dp"
                     android:textSize="20sp"/>
 
@@ -89,7 +89,7 @@
                 android:layout_marginTop="80dp"
                 android:src="@drawable/ic_default_profile"
                 app:civ_border_color="?android:attr/textColorPrimary"
-                app:civ_border_width="10dp" />
+                app:civ_border_width="5dp" />
 
             <TextView
                 android:id="@+id/personName_textView"
@@ -99,7 +99,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="No Name"
-                style="@style/text_color_switch"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp" />
 
             <TextView
@@ -111,7 +111,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Null Bio"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="?android:attr/textColorPrimary" />
 
             <LinearLayout
                 android:id="@+id/horizontalLinearLayout"
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:text="Invalid"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="Posts"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:text="Invalid"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:text="Followers"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:text="Invalid"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -203,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:text="Following"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -217,31 +217,28 @@
             android:layout_height="wrap_content"
             android:text="POSTS"
             android:padding="12dp"
-            android:textColor="@color/white"
+            style="@style/text_color_switch"
             android:gravity="center_horizontal"
             android:background="@drawable/rectangle_rounded_shape"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/relativeLayout" />
-        <androidx.cardview.widget.CardView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/postHead_textView">
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_profile_posts_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/user_profile_posts_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/posts_user_profile_layout"
-                    app:spanCount="3"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                tools:listitem="@layout/posts_user_profile_layout"
+                app:spanCount="3"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
