@@ -8,8 +8,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:padding="8dp"
-    android:background="@color/gray_1">
+    android:padding="8dp">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/commenterProfile_imageView"
@@ -19,7 +18,7 @@
         android:scaleType="fitCenter"
         app:civ_border="true"
         app:civ_border_width="4dp"
-        app:civ_border_color="@android:color/holo_blue_light"/>
+        app:civ_border_color="@color/dark_orange"/>
 
     <TextView
         android:id="@+id/commenterUsername_textView"
@@ -37,7 +36,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
         android:text="Comment..."
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_toRightOf="@id/commenterProfile_imageView"
         android:layout_below="@id/commenterUsername_textView"/>
 
@@ -47,8 +46,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:text="12:45 PM"
-        android:textColor="@color/green_700"
+        android:textColor="@color/purple"
         android:textStyle="bold"
         android:layout_alignParentRight="true"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/commenterProfile_imageView"/>
 
 </RelativeLayout>

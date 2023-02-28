@@ -40,21 +40,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_search"
-                    android:scaleType="fitCenter"
-                    android:clickable="true"/>
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_send"
-                    android:clickable="true"
-                    android:layout_marginLeft="16dp"/>
-
             </LinearLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 
