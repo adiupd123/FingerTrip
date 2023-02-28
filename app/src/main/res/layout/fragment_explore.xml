@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_1"
     tools:context=".fragments.ExploreFragment">
     <androidx.cardview.widget.CardView
         android:id="@+id/searchUser_cardView"
@@ -33,6 +32,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/posts_recycler_view"

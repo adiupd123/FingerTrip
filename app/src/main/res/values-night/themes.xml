@@ -27,4 +27,7 @@
     <style name="text_color_switch">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="image_color_switch">
+        <item name="android:fillColor">@color/black</item>
+    </style>
 </resources>

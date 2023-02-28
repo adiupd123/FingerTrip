@@ -47,7 +47,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_default_profile"
             app:civ_border_color="@color/white"
-            app:civ_border_width="10dp"/>
+            app:civ_border_width="5dp"/>
 
         <ImageButton
             android:id="@+id/editProfilePhoto_imageButton"
@@ -65,6 +65,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view4"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/profilePhoto_imageView">
@@ -72,18 +74,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_dark_background"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:background="@color/dark_orange">
 
                 <EditText
                     android:id="@+id/editName_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="16"
                     android:hint="Name"
                     android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
+                    style="@style/user_det_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -92,64 +90,58 @@
 
                 <EditText
                     android:id="@+id/editDOB_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
                     android:hint="Birth Date"
                     android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
+                    style="@style/user_det_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/editName_editText"
-                    app:layout_constraintTop_toBottomOf="@id/editName_editText" />
-
+                    app:layout_constraintTop_toBottomOf="@id/editName_editText"  />
                 <EditText
                     android:id="@+id/editBio_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:ems="16"
                     android:hint="Bio"
                     android:inputType="textMultiLine"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/lightBlue_FB"
+                    style="@style/user_det_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/editDOB_editText"
-                    app:layout_constraintTop_toBottomOf="@id/editDOB_editText" />
+                    app:layout_constraintTop_toBottomOf="@id/editDOB_editText"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/card_view4"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
+            android:padding="16dp"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/discard_button"
-                android:layout_width="wrap_content"
+                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                android:layout_width="0dp"
+                android:layout_weight="1.1"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="8dp"
                 android:backgroundTint="@android:color/holo_red_dark"
+                android:padding="12dp"
                 android:text="Discard"
-                android:textColor="@color/white"/>
-
-            <Button
+                android:textColor="@color/white"
+                app:cornerRadius="10dp" />
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/save_button"
-                android:layout_width="wrap_content"
+                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/green_700"
+                android:padding="12dp"
                 android:text="Save"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                app:cornerRadius="10dp" />
         </LinearLayout>
 
     </RelativeLayout>

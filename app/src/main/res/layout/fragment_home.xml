@@ -15,26 +15,25 @@
             android:id="@+id/userProfile_toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/gray_1"
-            android:elevation="10dp">
+            android:background="@color/dark_orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:orientation="horizontal"
-                android:layout_marginRight="16dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:layout_marginRight="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="FingerTrip"
-                    android:layout_marginLeft="16dp"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sacramento_regular"/>
+                    style="@style/text_color_switch"
+                    android:fontFamily="@font/anggota"/>
 
                 <View
                     android:layout_width="0dp"

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.UserFragment"
-    android:background="@color/gray_1"
     android:paddingBottom="40dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,8 +36,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:src="@drawable/ic_default_profile"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="10dp" />
+                app:civ_border_color="?android:attr/textColorPrimary"
+                app:civ_border_width="5dp" />
 
             <TextView
                 android:id="@+id/personName_textView"
@@ -48,7 +47,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="No Name"
-                android:textColor="@color/white"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp" />
 
             <TextView
@@ -60,7 +59,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Null Bio"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="?android:attr/textColorPrimary" />
 
             <LinearLayout
                 android:id="@+id/horizontalLinearLayout"
@@ -84,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:text="Invalid"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -94,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:text="Posts"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -113,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:text="Invalid"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -123,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:text="Followers"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -142,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:text="Invalid"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -152,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:text="Following"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -175,8 +174,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="Follow"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
+                style="@style/text_color_switch"
+                android:backgroundTint="@color/dark_orange"
                 android:layout_margin="8dp"
                 android:layout_height="wrap_content"/>
 
@@ -185,33 +184,27 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="Message"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
+                style="@style/text_color_switch"
+                android:backgroundTint="@color/purple"
                 android:layout_margin="8dp"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comm_linearLayout">
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_posts_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@color/gray_1">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/user_posts_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/posts_user_profile_layout"
-                    app:spanCount="3"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                tools:listitem="@layout/posts_user_profile_layout"
+                app:spanCount="3"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

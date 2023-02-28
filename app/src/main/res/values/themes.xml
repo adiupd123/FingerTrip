@@ -56,4 +56,7 @@
     <style name="text_color_switch">
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="image_color_switch">
+        <item name="android:fillColor">@color/white</item>
+    </style>
 </resources>

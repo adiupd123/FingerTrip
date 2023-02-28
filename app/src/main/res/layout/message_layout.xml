@@ -3,29 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/gray_1">
+    android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
+    <TextView
+        android:id="@+id/ownerComment_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="@color/lightBlue_FB"
-        android:layout_margin="16dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/ownerComment_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="null"
-                android:textColor="@color/white"/>
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        android:text="null"
+        android:padding="12dp"
+        android:background="@drawable/rectangle_rounded_shape"
+        android:backgroundTint="@android:color/holo_purple"
+        android:textColor="@color/white"/>
 
 </LinearLayout>
