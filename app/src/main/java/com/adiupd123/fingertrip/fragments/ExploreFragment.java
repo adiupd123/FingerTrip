@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.adapters.AllPostsRVAdapter;
+import com.adiupd123.fingertrip.adapters.UserSearchRVAdapter;
 import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +43,7 @@ public class ExploreFragment extends Fragment {
     private HashMap<String, Object> personalInfo, socialInfo, postInfo;
     private ArrayList<HashMap<String, Object>> posts, searchedUsers;
     private AllPostsRVAdapter adapter;
+    private UserSearchRVAdapter searchRVAdapter;
     private PostsAsyncTask postsAsyncTask;
     @Nullable
     @Override
@@ -117,26 +120,33 @@ public class ExploreFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String searchedUsername = binding.searchUsersEditText.getText().toString();
-                Query query  = databaseReference.child("users")
-                        .orderByChild("personal_info/username");
-                searchedUsers = new ArrayList<>();
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                            // This loop will iterate over all users whose username matches the search query
-                            if(userSnapshot.child("personal_info/username").getValue().toString().startsWith(searchedUsername.toLowerCase())){
-                                searchedUsers.add((HashMap<String, Object>) userSnapshot.getValue());
+                if(!searchedUsername.equals("")){
+                    binding.searchedUsersRecyclerView.setVisibility(View.VISIBLE);
+                    Query query  = databaseReference.child("users")
+                            .orderByChild("personal_info/username");
+                    searchedUsers = new ArrayList<>();
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                // This loop will iterate over all users whose username matches the search query
+                                if (userSnapshot.child("personal_info/username").getValue().toString().startsWith(searchedUsername.toLowerCase())) {
+                                    searchedUsers.add((HashMap<String, Object>) userSnapshot.getValue());
+                                }
+                                // You can access other fields of the user using userSnapshot.child("fieldName").getValue() method
                             }
-                            // You can access other fields of the user using userSnapshot.child("fieldName").getValue() method
+                            searchRVAdapter = new UserSearchRVAdapter(getContext(), searchedUsers);
+                            binding.searchedUsersRecyclerView.setAdapter(searchRVAdapter);
+                            binding.searchedUsersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("ExploreFragment.java", "Database Error: " + error.getMessage());
-                    }
-                });
-
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("ExploreFragment.java", "Database Error: " + error.getMessage());
+                        }
+                    });
+                } else{
+                    binding.searchedUsersRecyclerView.setVisibility(View.GONE);
+                }
 
             }
 
