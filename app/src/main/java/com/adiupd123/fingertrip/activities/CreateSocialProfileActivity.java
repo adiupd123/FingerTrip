@@ -159,27 +159,31 @@ public class CreateSocialProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    socialProfile.setBio(binding.bioEditText.getText().toString());
-                    socialProfile.setPostCount(0);
-                    socialProfile.setFollowers(new ArrayList<>(0));
-                    socialProfile.setFollowerCount(socialProfile.getFollowers().size());
-                    socialProfile.setFollowing(new ArrayList<>(0));
-                    socialProfile.setFollowingCount(socialProfile.getFollowing().size());
-                    String tempEmail = curUserEmail.replace('.',',');
-                    databaseReference.child(tempEmail+"/social_info").setValue(socialProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(CreateSocialProfileActivity.this, "Your social info is saved!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(CreateSocialProfileActivity.this, MainActivity.class);
-                                intent.putExtra("emailID",curUserEmail);
-                                startActivity(intent);
+                    if(socialProfile.getProfilePhoto() != null && socialProfile.getProfileCover() != null){
+                        socialProfile.setBio(binding.bioEditText.getText().toString());
+                        socialProfile.setPostCount(0);
+                        socialProfile.setFollowers(new ArrayList<>(0));
+                        socialProfile.setFollowerCount(socialProfile.getFollowers().size());
+                        socialProfile.setFollowing(new ArrayList<>(0));
+                        socialProfile.setFollowingCount(socialProfile.getFollowing().size());
+                        String tempEmail = curUserEmail.replace('.',',');
+                        databaseReference.child(tempEmail+"/social_info").setValue(socialProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(CreateSocialProfileActivity.this, "Your social info is saved!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CreateSocialProfileActivity.this, MainActivity.class);
+                                    intent.putExtra("emailID",curUserEmail);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Toast.makeText(CreateSocialProfileActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            else{
-                                Toast.makeText(CreateSocialProfileActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                        });
+                    } else{
+                        Toast.makeText(getApplicationContext(), "Upload Profile Photo or Profile Cover", Toast.LENGTH_SHORT).show();
+                    }
                 } catch(Exception e){
                     Toast.makeText(CreateSocialProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
