@@ -1,56 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/postComment_relativeLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="8dp">
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/commenterProfile_imageView"
+        android:id="@+id/searchedUser_profile_imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_user_profile"
         android:scaleType="fitCenter"
         app:civ_border="true"
         app:civ_border_width="4dp"
-        app:civ_border_color="@color/dark_orange"/>
+        app:civ_border_color="?android:attr/textColorPrimary"/>
 
     <TextView
-        android:id="@+id/commenterUsername_textView"
+        android:id="@+id/searchedUser_username_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:text="\@username"
         android:textColor="@color/gray_3"
-        android:layout_toRightOf="@id/commenterProfile_imageView"/>
+        android:layout_toRightOf="@id/searchedUser_profile_imageView"/>
 
     <TextView
-        android:id="@+id/postComment_textView"
+        android:id="@+id/searchedUser_name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
-        android:text="Comment..."
+        android:text="Name"
         android:textColor="?android:attr/textColorPrimary"
-        android:layout_toRightOf="@id/commenterProfile_imageView"
-        android:layout_below="@id/commenterUsername_textView"/>
-
-    <TextView
-        android:id="@+id/commentTime_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:text="12:45 PM"
-        android:textColor="@color/purple"
-        android:textStyle="bold"
-        android:layout_alignParentRight="true"/>
+        android:layout_toRightOf="@id/searchedUser_profile_imageView"
+        android:layout_below="@id/searchedUser_username_textView"/>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/commenterProfile_imageView"/>
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/searchedUser_profile_imageView"/>
 
 </RelativeLayout>

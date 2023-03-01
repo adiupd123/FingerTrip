@@ -156,6 +156,7 @@ public class HomeFeedRVAdapter extends RecyclerView.Adapter<HomeFeedRVAdapter.Ho
                 }
             }
         });
+        notifyItemChanged(holder.getAdapterPosition());
     }
 
     private void loadUserData(@NonNull HomeFeedViewHolder holder) {

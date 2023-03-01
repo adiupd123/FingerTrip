@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +39,7 @@ public class ExploreFragment extends Fragment {
     private Bundle postsBundle;
     private String curUserEmail, tempEmail;
     private HashMap<String, Object> personalInfo, socialInfo, postInfo;
-    private ArrayList<HashMap<String, Object>> posts;
+    private ArrayList<HashMap<String, Object>> posts, searchedUsers;
     private AllPostsRVAdapter adapter;
     private PostsAsyncTask postsAsyncTask;
     @Nullable
@@ -50,8 +52,8 @@ public class ExploreFragment extends Fragment {
     public class PostsAsyncTask extends AsyncTask<Void, List<HashMap<String, Object>>, Void>{
         @Override
         protected Void doInBackground(Void... voids) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("posts");
-            Query query = databaseReference.orderByKey();
+
+            Query query = databaseReference.child("posts").orderByKey();
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,6 +86,7 @@ public class ExploreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         postsBundle = getArguments();
         posts = new ArrayList<>();
         if(savedInstanceState == null){
@@ -103,6 +106,45 @@ public class ExploreFragment extends Fragment {
         }
         postsAsyncTask = new PostsAsyncTask();
         postsAsyncTask.execute();
+
+
+        binding.searchUsersEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchedUsername = binding.searchUsersEditText.getText().toString();
+                Query query  = databaseReference.child("users")
+                        .orderByChild("personal_info/username");
+                searchedUsers = new ArrayList<>();
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                            // This loop will iterate over all users whose username matches the search query
+                            if(userSnapshot.child("personal_info/username").getValue().toString().startsWith(searchedUsername.toLowerCase())){
+                                searchedUsers.add((HashMap<String, Object>) userSnapshot.getValue());
+                            }
+                            // You can access other fields of the user using userSnapshot.child("fieldName").getValue() method
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("ExploreFragment.java", "Database Error: " + error.getMessage());
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
