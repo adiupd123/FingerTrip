@@ -23,6 +23,7 @@ database and Firebase Storage.
 * Implemented Fragments, ViewModels to persist data and Async Tasks to work on background thread.
 * Implemented HomeFeed, ExploreScreen, UserProfileScreen, Create Posts, Edit Profile, etc. for easy browsing, posting & profile management.
 * Users can follow/unfollow and like, comment, and save others’ posts.
+* Compatible in Light/Dark Mode
 
 ## Tech Stack
 
