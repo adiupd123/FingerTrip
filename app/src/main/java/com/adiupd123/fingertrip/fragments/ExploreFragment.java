@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.adapters.AllPostsRVAdapter;
-import com.adiupd123.fingertrip.adapters.UserSearchRVAdapter;
+import com.adiupd123.fingertrip.adapters.UsersRVAdapter;
 import com.adiupd123.fingertrip.databinding.FragmentExploreBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +43,7 @@ public class ExploreFragment extends Fragment {
     private HashMap<String, Object> personalInfo, socialInfo, postInfo;
     private ArrayList<HashMap<String, Object>> posts, searchedUsers;
     private AllPostsRVAdapter adapter;
-    private UserSearchRVAdapter searchRVAdapter;
+    private UsersRVAdapter searchRVAdapter;
     private PostsAsyncTask postsAsyncTask;
     @Nullable
     @Override
@@ -135,7 +135,7 @@ public class ExploreFragment extends Fragment {
                                 }
                                 // You can access other fields of the user using userSnapshot.child("fieldName").getValue() method
                             }
-                            searchRVAdapter = new UserSearchRVAdapter(getContext(), searchedUsers);
+                            searchRVAdapter = new UsersRVAdapter(getContext(), searchedUsers);
                             binding.searchedUsersRecyclerView.setAdapter(searchRVAdapter);
                             binding.searchedUsersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         }
@@ -151,9 +151,7 @@ public class ExploreFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable editable) {}
         });
     }
 

@@ -22,13 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserSearchRVAdapter extends RecyclerView.Adapter<UserSearchRVAdapter.SearchedUserViewHolder> {
+public class UsersRVAdapter extends RecyclerView.Adapter<UsersRVAdapter.SearchedUserViewHolder> {
     private Context context;
     private ArrayList<HashMap<String, Object>> searchedUsers;
     private FirebaseAuth mAuth;
     private HashMap<String, Object> personalInfo, socialInfo;
 
-    public UserSearchRVAdapter(Context context, ArrayList<HashMap<String, Object>> searchedUsers) {
+    public UsersRVAdapter(Context context, ArrayList<HashMap<String, Object>> searchedUsers) {
         this.context = context;
         this.searchedUsers = searchedUsers;
         mAuth = FirebaseAuth.getInstance();
@@ -37,7 +37,7 @@ public class UserSearchRVAdapter extends RecyclerView.Adapter<UserSearchRVAdapte
     @NonNull
     @Override
     public SearchedUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.searched_user_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_layout, parent, false);
         return new SearchedUserViewHolder(view);
     }
 

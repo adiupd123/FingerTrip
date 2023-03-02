@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/searched_user_layout"
+                tools:listitem="@layout/user_layout"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
