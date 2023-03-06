@@ -43,8 +43,8 @@ public class UsersRVAdapter extends RecyclerView.Adapter<UsersRVAdapter.Searched
 
     @Override
     public void onBindViewHolder(@NonNull SearchedUserViewHolder holder, int position) {
-        personalInfo = (HashMap<String, Object>) searchedUsers.get(holder.getAdapterPosition()).get("personal_info");
-        socialInfo = (HashMap<String, Object>) searchedUsers.get(holder.getAdapterPosition()).get("social_info");
+        personalInfo = (HashMap<String, Object>) searchedUsers.get(position).get("personal_info");
+        socialInfo = (HashMap<String, Object>) searchedUsers.get(position).get("social_info");
         Glide.with(context)
                 .load(socialInfo.get("profilePhoto"))
                 .placeholder(R.drawable.ic_user_profile)

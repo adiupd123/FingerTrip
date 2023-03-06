@@ -119,6 +119,10 @@ public class ExploreFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 String searchedUsername = binding.searchUsersEditText.getText().toString();
                 if(!searchedUsername.equals("")){
                     binding.searchedUsersRecyclerView.setVisibility(View.VISIBLE);
@@ -130,7 +134,10 @@ public class ExploreFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                                 // This loop will iterate over all users whose username matches the search query
-                                if (userSnapshot.child("personal_info/username").getValue().toString().startsWith(searchedUsername.toLowerCase())) {
+                                if (
+                                        userSnapshot.child("personal_info/username").getValue().toString().startsWith(searchedUsername.toLowerCase())
+                                                && !userSnapshot.getKey().equals(tempEmail)
+                                ) {
                                     searchedUsers.add((HashMap<String, Object>) userSnapshot.getValue());
                                 }
                                 // You can access other fields of the user using userSnapshot.child("fieldName").getValue() method
@@ -145,13 +152,10 @@ public class ExploreFragment extends Fragment {
                         }
                     });
                 } else{
+                    binding.searchedUsersRecyclerView.removeAllViewsInLayout();
                     binding.searchedUsersRecyclerView.setVisibility(View.GONE);
                 }
-
             }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
         });
     }
 

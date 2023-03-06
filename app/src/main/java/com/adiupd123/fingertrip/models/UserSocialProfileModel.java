@@ -10,7 +10,17 @@ public class UserSocialProfileModel {
     private int followerCount;
     private ArrayList<String> followers; // It contains emailIDs of all followers.
     private int followingCount;
-    private ArrayList<String> following; // It contains emailIDs of all users who he follows.
+    private ArrayList<String> following;// It contains emailIDs of all users who he follows.
+
+    public UserSocialProfileModel() {
+        this.profilePhoto = null;
+        this.profileCover = null;
+        this.bio = "";
+        this.postCount = 0;
+        this.followerCount = 0;
+        this.followingCount = 0;
+    }
+
     public String getProfilePhoto() {
         return profilePhoto;
     }

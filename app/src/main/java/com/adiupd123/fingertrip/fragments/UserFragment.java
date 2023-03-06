@@ -154,14 +154,18 @@ public class UserFragment extends Fragment {
         task = new CurUserDataTask();
         task.execute();
         binding.personNameTextView.setText(personalInfoHashMap.get("name").toString());
-        Glide.with(getContext())
-                .load(socialInfoHashMap.get("profileCover").toString())
-                .placeholder(R.drawable.no_profile_background)
-                .into(binding.profileCoverImageView);
-        Glide.with(getContext())
-                .load(socialInfoHashMap.get("profilePhoto").toString())
-                .placeholder(R.drawable.ic_default_profile)
-                .into(binding.profilePhotoImageView);
+        if (socialInfoHashMap.get("profileCover") != null){
+            Glide.with(getContext())
+                    .load(socialInfoHashMap.get("profileCover").toString())
+                    .placeholder(R.drawable.no_profile_background)
+                    .into(binding.profileCoverImageView);
+        }
+        if(socialInfoHashMap.get("profilePhoto") != null){
+            Glide.with(getContext())
+                    .load(socialInfoHashMap.get("profilePhoto").toString())
+                    .placeholder(R.drawable.ic_default_profile)
+                    .into(binding.profilePhotoImageView);
+        }
         binding.bioTextView.setText(socialInfoHashMap.get("bio").toString());
         binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
         binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());

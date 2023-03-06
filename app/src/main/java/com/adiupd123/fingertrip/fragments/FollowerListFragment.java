@@ -1,5 +1,6 @@
 package com.adiupd123.fingertrip.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +14,27 @@ import android.view.ViewGroup;
 import com.adiupd123.fingertrip.R;
 import com.adiupd123.fingertrip.databinding.FragmentFollowerListBinding;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class FollowerListFragment extends Fragment {
 
     public FollowerListFragment() {}
 
     private FragmentFollowerListBinding binding;
+    private ArrayList<HashMap<String, Object>> followers;
+    private ArrayList<String> followersIDs;
+    public class FollowerAsyncTask extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            followersIDs = (ArrayList<String>) getArguments().get("followerList");
         }
     }
 

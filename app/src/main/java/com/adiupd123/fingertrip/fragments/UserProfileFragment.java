@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +58,7 @@ public class UserProfileFragment extends Fragment {
     private AllPostsRVAdapter adapter;
     private UserProfilePostsAsyncTask userProfilePostsAsyncTask;
     private String curUserEmail, tempEmail;
-    private Fragment editProfileFragment, createPostFragment;
+    private Fragment editProfileFragment, createPostFragment, followerListFragment, followingListFragment;
     private Bundle userBundle;
 
     private UserViewModel userViewModel;
@@ -186,6 +187,20 @@ public class UserProfileFragment extends Fragment {
                         binding.postsCountTextView.setText(socialInfoHashMap.get("postCount").toString());
                         binding.followersCountTextView.setText(socialInfoHashMap.get("followerCount").toString());
                         binding.followingCountTextView.setText(socialInfoHashMap.get("followingCount").toString());
+
+                        binding.followersCountTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Bundle followerListBundle = new Bundle();
+                                followerListBundle.putSerializable("followerList", (Serializable) socialInfoHashMap.get("followers"));
+                                followerListFragment = new FollowerListFragment();
+                                followerListFragment.setArguments(followerListBundle);
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragment_container_view, followerListFragment)
+                                        .addToBackStack("Current:FollowerListFragment")
+                                        .commit();
+                            }
+                        });
                     }
                 };
                 postsObserver = new Observer<ArrayList<HashMap<String, Object>>>() {
