@@ -1,7 +1,16 @@
-# FingerTrip
+# 👥FingerTrip
 Social Media App based on Firebase
 
-## App Screens
+## 🖥Features
+
+* Built a Social Media App that performs User Authentication using Firebase Authentication and stores User data on Firebase Real-time
+database and Firebase Storage.
+* Implemented Fragments, ViewModels to persist data and Async Tasks to work on background thread.
+* Implemented HomeFeed, ExploreScreen, UserProfileScreen, Create Posts, Edit Profile, etc. for easy browsing, posting & profile management.
+* Users can follow/unfollow and like, comment, and save others’ posts.
+* Compatible in Light/Dark Mode
+
+## 📸Screenshots
 
 <p>
 <img src="https://user-images.githubusercontent.com/78906777/222272596-2a60c986-5583-4f06-91f3-5c4cdf5add47.png" alt="OtherUserScreen" height="400" />
@@ -16,22 +25,13 @@ Social Media App based on Firebase
 <img src="https://user-images.githubusercontent.com/78906777/222271059-68568716-3fd3-45fe-b51a-1bf44d5611da.png" alt="CreatePostScreen" height="400" />
 </p>
 
-## Features
-
-* Built a Social Media App that performs User Authentication using Firebase Authentication and stores User data on Firebase Real-time
-database and Firebase Storage.
-* Implemented Fragments, ViewModels to persist data and Async Tasks to work on background thread.
-* Implemented HomeFeed, ExploreScreen, UserProfileScreen, Create Posts, Edit Profile, etc. for easy browsing, posting & profile management.
-* Users can follow/unfollow and like, comment, and save others’ posts.
-* Compatible in Light/Dark Mode
-
-## Tech Stack
+## 🛠️Tech Stack
 
 **Client:** Java, XML, Android Studio
 
 **Server-side:** Firebase
 
-## Requirements
+## 📥Requirements
 
 *   [Android Studio](https://developer.android.com/studio) (installed on a Linux, Mac or Windows machine)
 
@@ -41,7 +41,7 @@ database and Firebase Storage.
 
 *   USB cable (to connect Android device to your computer)
 
-## Build and run
+## 🧑‍🏭️Build and run
 
 ### Step 1. Clone App source code
 
