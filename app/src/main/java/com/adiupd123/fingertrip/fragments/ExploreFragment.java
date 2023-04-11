@@ -152,6 +152,7 @@ public class ExploreFragment extends Fragment {
                         }
                     });
                 } else{
+                    searchedUsers.clear();
                     binding.searchedUsersRecyclerView.removeAllViewsInLayout();
                     binding.searchedUsersRecyclerView.setVisibility(View.GONE);
                 }
