@@ -101,6 +101,17 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp" />
 
+            <ImageView
+                android:id="@+id/nft_buttonImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/personName_textView"
+                android:layout_alignBottom="@id/personName_textView"
+                android:layout_alignTop="@id/personName_textView"
+                android:src="@drawable/nft"
+                android:clickable="true"/>
+
             <TextView
                 android:id="@+id/bio_textView"
                 android:layout_width="wrap_content"
